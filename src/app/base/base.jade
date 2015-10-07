@@ -1,0 +1,21 @@
+section(layout="row" flex)
+	md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id='left' md-is-locked-open="$mdMedia('gt-md')")
+		md-toolbar.md-primary(layout="flex" layout-align="center center")
+			//- img(src="assets/images/logo.jpg")
+
+			h1.md-toolbar-tools Sidenav left
+
+		md-content(layout-padding)
+			md-button.md-primary(hide-gt-md)
+	
+	md-content.main-panel(flex)
+		md-toolbar
+			div.md-toolbar-tools
+				span SME
+				span(flex)
+				md-button.md-icon-button
+					md-icon account_circle		
+		
+
+		div(layout="column" layout-fill layout-align="top center" ui-view layout-padding)
+		
