@@ -17,8 +17,15 @@
     toastr.options.progressBar = true;
 
     $mdThemingProvider.theme('default')
-    .primaryPalette('red')
-    .accentPalette('yellow');
+      .primaryPalette('red')
+      .accentPalette('yellow');
+
+    // $mdDateLocaleProvider.formatDate = function(date) {
+    //   moment.locale('es');
+    //   console.log('Dando formato?');
+    //   console.log(moment(date).format('L'));
+    //   return moment(date).format('L');
+    // };
   }
 
 })();
