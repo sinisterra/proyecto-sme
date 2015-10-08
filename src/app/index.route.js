@@ -10,7 +10,7 @@
     $stateProvider
       .state('base', {
         abstract: true,
-        templateUrl: 'app/base/base.html'
+        templateUrl: 'app/base/base.html',
       })
       .state('home', {
         url: '/',
@@ -20,7 +20,22 @@
         parent: 'base',
         url: '/dashboard',
         templateUrl: 'app/dashboard/dashboard.html',
+      })
+
+      // .state('info',{
+      //   url: '/info',
+      //   // abstract: true,
+      //   parent: 'base',
+      // })
+      .state('personal',{
+        parent: 'base',
+        url:'/info/personal',
+        templateUrl: 'app/info/personal/info.personal.html',
+        // controller: 'InfoPersonalController',
+        // controllerAs: 'vm'
       });
+
+
 
     $urlRouterProvider.otherwise('/');
   }

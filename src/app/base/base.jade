@@ -1,21 +1,49 @@
 section(layout="row" flex)
-	md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id='left' md-is-locked-open="$mdMedia('gt-md')")
-		md-toolbar.md-primary(layout="flex" layout-align="center center")
-			//- img(src="assets/images/logo.jpg")
+	md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id='left' md-is-locked-open="$mdMedia('gt-md')" )
+		md-content(ng-controller="SidebarController as sidebar")
+			md-toolbar.md-primary.md-tall(layout="column" layout-align="center center" )
+				//- img(src="assets/images/logo.jpg")
 
-			h1.md-toolbar-tools Sidenav left
+				h1.md-toolbar-tools {{sidebar.user}}
 
-		md-content(layout-padding)
-			md-button.md-primary(hide-gt-md)
+			md-list
+				md-list-item(ng-click="sidebar.$state.go('dashboard')")
+					md-button.md-icon-button
+						md-icon dashboard
+					span Menú principal
+				md-list-item(ng-click="sidebar.$state.go('personal')")
+					md-button.md-icon-button
+						md-icon dashboard
+					span Datos Personales
+				md-list-item(ng-click="sidebar.$state.go('education')")
+					md-button.md-icon-button
+						md-icon dashboard
+					span Formación Educativa
+				md-list-item(ng-click="sidebar.$state.go('work')")
+					md-button.md-icon-button
+						md-icon dashboard
+					span Experiencia Laboral
+				md-list-item(ng-click="sidebar.$state.go('languages')")
+					md-button.md-icon-button
+						md-icon dashboard
+					span Idiomas
+				md-list-item(ng-click="sidebar.$state.go('certfications')")
+					md-button.md-icon-button
+						md-icon dashboard
+					span Certificaciones
+
+
 	
 	md-content.main-panel(flex)
-		md-toolbar
+		md-toolbar.md-whiteframe-z3(ng-controller="BaseController as base" md-scroll-shrink layout-align="center center")
 			div.md-toolbar-tools
-				span SME
+				span(hide-gt-md)
+					md-button.md-icon-button(ng-click="base.toggle()")
+						md-icon menu
+				span {{base.stateNames[base.$state.current.name]}}
 				span(flex)
-				md-button.md-icon-button
-					md-icon account_circle		
-		
+				
 
-		div(layout="column" layout-fill layout-align="top center" ui-view layout-padding)
+		
+		div.container(layout="column" layout-fill layout-align="top center" ui-view layout-padding)
 		

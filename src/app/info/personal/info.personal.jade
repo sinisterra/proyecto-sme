@@ -1,0 +1,53 @@
+//- h1.md-display-3 Datos Personales
+
+div.md-whiteframe-z2.card(layout="column")
+	div(flex layout-padding).card-header
+		h2.md-title Datos Personales
+	form(name="personalForm" layout-padding)
+		div(layout)
+			md-input-container(flex)
+				label Nombre
+				input(ng-model="personal.model.Nombre" required)
+			md-input-container(flex)
+				label Apellido Paterno
+				input(ng-model="personal.model.ApellidoP" required)
+			md-input-container(flex)
+				label Apellido Materno
+				input(ng-model="personal.model.ApellidoM" required)
+			div(flex layout layout-align="center center")
+				//- p 
+				//- 	strong Sexo
+				md-radio-group.radio-inline
+					md-radio-button.md-primary(value="H") Hombre
+					md-radio-button.md-primary(value="M") Mujer
+		div(layout)
+			md-input-container(flex)
+				label Correo Electrónico
+				input(ng-model="personal.model.CorreoElectronico" required type="email")
+			md-datepicker(ng-model="personal.model.FechaNacimiento" md-placeholder="Nacimiento" style="padding-top:15px")
+				
+					
+		div(layout)
+			md-input-container(flex)
+				label RFC
+				input(ng-model="personal.model.RFC" required minlength="12" maxlength="13")
+			md-input-container(flex)
+				label CURP
+				input(ng-model="personal.model.CURP" required minlength="18" maxlength="18")
+		div(layout layout-align="center center")
+			div(layout layout-align="space-around center" flex)
+				p Estado Civil
+				md-radio-group.radio-inline(ng-model="personal.model.EstadoCivil")
+					md-radio-button.md-primary(value="S") Soltero
+					md-radio-button.md-primary(value="C") Casado
+					md-radio-button.md-primary(value="D") Divorciado
+					md-radio-button.md-primary(value="V") Viudo
+					md-radio-button.md-primary(value="U") En Unión Libre
+
+		div(layout layout-align="end center")
+			md-button.md-primary.md-raised Guardar datos
+		
+
+			
+
+
