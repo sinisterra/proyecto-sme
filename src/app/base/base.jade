@@ -1,5 +1,6 @@
-section(layout="row" flex)
-	md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id='left' md-is-locked-open="$mdMedia('gt-md')" )
+section(layout="row" flex style="max-height:100vh")
+	//- .md-whiteframe-z2
+	md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id='left' md-is-locked-open="$mdMedia('gt-md')")
 		md-content(ng-controller="SidebarController as sidebar")
 			md-toolbar.md-primary.md-tall(layout="column" layout-align="center center" )
 				//- img(src="assets/images/logo.jpg")
@@ -34,8 +35,8 @@ section(layout="row" flex)
 
 
 	
-	md-content.main-panel(flex)
-		md-toolbar.md-whiteframe-z3(ng-controller="BaseController as base" md-scroll-shrink layout-align="center center")
+	md-content(flex)
+		md-toolbar.md-whiteframe-z3(ng-controller="BaseController as base" layout-align="center center" md-scroll-shrink style="position:fixed")
 			div.md-toolbar-tools
 				span(hide-gt-md)
 					md-button.md-icon-button(ng-click="base.toggle()")
@@ -43,7 +44,6 @@ section(layout="row" flex)
 				span {{base.stateNames[base.$state.current.name]}}
 				span(flex)
 				
-
-		
-		div.container(layout="column" layout-fill layout-align="top center" ui-view layout-padding)
+		md-content.main-panel
+			div.container(layout="column" layout-fill layout-align="top center" ui-view layout-padding)
 		

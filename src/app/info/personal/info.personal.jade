@@ -1,6 +1,6 @@
 //- h1.md-display-3 Datos Personales
 
-div.md-whiteframe-z2.card(layout="column")
+div.md-whiteframe-z2.card(layout="column" layout-margin)
 	div(flex layout-padding).card-header
 		h2.md-title Datos Personales
 	form(name="personalForm" layout-padding)
@@ -14,18 +14,18 @@ div.md-whiteframe-z2.card(layout="column")
 			md-input-container(flex)
 				label Apellido Materno
 				input(ng-model="personal.model.ApellidoM" required)
-			div(flex layout layout-align="center center" layout-sm="space-between")
-				p(hide-gt-sm) Sexo
-				md-radio-group.radio-inline
-					md-radio-button.md-primary(value="H") Hombre
-					md-radio-button.md-primary(value="M") Mujer
 		div(layout layout-sm="column")
-			md-input-container(style="width:70%")
+			md-input-container(flex="50")
 				label Correo Electrónico
 				input(ng-model="personal.model.CorreoElectronico" required type="email")
 			md-input-container(flex)
 				label Fecha de Nacimiento
 				input(ng-model="personal.model.FechaNacimiento" type="date" required label="Fecha de Nacimiento" aria-label="Fecha de Nacimiento")
+			div(flex layout layout-align="center center" layout-sm="space-between")
+				p(hide-gt-sm) Sexo
+				md-radio-group.radio-inline
+					md-radio-button.md-primary(value="H") Hombre
+					md-radio-button.md-primary(value="M") Mujer
 					
 		div(layout layout-sm="column")
 			md-input-container(flex)
@@ -34,7 +34,7 @@ div.md-whiteframe-z2.card(layout="column")
 			md-input-container(flex)
 				label CURP
 				input(ng-model="personal.model.CURP" required minlength="18" maxlength="18")
-		div(layout layout-align="center center")
+		div(layout layout-align="center center" layout-sm="column")
 			div(layout layout-align="space-around center" layout-sm="column" layout-sm-align="start" flex)
 				p Estado Civil
 				md-radio-group.radio-inline(ng-model="personal.model.EstadoCivil")
@@ -43,11 +43,53 @@ div.md-whiteframe-z2.card(layout="column")
 					md-radio-button.md-primary(value="D") Divorciado
 					md-radio-button.md-primary(value="V") Viudo
 					md-radio-button.md-primary(value="U") En Unión Libre
-
 		div(layout layout-align="end center")
-			md-button.md-primary.md-raised Guardar datos
-		
+			md-button.md-primary.md-raised Guardar
 
+div.md-whiteframe-z2.card(layout="column" layout-margin)
+	div(flex layout-padding).card-header
+		h2.md-title Formación Educativa
+	div(layout layout-sm="column" layout-padding)
+		md-list(flex)
+			md-list-item.md-3-line
+				div.md-list-item-text
+					h3 Doctorado - Ingeniería en Sistemas Computacionales
+					h4 Instituto Politécnico Nacional
+					p 1993 - 1995
+		
+		div(flex)
+			md-select(placeholder="Nivel de Estudios" ng-model="education.model.NivelDeEstudios")
+				md-option(value="6") Posgrado
+				md-option(value="5") Superior
+				md-option(value="4") Media Superior
+				md-option(value="3") Secundaria
+				md-option(value="2") Primaria
+				md-option(value="1") Jardín de Niños
+
+			div(layout)
+				md-input-container(flex)
+					label Fecha de Inicio
+					input(type="date" required)
+				md-input-container(flex)
+					label Fecha de Término
+					input(type="date" required)
 			
+			md-select(placeholder="Institución Educativa" ng-model="education.model.idInstitucionEducativa")
+				md-option IPN
+			
+			md-input-container
+				label Carrera
+				input(type="text")
+			
+			md-input-container
+				label Área de Estudios
+				input(type="text")
+
+			md-input-container
+				label Cédula Profesional
+				input(type="text")
+
+			div(layout-padding layout layout-align="end center")
+				md-button.md-primary.md-raised Agregar
 
 
