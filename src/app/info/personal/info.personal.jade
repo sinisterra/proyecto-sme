@@ -123,6 +123,39 @@ div.md-whiteframe-z2.card(layout="column" layout-margin)
 
 div.md-whiteframe-z2.card(layout="column" layout-margin)
 	div(flex layout-padding).card-header
-		h2.md-title Formación Educativa
-	div(layout layout-sm="column" layout-padding)
+		h2.md-title Certificaciones (0)
+	form(name="certificacion" layout layout-sm="column" layout-padding)
+	
+		div(layout="column" flex)
+			md-list(flex)
+				md-list-item.md-3-line
+					div.md-list-item-text
+						h3 Nombre de la Certificación
+						h4 Institución Certificadora
+						p Tipo
+		
+		div(flex)
+			md-input-container(flex)
+				label Nombre de la Certificación
+				input(type="text")
 
+			md-input-container(flex)
+				label Área de la Certificación
+				input(type="text")
+
+			md-input-container(flex)
+				label Tipo de Certificación
+				input(type="text")
+
+			md-input-container(flex)
+				label Institución Cetificadora
+				input(type="text")
+
+			md-input-container(flex)
+				label Descripción
+				textarea(ng-model="newCert.description" maxlength="150" md-maxlength="150" rows="3")
+
+			
+
+			div(layout-padding layout layout-align="end center")
+				md-button.md-primary.md-raised Agregar
