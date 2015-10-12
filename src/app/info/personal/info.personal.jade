@@ -15,7 +15,7 @@ div.md-whiteframe-z2.card(layout="column" layout-margin)
 				label Apellido Materno
 				input(ng-model="personal.model.ApellidoM" required)
 		div(layout layout-sm="column")
-			md-input-container(flex="50")
+			md-input-container(flex-gt-sm="50" flex-sm="100")
 				label Correo Electrónico
 				input(ng-model="personal.model.CorreoElectronico" required type="email")
 			md-input-container(flex)
@@ -43,13 +43,40 @@ div.md-whiteframe-z2.card(layout="column" layout-margin)
 					md-radio-button.md-primary(value="D") Divorciado
 					md-radio-button.md-primary(value="V") Viudo
 					md-radio-button.md-primary(value="U") En Unión Libre
+		
+		//- div(layout layout-sm="column")
+		//- 	p Dirección
+		div(layout layout-sm="column")
+			md-input-container(flex-gt-sm="70" flex-sm="100")
+				label Calle
+				input(type="text")
+			div(flex layout)
+				md-input-container(flex)
+					label Número Exterior
+					input(type="text")
+				md-input-container(flex)
+					label Número Interior
+					input(type="text")
+
+		div(layout layout-sm="column")
+			md-input-container(flex)
+				label Entidad
+				input(type="text")
+			md-input-container(flex)
+				label Delegación/Municipio
+				input(type="text")
+			md-input-container(flex)
+				label Colonia
+				input(type="text")
+
 		div(layout layout-align="end center")
 			md-button.md-primary.md-raised Guardar
 
 div.md-whiteframe-z2.card(layout="column" layout-margin)
 	div(flex layout-padding).card-header
 		h2.md-title Formación Educativa
-	div(layout layout-sm="column" layout-padding)
+	form(layout layout-sm="column" layout-padding)
+
 		md-list(flex)
 			md-list-item.md-3-line
 				div.md-list-item-text
@@ -58,7 +85,7 @@ div.md-whiteframe-z2.card(layout="column" layout-margin)
 					p 1993 - 1995
 		
 		div(flex)
-			md-select(placeholder="Nivel de Estudios" ng-model="education.model.NivelDeEstudios")
+			md-select(placeholder="Nivel de Estudios" ng-model="education.model.NivelDeEstudios" required)
 				md-option(value="6") Posgrado
 				md-option(value="5") Superior
 				md-option(value="4") Media Superior
@@ -89,7 +116,13 @@ div.md-whiteframe-z2.card(layout="column" layout-margin)
 				label Cédula Profesional
 				input(type="text")
 
+			md-checkbox.md-primary(ng-model="education.model.complete") Nivel completado
+
 			div(layout-padding layout layout-align="end center")
 				md-button.md-primary.md-raised Agregar
 
+div.md-whiteframe-z2.card(layout="column" layout-margin)
+	div(flex layout-padding).card-header
+		h2.md-title Formación Educativa
+	div(layout layout-sm="column" layout-padding)
 

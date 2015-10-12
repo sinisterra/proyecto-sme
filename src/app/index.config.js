@@ -18,7 +18,7 @@
 
     $mdThemingProvider.theme('default')
       .primaryPalette('red')
-      .accentPalette('yellow');
+      .accentPalette('amber');
 
     // $mdDateLocaleProvider.formatDate = function(date) {
     //   moment.locale('es');

@@ -23,7 +23,7 @@
 		////////////////
 
 		function activate() {
-			console.log("cargando!")
+			console.log("cargando!");
 		}
 
 		function toggle() {
