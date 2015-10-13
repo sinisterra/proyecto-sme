@@ -27,12 +27,12 @@
       //   // abstract: true,
       //   parent: 'base',
       // })
-      .state('personal',{
+      .state('infoPersonal',{
         parent: 'base',
         url:'/info/personal',
-        templateUrl: 'app/info/personal/info.personal.html',
-        // controller: 'InfoPersonalController',
-        // controllerAs: 'vm'
+        templateUrl: 'app/info/layout.html',
+        controller: 'InfoPersonalController',
+        controllerAs: 'vm'
       });
 
 

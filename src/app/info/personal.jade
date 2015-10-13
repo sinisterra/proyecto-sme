@@ -1,0 +1,70 @@
+div(flex layout-padding).card-header
+		h2.md-title Datos Personales
+	form(name="personalForm" layout-padding flex)
+		div(layout layout-sm="column")
+			md-input-container(flex)
+				label Nombre
+				input(ng-model="vm.personal.Nombre" required name="Nombre")
+
+			md-input-container(flex)
+				label Apellido Paterno
+				input(ng-model="vm.personal.ApellidoP" required name="ApellidoP")
+
+			md-input-container(flex)
+				label Apellido Materno
+				input(ng-model="vm.personal.ApellidoM" required name="ApellidoM")
+
+		div(layout layout-sm="column")
+			md-input-container(flex)
+				label Correo Electrónico
+				input(ng-model="vm.personal.CorreoElectronico" required type="email" name="CorreoElectronico")
+			div(layout flex)
+				md-input-container(flex)
+					label Fecha de Nacimiento
+					input(ng-model="vm.personal.FechaNacimiento" type="date" required name="FechaNacimiento")
+				md-select(flex ng-model="vm.personal.Sexo" placeholder="Sexo" name="Sexo")
+					md-option(value="H") Hombre
+					md-option(value="M") Mujer
+				md-select(flex ng-model="vm.personal.EstadoCivil" placeholder="Estado Civil" name="EstadoCivil")
+					md-option.md-primary(value="S") Soltero
+					md-option.md-primary(value="C") Casado
+					md-option.md-primary(value="D") Divorciado
+					md-option.md-primary(value="V") Viudo
+					md-option.md-primary(value="U") En Unión Libre
+					
+		div(layout layout-sm="column")
+			md-input-container(flex)
+				label RFC
+				input(ng-model="vm.personal.RFC" required minlength="12" maxlength="13" name="RFC")
+				
+			md-input-container(flex)
+				label CURP
+				input(ng-model="vm.personal.CURP" required minlength="18" maxlength="18" md-minlength="18" md-maxlength="18" name="CURP")
+		
+		div(layout layout-sm="column")
+			md-input-container(flex)
+				label Calle
+				input(type="text" required name="Calle")
+			div(flex layout)
+				md-input-container(flex)
+					label Número Exterior
+					input(type="text" required name="NumeroExt")
+				md-input-container(flex)
+					label Número Interior
+					input(type="text" name="NumeroInt")
+				md-input-container(flex)
+					label Código Postal
+					input(type="text" name="CodigoPostal" maxlength="6" required)
+
+		div(layout layout-sm="column")
+			md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.direccion.Departamento" required)
+				md-option(value="A") A
+			md-select(flex name="Municipio" placeholder="Municipio" ng-model="vm.direccion.Localidad" required)
+				md-option(value="A") A
+			md-input-container(flex)
+				label Colonia
+				input(type="text" name="Colonia" ng-model="vm.direccion.Colonia" required)
+
+
+		div(layout layout-align="end center")
+			md-button.md-primary.md-raised(ng-disabled="personalForm.$invalid" ng-click="vm.submitFormPersonal(personalForm.$valid)") Guardar
