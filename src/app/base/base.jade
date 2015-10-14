@@ -1,21 +1,25 @@
-section(layout="row" flex style="max-height:100vh")
+section(layout="row" flex)
 	//- .md-whiteframe-z2
 	md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id='left' md-is-locked-open="$mdMedia('gt-md')")
 		md-content(ng-controller="SidebarController as sidebar")
 			md-toolbar.md-primary.md-tall(layout="column" layout-align="center center" )
 				//- img(src="assets/images/logo.jpg")
 
-				h1.md-toolbar-tools {{sidebar.user}}
+				h1.md-toolbar-tools {{sidebar.user.username}}
 
 			md-list
 				md-list-item(ng-click="sidebar.$state.go('dashboard')")
-					md-button.md-icon-button
+					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'dashboard' }")
 						md-icon dashboard
 					span Menú principal
 				md-list-item(ng-click="sidebar.$state.go('infoPersonal')")
-					md-button.md-icon-button
+					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'infoPersonal' }")
 						md-icon dashboard
 					span Datos Personales
+				md-list-item(ng-click="sidebar.$state.go('logout')")
+					md-button.md-icon-button
+						md-icon exit_to_app
+					span Cerrar Sesión
 				//- md-list-item(ng-click="sidebar.$state.go('education')")
 				//- 	md-button.md-icon-button
 				//- 		md-icon dashboard
@@ -36,7 +40,7 @@ section(layout="row" flex style="max-height:100vh")
 
 	
 	md-content(flex)
-		md-toolbar.md-whiteframe-z3(ng-controller="BaseController as base" layout-align="center center" style="position:fixed")
+		md-toolbar.md-whiteframe-z3(ng-controller="BaseController as base" layout-align="center center")
 			div.md-toolbar-tools
 				span(hide-gt-md)
 					md-button.md-icon-button(ng-click="base.toggle()")
@@ -45,5 +49,5 @@ section(layout="row" flex style="max-height:100vh")
 				span(flex)
 				
 		md-content.main-panel
-			div.container(layout="column" layout-fill layout-align="top center" ui-view)
+			div.container(layout="column" layout-fill layout-align="top center" ui-view layout-padding)
 		

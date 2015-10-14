@@ -6,11 +6,11 @@
 		.controller('SidebarController', SidebarController);
 
 	/* @ngInject */
-	function SidebarController($state) {
+	function SidebarController($state, User) {
 		var vm = this;
 		
 		vm.$state = $state;
 
-		vm.user = 'user';
+		vm.user = User;
 	}
 })();

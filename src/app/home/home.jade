@@ -1,3 +1,15 @@
-h1 Bienvenido al sistema!
-
-md-button.md-primary.md-raised(ui-sref='dashboard') Iniciar sesión
+div(style="background-color:#eee;height:100vh")
+	div.container(layout="column" layout-align="start center" style="height:100vh" layout-padding)
+		div.md-whiteframe-z2.card(layout="column" layout-align="center" style="width:100%;max-width:500px")
+			div.primary-bg(flex layout-padding )
+				h1.md-headline Iniciar Sesión
+			div(flex layout-padding )
+				form(name="loginForm")
+					md-input-container
+						label Usuario
+						input(type="text" required name="Usuario" ng-model="home.model.username" minlength="4")
+					md-input-container
+						label Contraseña
+						input(type="password" required name="password" ng-model="home.model.password" minlength="4")
+					div(layout layout-align="center")
+						md-button.md-primary.md-raised(ng-disabled="loginForm.$invalid" ng-click="home.submit(loginForm.$valid)") Iniciar sesión

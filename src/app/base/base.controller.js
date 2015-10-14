@@ -6,7 +6,7 @@
 		.controller('BaseController', BaseController);
 
 	/* @ngInject */
-	function BaseController($mdSidenav, $state) {
+	function BaseController($mdSidenav, $state, User) {
 		var vm = this;
 		vm.title = 'BaseController';
 
@@ -17,13 +17,13 @@
 
 		vm.stateNames = {
 			'dashboard': 'Menú Principal',
-			'personal': 'Datos Personales',
+			'infoPersonal': 'Datos Personales',
 		};
 
 		////////////////
 
 		function activate() {
-			console.log("cargando!");
+			
 		}
 
 		function toggle() {

@@ -11,10 +11,24 @@
       .state('base', {
         abstract: true,
         templateUrl: 'app/base/base.html',
+        data: {
+          requireLogin: true,
+        }
       })
       .state('home', {
         url: '/',
-        templateUrl: 'app/home/home.html'
+        templateUrl: 'app/home/home.html',
+        controller: 'HomeController',
+        controllerAs: 'home',
+        data: {
+          requireLogin: false
+        }
+      })
+      .state('logout',{
+        controller: 'LogoutController',
+        data:{
+          requireLogin: false
+        }
       })
       .state('dashboard',{
         parent: 'base',

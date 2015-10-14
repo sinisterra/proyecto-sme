@@ -21,7 +21,7 @@ div(flex layout-padding).card-header
 			div(layout flex)
 				md-input-container(flex)
 					label Fecha de Nacimiento
-					input(ng-model="vm.personal.FechaNacimiento" type="date" required name="FechaNacimiento")
+					input(ng-model="vm.personal.FechaNacimiento" type="date" required name="FechaNacimiento" max="{{vm.today | date:'yyyy-MM-dd'}}")
 				md-select(flex ng-model="vm.personal.Sexo" placeholder="Sexo" name="Sexo")
 					md-option(value="H") Hombre
 					md-option(value="M") Mujer
