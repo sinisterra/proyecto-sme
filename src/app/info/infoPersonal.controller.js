@@ -1,40 +1,56 @@
 (function() {
-    'use strict';
+	'use strict';
 
-    angular
-        .module('appSme')
-        .controller('InfoPersonalController', InfoPersonalController);
+	angular
+		.module('appSme')
+		.controller('InfoPersonalController', InfoPersonalController);
 
-    /* @ngInject */
-    function InfoPersonalController(Restangular) {
-        var vm = this;
-        vm.title = 'InfoPersonalController';
+	/* @ngInject */
+	function InfoPersonalController(Restangular) {
+		var vm = this;
+		vm.title = 'InfoPersonalController';
 
-        vm.today = new Date();
+		vm.today = new Date();
 
-        activate();
+		activate();
 
-        vm.submitFormPersonal = submitFormPersonal;
+		vm.submitFormPersonal = submitFormPersonal;
 
-        function submitFormPersonal(isValid) {
+		function submitFormPersonal(isValid) {
 
-            if (isValid) {
+			if (isValid) {
 
-                //proceder a enviar la forma
+				//proceder a enviar la forma
 
-                debugger
+				debugger
 
-                Restangular.all('DatosPersonales').getList().then(function(res){
-                    debugger
-                });
+				Restangular.all('DatosPersonales').getList().then(function(res) {
+					debugger
+				});
 
-                toastr.success('La información ha sido guardada correctamente.', '¡Éxito!');
+				toastr.success('La información ha sido guardada correctamente.', '¡Éxito!');
 
-            }
-        }
+			}
+		}
 
-        ////////////////
+		////////////////
 
-        function activate() {}
-    }
+		function activate() {
+			
+			vm.personalLoaded = false;
+
+			Restangular.all('DatosPersonales').customGET()
+				.then(function(res) {
+					vm.personal = res.datosPersonales;
+
+					//validar fecha
+					vm.personal.FechaNacimiento = Date(vm.personal.FechaNacimiento) ? true : false;
+					vm.personalLoaded = true;
+				})
+				.catch(function(err) {
+					console.log(err.data);
+					vm.personalLoaded = true;
+				});
+		}
+	}
 })();

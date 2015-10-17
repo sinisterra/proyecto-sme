@@ -41,29 +41,29 @@ div(flex layout-padding).card-header
 				label CURP
 				input(ng-model="vm.personal.CURP" required minlength="18" maxlength="18" md-minlength="18" md-maxlength="18" name="CURP")
 		
-		div(layout layout-sm="column")
-			md-input-container(flex)
-				label Calle
-				input(type="text" required name="Calle")
-			div(flex layout)
-				md-input-container(flex)
-					label Número Exterior
-					input(type="text" required name="NumeroExt")
-				md-input-container(flex)
-					label Número Interior
-					input(type="text" name="NumeroInt")
-				md-input-container(flex)
-					label Código Postal
-					input(type="text" name="CodigoPostal" maxlength="6" required)
+		//- div(layout layout-sm="column")
+		//- 	md-input-container(flex)
+		//- 		label Calle
+		//- 		input(type="text" required name="Calle")
+		//- 	div(flex layout)
+		//- 		md-input-container(flex)
+		//- 			label Número Exterior
+		//- 			input(type="text" required name="NumeroExt")
+		//- 		md-input-container(flex)
+		//- 			label Número Interior
+		//- 			input(type="text" name="NumeroInt")
+		//- 		md-input-container(flex)
+		//- 			label Código Postal
+		//- 			input(type="text" name="CodigoPostal" maxlength="6" required)
 
-		div(layout layout-sm="column")
-			md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.direccion.Departamento" required)
-				md-option(value="A") A
-			md-select(flex name="Municipio" placeholder="Municipio" ng-model="vm.direccion.Localidad" required)
-				md-option(value="A") A
-			md-input-container(flex)
-				label Colonia
-				input(type="text" name="Colonia" ng-model="vm.direccion.Colonia" required)
+		//- div(layout layout-sm="column")
+		//- 	md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.direccion.Departamento" required)
+		//- 		md-option(value="A") A
+		//- 	md-select(flex name="Municipio" placeholder="Municipio" ng-model="vm.direccion.Localidad" required)
+		//- 		md-option(value="A") A
+		//- 	md-input-container(flex)
+		//- 		label Colonia
+		//- 		input(type="text" name="Colonia" ng-model="vm.direccion.Colonia" required)
 
 
 		div(layout layout-align="end center")

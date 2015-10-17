@@ -87,7 +87,8 @@
 	function Auth($q, Restangular, $state) {
 		var service = {
 			login: login,
-			isLoggedIn: isLoggedIn
+			isLoggedIn: isLoggedIn,
+			getToken: getToken
 		};
 		return service;
 
@@ -116,6 +117,10 @@
 
 		function isLoggedIn(){
 			return localStorage.getItem('token') || false;
+		}
+
+		function getToken(){
+			return localStorage.getItem('token');
 		}
 	}
 })();

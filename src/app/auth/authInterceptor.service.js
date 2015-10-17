@@ -15,12 +15,12 @@
 
 		function request(config) {
 
-			var Auth = $injector.get('$auth');
+			var Auth = $injector.get('Auth');
 			var token = Auth.getToken();
 
 			if (token) {
 				config.headers['Authorization'] = 'Bearer ' + token;
-				config.headers['access_token'] = token;
+				// config.headers['access_token'] = token;
 			}
 
 			return config;
@@ -33,7 +33,7 @@
 		function responseError(response){
 			var $state = $injector.get('$state');
 			if(response.status === 403){
-				$state.go('login');
+				$state.go('home');
 			}
 
 			return $q.reject(response);

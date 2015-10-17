@@ -1,6 +1,9 @@
 //- h1.md-display-3 Datos Personales
 
-div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/personal.html' ")
+div.full-height(layout layout-align="center center" ng-hide="vm.personalLoaded")
+	md-progress-circular(md-mode="indeterminate" )
+
+div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/personal.html' " ng-show="vm.personalLoaded")
 
 
 //- div.md-whiteframe-z2.card(layout="column" layout-margin)

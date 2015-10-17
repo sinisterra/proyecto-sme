@@ -21,26 +21,16 @@
 						$state.go('dashboard');
 						vm.attemptingLogin = false;
 					})
-					.catch(function(err){
+					.catch(function(err) {
 						vm.attemptingLogin = false;
-						if(err.status === 401){
-							if(err.error === "invalid_credentials"){
-								toastr.error('Los datos para iniciar sesión son incorrectos', 'Error');
-							}
+						if (err.status === 401) {
+
+							toastr.error('Usuario y/o contraseña equivocados. Prueba de nuevo.', 'Error');
 						}
 					});
 
-				// User.username = vm.model.username;
-				// User.password = vm.model.password;
-				// User.isLoggedIn = true;
-				// localStorage.isLoggedIn = true;
-				// $state.go('dashboard');
 			}
 		}
-
-		// function attemptLogin(res){
-		// 	$state.go('dashboard');
-		// }
 
 		function signupSubmit(isValid) {
 			if (isValid) {

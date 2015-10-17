@@ -6,7 +6,7 @@
     .config(config);
 
   /** @ngInject */
-  function config($logProvider, toastr, $mdThemingProvider, RestangularProvider ) {
+  function config($logProvider, $httpProvider, toastr, $mdThemingProvider, RestangularProvider) {
     // Enable log
     $logProvider.debugEnabled(true);
 
@@ -25,7 +25,8 @@
 
     RestangularProvider.setBaseUrl('http://192.168.1.135:8888/luz_fuerza_laravel/public/api');
 
-  
+    $httpProvider.interceptors.push('AuthInterceptor');
+
   }
 
 })();
