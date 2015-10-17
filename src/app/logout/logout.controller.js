@@ -17,9 +17,10 @@
         ////////////////
 
         function activate() {
-        	localStorage.isLoggedIn = false;
-        	User.isLoggedIn = false;
-        	$state.go('home');
+            localStorage.clear();
+            // localStorage.isLoggedIn = false;
+            // User.isLoggedIn = false;
+            $state.go('home');
         }
     }
 })();

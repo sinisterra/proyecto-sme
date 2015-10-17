@@ -23,14 +23,9 @@
       .accentPalette('amber')
       .warnPalette('pink');
 
-    RestangularProvider.setBaseUrl('http://gemalms.com/sme_laravel/public/api');
+    RestangularProvider.setBaseUrl('http://192.168.1.135:8888/luz_fuerza_laravel/public/api');
 
-    // $mdDateLocaleProvider.formatDate = function(date) {
-    //   moment.locale('es');
-    //   console.log('Dando formato?');
-    //   console.log(moment(date).format('L'));
-    //   return moment(date).format('L');
-    // };
+  
   }
 
 })();

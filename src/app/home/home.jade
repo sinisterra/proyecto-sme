@@ -1,6 +1,6 @@
 div(style="background-color:#eee;height:100vh")
-	div.container(layout="column" layout-align="start center" style="height:100vh" layout-padding)
-		div.md-whiteframe-z2.card(layout="column" layout-align="center" style="width:100%;max-width:500px")
+	div.container(layout="column" layout-align="start center" style="height:100vh" layout-margin)
+		div.md-whiteframe-z2.card.card-md(layout="column" layout-align="center" ng-if="!home.showSignup")
 			div.primary-bg(flex layout-padding )
 				h1.md-headline Iniciar Sesión
 			div(flex layout-padding )
@@ -12,4 +12,30 @@ div(style="background-color:#eee;height:100vh")
 						label Contraseña
 						input(type="password" required name="password" ng-model="home.model.password" minlength="4")
 					div(layout layout-align="center")
-						md-button.md-primary.md-raised(ng-disabled="loginForm.$invalid" ng-click="home.submit(loginForm.$valid)") Iniciar sesión
+						md-button.md-primary.md-raised(ng-disabled="loginForm.$invalid" ng-click="home.submit(loginForm.$valid)" ng-show="!home.attemptingLogin")
+							span Iniciar sesión
+						div(ng-show="home.attemptingLogin"
+							layout="column" layout-align="center center")
+							md-progress-circular(md-mode="indeterminate")
+							//- span(ng-show="home.attemptingLogin") Iniciando sesión...
+
+		div(layout layout-align="center" ng-show="!home.showSignup")
+			md-button.md-primary(ng-click="home.showSignup = true") Regístrate
+
+	
+		div.md-whiteframe-z2.card.card-md(layout="column" layout-align="center"  ng-if="home.showSignup")
+			div.primary-bg(flex layout-padding )
+				h1.md-headline Registrar un usuario
+			div(flex layout-padding )
+				form(name="signupForm")
+					md-input-container
+						label Número de Cooperativista
+						input(type="text" required name="Usuario" ng-model="home.signupModel.id")
+					md-input-container
+						label Usuario
+						input(type="text" required name="Usuario" ng-model="home.signupModel.username")
+					md-input-container
+						label Contraseña
+						input(type="password" required name="password" ng-model="home.signupModel.password")
+					div(layout layout-align="center")
+						md-button.md-primary.md-raised(ng-disabled="loginForm.$invalid" ng-click="home.signupSubmit(signupForm.$valid)") Registrar
