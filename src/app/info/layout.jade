@@ -1,9 +1,10 @@
 //- h1.md-display-3 Datos Personales
 
-div.full-height(layout layout-align="center center" ng-hide="vm.personalLoaded")
+div.full-height(layout layout-align="center center" ng-hide="vm.personalLoaded && vm.experienciaLoaded")
 	md-progress-circular(md-mode="indeterminate" )
 
-div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/personal.html' " ng-show="vm.personalLoaded")
+div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/personal.html' " ng-show="vm.personalLoaded" layout-margin)
+div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/experiencia.html' " ng-show="vm.experienciaLoaded" layout-margin)
 
 
 //- div.md-whiteframe-z2.card(layout="column" layout-margin)
@@ -92,56 +93,3 @@ div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/personal.html' 
 //- 			div(layout-padding layout layout-align="end center")
 //- 				md-button.md-primary.md-raised Agregar
 
-//- div.md-whiteframe-z2.card(layout="column" layout-margin)
-//- 	div(flex layout-padding).card-header
-//- 		h2.md-title Experiencia Laboral
-//- 	form(name="vm.experiencia" layout layout-sm="column" layout-padding ng-submit="vm.submitFormPersonal()")
-	
-//- 		div(layout="column" flex)
-//- 			md-list(flex)
-//- 				md-list-item.md-3-line
-//- 					div.md-list-item-text
-//- 						h3 Institución
-//- 						h4 Nombre del Puesto
-//- 						p 1990 - 1992
-		
-//- 		div(flex)
-//- 			md-input-container(flex)
-//- 				label Nombre de la Institución
-//- 				input(type="text" required)
-
-//- 			md-input-container(flex)
-//- 				label Nombre del Puesto
-//- 				input(type="text" required)
-
-//- 			div(flex layout layout-sm="column")
-//- 				md-input-container(flex)
-//- 					label Fecha de Inicio
-//- 					input(type="date" required)
-
-//- 				md-input-container(flex)
-//- 					label Fecha de Término
-//- 					input(type="date" required max="{{ vm.today | date:'yyyy-MM-dd'}}")
-
-//- 			md-input-container(flex)
-//- 				label Campo de Experiencia
-//- 				input(type="text" required)
-
-//- 			md-input-container(flex)
-//- 				label Área de Experiencia
-//- 				input(type="text" required)
-
-//- 			md-input-container(flex)
-//- 				label Jerarquía
-//- 				input(type="text" required)
-
-//- 			md-input-container(flex)
-//- 				label Remuneración Bruta Mensual
-//- 				input(type="number" min="0")
-
-//- 			md-input-container(flex)
-//- 				label Descripción
-//- 				textarea(ng-model="vm.newCert.description" maxlength="150" md-maxlength="150" rows="3")
-
-//- 			div(layout-padding layout layout-align="end center")
-//- 				md-button.md-primary.md-raised Agregar

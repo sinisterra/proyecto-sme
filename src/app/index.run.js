@@ -10,7 +10,7 @@
 
 		$log.debug('runBlock end');
 
-		$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+		$rootScope.$on('$stateChangeSuccess', function(event, toState) {
 
 			if(toState.data.requireLogin === true && !Auth.isLoggedIn()){
 				$state.go('home');

@@ -5,10 +5,8 @@
         .module('appSme')
         .controller('LogoutController', LogoutController);
 
-    LogoutController.$inject = ['User', '$state'];
-
     /* @ngInject */
-    function LogoutController(User, $state) {
+    function LogoutController(Auth, $state) {
         var vm = this;
         vm.title = 'LogoutController';
 
@@ -17,7 +15,7 @@
         ////////////////
 
         function activate() {
-            localStorage.clear();
+            Auth.logout();
             // localStorage.isLoggedIn = false;
             // User.isLoggedIn = false;
             $state.go('home');

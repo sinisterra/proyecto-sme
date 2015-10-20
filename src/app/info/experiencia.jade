@@ -1,0 +1,86 @@
+
+div(flex layout-padding).card-header
+	h2.md-title Experiencia Laboral
+form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.submitFormExperiencia()")
+
+	div(layout="column" flex-gt-sm="40")
+		md-list(flex)
+			md-list-item.md-3-line(ng-repeat="experiencia in vm.experienciaLaboral")
+				div.md-list-item-text
+					h3 {{experiencia.NombreInstitucion}}
+					h4 {{experiencia.NombreDelPuesto}}
+					p {{experiencia.FechaInicio | date:'yyyy'}} - {{experiencia.FechaTermino | date:'yyyy'}}
+				md-button.md-icon-button.md-primary(ng-click="vm.editExperiencia(experiencia.idExperienciaEspecifica)")
+					md-icon mode_edit
+			md-divider
+	
+	div(flex-gt-sm="60")
+		
+		div(flex layout layout-sm="column")
+			md-select(flex name="CampoExperiencia" placeholder="Campo de Experiencia" ng-model="vm.experiencia.campo" required)
+				md-option(ng-repeat="campo in vm.camposExperiencia" value="{{$index}}") {{campo.Nombre}}
+
+			md-select(flex name="AreaExperiencia" placeholder="Área de Experiencia" ng-model="vm.experiencia.area" required)
+				md-option(ng-repeat="area in vm.camposExperiencia[vm.experiencia.campo].area_de_experiencia" value="{{$index}}") {{area.Nombre}}
+
+			md-select(flex name="ExperienciaEspecifica" placeholder="Experiencia Específica" ng-model="vm.experiencia.idExperienciaEspecifica" required)
+				md-option(ng-repeat="especifica in vm.camposExperiencia[vm.experiencia.campo].area_de_experiencia[vm.experiencia.area].experiencia_especifica" value="{{especifica.id}}") {{especifica.Nombre}}
+
+		md-input-container(flex)
+			label Nombre de la Institución
+			input(type="text" required name="NombreInstitucion"  ng-model="vm.experiencia.NombreInstitucion")
+
+		md-input-container(flex)
+			label Nombre del Puesto
+			input(type="text" required name="NombreDelPuesto" ng-model="vm.experiencia.NombreDelPuesto")
+
+		div(flex layout layout-sm="column")
+			md-input-container(flex)
+				label Fecha de Inicio
+				input(type="date" required name="FechaInicio" max="{{ vm.today | date:'yyyy-MM-dd'}}" ng-model="vm.experiencia.FechaInicio")
+
+			md-input-container(flex)
+				label Fecha de Término
+				input(type="date" required name="FechaTermino" max="{{ vm.today | date:'yyyy-MM-dd'}}" ng-model="vm.experiencia.FechaTermino")
+
+		div(flex layout layout-sm="column")
+			md-input-container(flex)
+				label Remuneración Bruta Mensual
+				input(type="number" min="0" name="RemuneracionBrutaMensual" required ng-model="vm.experiencia.RemuneracionBrutaMensual")
+
+			div(flex layout-align="center center")
+				div(ng-show="!vm.locationsLoaded" layout-align="center center")
+					md-progress-circular(md-mode="indeterminate")
+				div(ng-show="vm.locationsLoaded")
+					md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.experiencia.idEntidadFederativa" required)
+						md-option(ng-repeat="state in vm.states" value="{{state.id}}") {{state.Nombre}}
+
+		
+		div(flex layout layout-sm="column")
+			p Datos del Superior Inmediato
+
+		div(flex layout layout-sm="column")
+			md-input-container(flex)
+				label Nombre
+				input(type="text" ng-model="vm.experiencia.NombreSuperiorInmediato" name="NombreSuperiorInmediato")
+
+			md-input-container(flex)
+				label Apellido Paterno
+				input(type="text" ng-model="vm.experiencia.ApellidoPSuperiorInmediato" name="ApellidoPSuperiorInmediato" )
+
+			md-input-container(flex)
+				label Apellido Materno
+				input(type="text" ng-model="vm.experiencia.ApellidoMSuperiorInmediato" name="ApellidoMSuperiorInmediato")
+
+
+		md-input-container(flex)
+			label Teléfono
+			input(type="number" name="vm.experiencia.TelefonoSuperiorInmediato" ng-model="vm.experiencia.TelefonoSuperiorInmediato")
+
+
+		//- md-input-container(flex)
+		//- 	label Descripción
+		//- 	textarea(ng-model="vm.newCert.description" maxlength="150" md-maxlength="150" rows="3")
+
+		div(layout-padding layout layout-align="end center")
+			md-button.md-primary.md-raised(ng-click="vm.submitFormExperiencia(Experiencia.$valid)" ng-disabled="Experiencia.$invalid") Agregar

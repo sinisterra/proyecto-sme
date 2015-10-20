@@ -23,7 +23,7 @@
       .accentPalette('amber')
       .warnPalette('pink');
 
-    RestangularProvider.setBaseUrl('http://192.168.1.135:8888/luz_fuerza_laravel/public/api');
+    RestangularProvider.setBaseUrl('http://187.159.54.98:8888/luz_fuerza_laravel/public/api');
 
     $httpProvider.interceptors.push('AuthInterceptor');
 
