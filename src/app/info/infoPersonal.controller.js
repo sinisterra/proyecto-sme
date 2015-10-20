@@ -6,7 +6,7 @@
 		.controller('InfoPersonalController', InfoPersonalController);
 
 	/* @ngInject */
-	function InfoPersonalController(Restangular, $filter, toastr) {
+	function InfoPersonalController(Restangular, $filter, toastr, _) {
 		var vm = this;
 		vm.title = 'InfoPersonalController';
 
@@ -15,7 +15,22 @@
 		activate();
 
 		vm.submitFormPersonal = submitFormPersonal;
+		vm.regexCURP = /^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/;
+
 		vm.submitFormExperiencia = submitFormExperiencia;
+
+		// experiencia laboral
+
+		vm.editExperiencia = editExperiencia;
+		vm.removeExperiencia = removeExperiencia;
+
+		function editExperiencia(exp) {
+			console.log(exp);
+		}
+
+		function removeExperiencia(exp) {
+			console.log(exp);
+		}
 
 		function submitFormPersonal(isValid) {
 
@@ -26,12 +41,13 @@
 				vm.savingPersonal = true;
 
 				savePersonal();
+				
 
 			}
 		}
 
-		function submitFormExperiencia(isValid){
-			if(isValid){
+		function submitFormExperiencia(isValid) {
+			if (isValid) {
 				saveExperiencia();
 			}
 		}
@@ -52,9 +68,9 @@
 			}
 
 			saveUrl.then(function(res) {
-					// debugger
 					toastr.success('La información ha sido guardada correctamente.', '¡Éxito!');
 					vm.savingPersonal = false;
+					saveDireccion();
 				})
 				.catch(function(error) {
 					toastr.error('La información no pudo guardarse correctamente ' + '(' + error.status + ')', 'Error');
@@ -67,34 +83,51 @@
 			var direccion = angular.copy(vm.direccion);
 			var saveUrl;
 
+			if (direccion.id) {
+				delete direccion.id;
+				delete direccion.idUsuario;
+				saveUrl = Restangular.all('Direccion').customPUT(direccion);
+			}
+			else {
+				direccion.idUsuario = vm.personal.idUsuario;
+				saveUrl = Restangular.all('Direccion').customPOST(direccion);
+			}
+
+			saveUrl.then(function(res) {
+					// toastr.success('La información ha sido guardada correctamente', '¡Éxito!');
+					vm.savingPersonal = false;
+				})
+				.catch(function(error) {
+					toastr.error('La información no pudo guardarse correctamente ' + '(' + error.status + ')', 'Error');
+					vm.savingPersonal = false;
+
+				});
+
 		}
 
-		function saveExperiencia(){
+		function saveExperiencia() {
 			var experiencia = angular.copy(vm.experiencia);
-			
 
 			// if(experiencia.idExperienciaEspecifica){
 			// 	//editar
 			// }
 			// else{
-				vm.experienciaLaboral.push(experiencia);
-				delete experiencia.campo;
-				delete experiencia.area;
-				experiencia.FechaInicio = $filter('date')(experiencia.FechaInicio, 'yyyy-MM-dd');
-				experiencia.FechaTermino = $filter('date')(experiencia.FechaTermino, 'yyyy-MM-dd');
+			vm.experienciaLaboral.push(experiencia);
+			delete experiencia.campo;
+			delete experiencia.area;
+			experiencia.FechaInicio = $filter('date')(experiencia.FechaInicio, 'yyyy-MM-dd');
+			experiencia.FechaTermino = $filter('date')(experiencia.FechaTermino, 'yyyy-MM-dd');
 
-				Restangular.all('ExperienciaLaboral').customPOST(experiencia).then(function(res){
-					debugger
+			Restangular.all('ExperienciaLaboral').customPOST(experiencia).then(function(res) {
+
 				})
-				.catch(function(){
-					debugger
+				.catch(function() {
+
 				});
-				// vm.experiencia = {};
+			// vm.experiencia = {};
 			// }
 
 		}
-
-
 
 		////////////////
 
@@ -102,41 +135,52 @@
 			vm.today = new Date();
 			loadLocations();
 			loadExperienceFields();
+
 			loadPersonal();
+			loadDireccion();
 			loadExperiencia();
 		}
 
-		function loadExperienceFields(){
-			Restangular.all('CampoDeExperiencia').customGET().then(function(res){
-				debugger
-				vm.camposExperiencia = res.campo_de_experiencia;
-			})
-			.catch(function(){
-				debugger
-			})
+		function loadExperienceFields() {
+			Restangular.all('CampoDeExperiencia').customGET().then(function(res) {
+
+					vm.camposExperiencia = res.campo_de_experiencia;
+
+					var experiencias = [];
+					_.forEach(res.campo_de_experiencia, function(campo) {
+						_.forEach(campo.area_de_experiencia, function(area) {
+							experiencias = experiencias.concat(area.experiencia_especifica);
+						});
+					});
+
+					vm.experienciasById = _.groupBy(experiencias, 'idAreaDeExperiencia');
+				})
+				.catch(function() {
+
+				})
 		}
 
-		function loadLocations(){
+		function loadLocations() {
 			vm.locationsLoaded = false;
-			Restangular.all('Pais').customGET().then(function(res){
+			Restangular.all('Pais').customGET().then(function(res) {
 				vm.states = res.paises[0].entidades_federativas;
 
 				vm.locationsLoaded = true;
-				
-			}).catch(function(err){
-					vm.locationsLoaded = true;
-					
+
+			}).catch(function(err) {
+				vm.locationsLoaded = true;
+
 			});
 		}
 
-		function loadPersonal(){
+		function loadPersonal() {
 			vm.personalLoaded = false;
 
 			Restangular.all('DatosPersonales').customGET()
 				.then(function(res) {
 					vm.personal = res.datosPersonales;
 
-					// debugger
+					// 
 					//validar fecha
 					vm.personal.FechaNacimiento = new Date(res.datosPersonales.FechaNacimiento);
 					// $filter('date')(res.datosPersonales.FechaNacimiento,'yyyy-MM-dd');
@@ -147,22 +191,37 @@
 				});
 		}
 
-		function loadExperiencia(){
+		function loadDireccion(){
+			Restangular.all('Direccion').customGET().then(function(res){
+				vm.direccion = res.plain().direccion;
+			})
+			.catch(function(err){
+
+			});
+		}
+
+		function loadExperiencia() {
 			vm.experienciaLoaded = false;
 			vm.experienciaLaboral = [];
 
-			Restangular.all('ExperienciaLaboral').customGET().then(function(res){
-				vm.experienciaLaboral = res.plain().experienciaLaboral;
-				vm.experienciaLoaded = true;
+			Restangular.all('ExperienciaLaboral').customGET().then(function(res) {
+					vm.experienciaLaboral = res.plain().experienciaLaboral;
+					vm.experienciaLoaded = true;
 
-				// vm.experiencia = {};
+					if (vm.experienciaLaboral.length > 0) {
 
-				// vm.experiencia.FechaInicio = new Date(res.experienciaLaboral.FechaInicio);
-				// vm.experiencia.FechaTermino = new Date(res.experienciaLaboral.FechaTermino);
-			})
-			.catch(function(err){
-				vm.experienciaLoaded = true;
-			});
+						vm.experienciaLaboral = _.map(vm.experienciaLaboral, function(e) {
+							e.FechaInicio = new Date(e.FechaInicio);
+							e.FechaTermino = new Date(e.FechaTermino);
+
+							return e;
+						});
+					}
+
+				})
+				.catch(function(err) {
+					vm.experienciaLoaded = true;
+				});
 		}
 	}
 })();

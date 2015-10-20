@@ -5,14 +5,24 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 
 	div(layout="column" flex-gt-sm="40")
 		md-list(flex)
-			md-list-item.md-3-line(ng-repeat="experiencia in vm.experienciaLaboral")
+			md-list-item.md-3-line(ng-repeat="experiencia in vm.experienciaLaboral | orderBy:'-FechaTermino'")
 				div.md-list-item-text
-					h3 {{experiencia.NombreInstitucion}}
-					h4 {{experiencia.NombreDelPuesto}}
+					h3 {{experiencia.NombreDelPuesto}} - {{experiencia.Jerarquia}}
+					h4 {{experiencia.NombreInstitucion}} - {{vm.experienciasById[experiencia.idExperienciaEspecifica][0].Nombre}}
 					p {{experiencia.FechaInicio | date:'yyyy'}} - {{experiencia.FechaTermino | date:'yyyy'}}
-				md-button.md-icon-button.md-primary(ng-click="vm.editExperiencia(experiencia.idExperienciaEspecifica)")
-					md-icon mode_edit
-			md-divider
+				md-menu
+					md-button.md-icon-button(ng-click="$mdOpenMenu()")
+						md-icon(md-menu-origin) more_vert
+					md-menu-content(width="2")
+						md-menu-item
+							md-button(ng-click="vm.editExperiencia(experiencia)")
+								md-icon(md-menu-align-target) mode_edit
+								| Editar
+						md-menu-item
+							md-button(ng-click="vm.removeExperiencia(experiencia)")
+								md-icon(md-menu-align-target) close
+								| Eliminar
+			
 	
 	div(flex-gt-sm="60")
 		
@@ -30,9 +40,14 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 			label Nombre de la Institución
 			input(type="text" required name="NombreInstitucion"  ng-model="vm.experiencia.NombreInstitucion")
 
-		md-input-container(flex)
-			label Nombre del Puesto
-			input(type="text" required name="NombreDelPuesto" ng-model="vm.experiencia.NombreDelPuesto")
+		div(flex layout layout-sm="column")
+			md-input-container(flex)
+				label Nombre del Puesto
+				input(type="text" required name="NombreDelPuesto" ng-model="vm.experiencia.NombreDelPuesto")
+
+			md-input-container(flex)
+				label Jerarquía
+				input(type="text" required name="Jerarquia" ng-model="vm.experiencia.Jerarquia")
 
 		div(flex layout layout-sm="column")
 			md-input-container(flex)
@@ -41,7 +56,7 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 
 			md-input-container(flex)
 				label Fecha de Término
-				input(type="date" required name="FechaTermino" max="{{ vm.today | date:'yyyy-MM-dd'}}" ng-model="vm.experiencia.FechaTermino")
+				input(type="date" required name="FechaTermino" max="vm.experiencia.FechaInicio" ng-model="vm.experiencia.FechaTermino")
 
 		div(flex layout layout-sm="column")
 			md-input-container(flex)

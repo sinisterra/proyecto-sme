@@ -32,7 +32,9 @@
 
 		function responseError(response){
 			var $state = $injector.get('$state');
-			if(response.status === 403){
+			if(response.status === 401){
+				toastr.info('Tu sesión se cerró automáticamente por inactividad. Inicia sesión de nuevo. ', 'Sesión cerrada por inactividad');
+				$injector.get('Auth').logout();
 				$state.go('home');
 			}
 

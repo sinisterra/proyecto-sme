@@ -39,7 +39,7 @@ div(flex layout-padding).card-header
 				
 			md-input-container(flex)
 				label CURP
-				input(ng-model="vm.personal.CURP" required minlength="18" maxlength="18" md-minlength="18" md-maxlength="18" name="CURP")
+				input(ng-model="vm.personal.CURP" required minlength="18" maxlength="18" md-minlength="18" md-maxlength="18" name="CURP" ng-pattern="vm.regexCURP")
 		
 		div(layout layout-sm="column" ng-show="!vm.locationsLoaded" layout-align="center center")
 			md-progress-circular(md-mode="indeterminate")
@@ -47,17 +47,17 @@ div(flex layout-padding).card-header
 		div(layout layout-sm="column" ng-show="vm.locationsLoaded")
 			md-input-container(flex)
 				label Calle
-				input(type="text" required name="Calle")
+				input(type="text" required name="Calle" ng-model="vm.direccion.Calle")
 			div(flex layout)
 				md-input-container(flex)
 					label Número Exterior
-					input(type="text" required name="NumeroExt")
+					input(type="text" required name="NumeroExt" ng-model="vm.direccion.NumeroExt")
 				md-input-container(flex)
 					label Número Interior
-					input(type="text" name="NumeroInt")
+					input(type="text" name="NumeroInt" ng-model="vm.direccion.NumeroInt")
 				md-input-container(flex)
 					label Código Postal
-					input(type="text" name="CodigoPostal" maxlength="6" required)
+					input(type="text" name="CodigoPostal" maxlength="5" required ng-model="vm.direccion.CodigoPostal")
 
 		div(layout layout-sm="column" ng-show="vm.locationsLoaded")
 			md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.direccion.Departamento" required)
