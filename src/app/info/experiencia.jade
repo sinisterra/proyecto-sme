@@ -90,7 +90,7 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 
 		md-input-container(flex)
 			label Teléfono
-			input(type="number" name="vm.experiencia.TelefonoSuperiorInmediato" ng-model="vm.experiencia.TelefonoSuperiorInmediato")
+			input(type="number" name="TelefonoSuperiorInmediato" ng-model="vm.experiencia.TelefonoSuperiorInmediato")
 
 
 		//- md-input-container(flex)
@@ -98,4 +98,4 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 		//- 	textarea(ng-model="vm.newCert.description" maxlength="150" md-maxlength="150" rows="3")
 
 		div(layout-padding layout layout-align="end center")
-			md-button.md-primary.md-raised(ng-click="vm.submitFormExperiencia(Experiencia.$valid)" ng-disabled="Experiencia.$invalid") Agregar
+			md-button.md-primary.md-raised(ng-click="vm.submitFormExperiencia(Experiencia.$valid)" ng-disabled="Experiencia.$invalid || vm.disableSaveExperiencia") Agregar

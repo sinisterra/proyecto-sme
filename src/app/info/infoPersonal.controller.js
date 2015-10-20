@@ -25,7 +25,11 @@
 		vm.removeExperiencia = removeExperiencia;
 
 		function editExperiencia(exp) {
-			console.log(exp);
+			//escape values
+			vm.experiencia = exp;
+			vm.disableSaveExperiencia = true;
+
+
 		}
 
 		function removeExperiencia(exp) {
@@ -213,6 +217,8 @@
 						vm.experienciaLaboral = _.map(vm.experienciaLaboral, function(e) {
 							e.FechaInicio = new Date(e.FechaInicio);
 							e.FechaTermino = new Date(e.FechaTermino);
+							e.RemuneracionBrutaMensual = Number(e.RemuneracionBrutaMensual);
+							e.TelefonoSuperiorInmediato = Number(e.TelefonoSuperiorInmediato);
 
 							return e;
 						});
