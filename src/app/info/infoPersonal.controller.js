@@ -27,13 +27,15 @@
 		function editExperiencia(exp) {
 			//escape values
 			vm.experiencia = exp;
-			vm.disableSaveExperiencia = true;
-
-
 		}
 
 		function removeExperiencia(exp) {
-			console.log(exp);
+			Restangular.one('ExperienciaLaboral', exp.id).remove().then(function(res) {
+					vm.experienciaLaboral = _.without(vm.experienciaLaboral, exp);
+				})
+				.catch(function() {
+					toastr.error('Hubo un error', 'Error');
+				});
 		}
 
 		function submitFormPersonal(isValid) {
@@ -45,7 +47,6 @@
 				vm.savingPersonal = true;
 
 				savePersonal();
-				
 
 			}
 		}
@@ -109,6 +110,15 @@
 
 		}
 
+		function formatExperiencia(e) {
+			e.FechaInicio = new Date(e.FechaInicio);
+			e.FechaTermino = new Date(e.FechaTermino);
+			e.RemuneracionBrutaMensual = Number(e.RemuneracionBrutaMensual);
+			e.TelefonoSuperiorInmediato = Number(e.TelefonoSuperiorInmediato);
+
+			return e;
+		}
+
 		function saveExperiencia() {
 			var experiencia = angular.copy(vm.experiencia);
 
@@ -116,20 +126,29 @@
 			// 	//editar
 			// }
 			// else{
-			vm.experienciaLaboral.push(experiencia);
+
 			delete experiencia.campo;
 			delete experiencia.area;
 			experiencia.FechaInicio = $filter('date')(experiencia.FechaInicio, 'yyyy-MM-dd');
 			experiencia.FechaTermino = $filter('date')(experiencia.FechaTermino, 'yyyy-MM-dd');
 
-			Restangular.all('ExperienciaLaboral').customPOST(experiencia).then(function(res) {
-
-				})
-				.catch(function() {
-
+			if (experiencia.id) {
+				Restangular.one('ExperienciaLaboral', experiencia.id).customPUT(experiencia).then(function(res) {
+					// vm.experienciaLaboral.push(formatExperiencia(res.plain()));
+					//BUSCAR EN vm.experiencia laboral y reemplazar
+					toastr.success('Cambios guardados correctamente', '¡Éxito!');
 				});
-			// vm.experiencia = {};
-			// }
+			}
+			else {
+				Restangular.all('ExperienciaLaboral').customPOST(experiencia).then(function(res) {
+						vm.experienciaLaboral.push(formatExperiencia(res.plain()));
+						toastr.success('Cambios guardados correctamente', '¡Éxito!');
+					})
+					.catch(function() {
+
+					});
+				// vm.experiencia = {};
+			}
 
 		}
 
@@ -150,18 +169,30 @@
 
 					vm.camposExperiencia = res.campo_de_experiencia;
 
-					var experiencias = [];
+					vm.camposById = {};
+					vm.areasByCampos = {};
+					vm.expByAreas = {};
+
+					vm.areasById = {};
+					vm.expById = {};
+
 					_.forEach(res.campo_de_experiencia, function(campo) {
+						vm.camposById[campo.id] = campo;
+						vm.areasByCampos[campo.id] = campo.area_de_experiencia;
 						_.forEach(campo.area_de_experiencia, function(area) {
-							experiencias = experiencias.concat(area.experiencia_especifica);
+							vm.expByAreas[area.id] = area.experiencia_especifica;
+							vm.areasById[area.id] = area;
+							_.forEach(area.experiencia_especifica, function(exp) {
+								vm.expById[exp.id] = exp;
+							});
+
 						});
 					});
 
-					vm.experienciasById = _.groupBy(experiencias, 'idAreaDeExperiencia');
 				})
 				.catch(function() {
 
-				})
+				});
 		}
 
 		function loadLocations() {
@@ -195,13 +226,13 @@
 				});
 		}
 
-		function loadDireccion(){
-			Restangular.all('Direccion').customGET().then(function(res){
-				vm.direccion = res.plain().direccion;
-			})
-			.catch(function(err){
+		function loadDireccion() {
+			Restangular.all('Direccion').customGET().then(function(res) {
+					vm.direccion = res.plain().direccion;
+				})
+				.catch(function(err) {
 
-			});
+				});
 		}
 
 		function loadExperiencia() {
@@ -215,12 +246,8 @@
 					if (vm.experienciaLaboral.length > 0) {
 
 						vm.experienciaLaboral = _.map(vm.experienciaLaboral, function(e) {
-							e.FechaInicio = new Date(e.FechaInicio);
-							e.FechaTermino = new Date(e.FechaTermino);
-							e.RemuneracionBrutaMensual = Number(e.RemuneracionBrutaMensual);
-							e.TelefonoSuperiorInmediato = Number(e.TelefonoSuperiorInmediato);
 
-							return e;
+							return formatExperiencia(e);
 						});
 					}
 

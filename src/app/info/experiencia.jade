@@ -4,12 +4,15 @@ div(flex layout-padding).card-header
 form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.submitFormExperiencia()")
 
 	div(layout="column" flex-gt-sm="40")
+		//- div {{vm.areasByCampos[vm.experiencia.idCampoDeExperiencia] | json:2}}
+
+
 		md-list(flex)
 			md-list-item.md-3-line(ng-repeat="experiencia in vm.experienciaLaboral | orderBy:'-FechaTermino'")
 				div.md-list-item-text
-					h3 {{experiencia.NombreDelPuesto}} - {{experiencia.Jerarquia}}
-					h4 {{experiencia.NombreInstitucion}} - {{vm.experienciasById[experiencia.idExperienciaEspecifica][0].Nombre}}
-					p {{experiencia.FechaInicio | date:'yyyy'}} - {{experiencia.FechaTermino | date:'yyyy'}}
+					h3 {{experiencia.NombreDelPuesto}}, {{experiencia.NombreInstitucion}} 
+					h4 ({{experiencia.FechaInicio | date:'yyyy'}} - {{experiencia.FechaTermino | date:'yyyy'}}) 
+					p {{vm.camposById[experiencia.idCampoDeExperiencia].Nombre |titleCase}} - {{vm.areasById[experiencia.idAreaDeExperiencia].Nombre  |titleCase}} - {{vm.expById[experiencia.idExperienciaEspecifica].Nombre |titleCase}}
 				md-menu
 					md-button.md-icon-button(ng-click="$mdOpenMenu()")
 						md-icon(md-menu-origin) more_vert
@@ -27,14 +30,14 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 	div(flex-gt-sm="60")
 		
 		div(flex layout layout-sm="column")
-			md-select(flex name="CampoExperiencia" placeholder="Campo de Experiencia" ng-model="vm.experiencia.campo" required)
-				md-option(ng-repeat="campo in vm.camposExperiencia" value="{{$index}}") {{campo.Nombre}}
+			md-select(flex name="CampoExperiencia" placeholder="Campo de Experiencia" ng-model="vm.experiencia.idCampoDeExperiencia" required)
+				md-option(ng-repeat="campo in vm.camposById" value="{{campo.id}}") {{campo.Nombre |titleCase}}
 
-			md-select(flex name="AreaExperiencia" placeholder="Área de Experiencia" ng-model="vm.experiencia.area" required)
-				md-option(ng-repeat="area in vm.camposExperiencia[vm.experiencia.campo].area_de_experiencia" value="{{$index}}") {{area.Nombre}}
+			md-select(flex name="AreaExperiencia" placeholder="Área de Experiencia" ng-model="vm.experiencia.idAreaDeExperiencia" required ng-disabled="vm.areasByCampos[vm.experiencia.idCampoDeExperiencia].length === 0")
+				md-option(ng-repeat="area in vm.areasByCampos[vm.experiencia.idCampoDeExperiencia]" value="{{area.id}}") {{area.Nombre |titleCase}}
 
-			md-select(flex name="ExperienciaEspecifica" placeholder="Experiencia Específica" ng-model="vm.experiencia.idExperienciaEspecifica" required)
-				md-option(ng-repeat="especifica in vm.camposExperiencia[vm.experiencia.campo].area_de_experiencia[vm.experiencia.area].experiencia_especifica" value="{{especifica.id}}") {{especifica.Nombre}}
+			md-select(flex name="ExperienciaEspecifica" placeholder="Experiencia Específica" ng-model="vm.experiencia.idExperienciaEspecifica" required ng-disabled="vm.expByAreas[vm.areasByCampos[vm.experiencia.idCampoDeExperiencia][vm.experiencia.idAreaDeExperiencia].id].length === 0 || vm.areasByCampos[vm.experiencia.idCampoDeExperiencia].length === 0")
+				md-option(ng-repeat="especifica in vm.expByAreas[vm.experiencia.idAreaDeExperiencia]" value="{{especifica.id}}") {{especifica.Nombre |titleCase}}
 
 		md-input-container(flex)
 			label Nombre de la Institución
@@ -49,7 +52,7 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 				label Jerarquía
 				input(type="text" required name="Jerarquia" ng-model="vm.experiencia.Jerarquia")
 
-		div(flex layout layout-sm="column")
+		div(flex layout)
 			md-input-container(flex)
 				label Fecha de Inicio
 				input(type="date" required name="FechaInicio" max="{{ vm.today | date:'yyyy-MM-dd'}}" ng-model="vm.experiencia.FechaInicio")
@@ -98,4 +101,4 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 		//- 	textarea(ng-model="vm.newCert.description" maxlength="150" md-maxlength="150" rows="3")
 
 		div(layout-padding layout layout-align="end center")
-			md-button.md-primary.md-raised(ng-click="vm.submitFormExperiencia(Experiencia.$valid)" ng-disabled="Experiencia.$invalid || vm.disableSaveExperiencia") Agregar
+			md-button.md-primary.md-raised(ng-click="vm.submitFormExperiencia(Experiencia.$valid)" ng-disabled="Experiencia.$invalid ") Guardar

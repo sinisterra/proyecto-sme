@@ -62,8 +62,8 @@ div(flex layout-padding).card-header
 		div(layout layout-sm="column" ng-show="vm.locationsLoaded")
 			md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.direccion.Departamento" required)
 				md-option(ng-repeat="state in vm.states" value="{{$index}}") {{state.Nombre}}
-			md-select(flex name="Municipio" placeholder="Municipio" ng-model="vm.direccion.Localidad" required)
-				md-option(ng-repeat="municipio in vm.states[vm.direccion.Departamento].municipios" value="{{municipio.Clave}}") {{municipio.Nombre}}
+			md-select(flex name="Municipio" placeholder="Municipio" ng-model="vm.direccion.idMunicipio" required)
+				md-option(ng-repeat="municipio in vm.states[vm.direccion.Departamento].municipios" value="{{municipio.id}}") {{municipio.Nombre}}
 				
 			md-input-container(flex)
 				label Colonia
