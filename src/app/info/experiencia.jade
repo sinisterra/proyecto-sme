@@ -11,8 +11,8 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 			md-list-item.md-3-line(ng-repeat="experiencia in vm.experienciaLaboral | orderBy:'-FechaTermino'")
 				div.md-list-item-text
 					h3 {{experiencia.NombreDelPuesto}}, {{experiencia.NombreInstitucion}} 
-					h4 ({{experiencia.FechaInicio | date:'yyyy'}} - {{experiencia.FechaTermino | date:'yyyy'}}) 
-					p {{vm.camposById[experiencia.idCampoDeExperiencia].Nombre |titleCase}} - {{vm.areasById[experiencia.idAreaDeExperiencia].Nombre  |titleCase}} - {{vm.expById[experiencia.idExperienciaEspecifica].Nombre |titleCase}}
+					h4 {{vm.camposById[experiencia.idCampoDeExperiencia].Nombre |titleCase}} - {{vm.areasById[experiencia.idAreaDeExperiencia].Nombre  |titleCase}} - {{vm.expById[experiencia.idExperienciaEspecifica].Nombre |titleCase}}
+					p {{experiencia.FechaInicio | date:'yyyy'}} - {{experiencia.FechaTermino | date:'yyyy'}} 
 				md-menu
 					md-button.md-icon-button(ng-click="$mdOpenMenu()")
 						md-icon(md-menu-origin) more_vert

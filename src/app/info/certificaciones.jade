@@ -1,0 +1,48 @@
+div(flex layout-padding).card-header
+	h2.md-title Certificaciones
+form(name="certificacion" layout layout-sm="column" layout-padding)
+
+	div(layout="column" flex-gt-sm="40")
+		md-list(flex)
+			md-list-item.md-3-line(ng-repeat="cert in vm.certs | orderBy:'Nombre'")
+				div.md-list-item-text
+					h3 {{cert.Nombre}}
+					h4 {{cert.InstitucionCertificadora}}
+					p {{cert.Area}} - {{cert.Tipo}}
+				md-menu
+					md-button.md-icon-button(ng-click="$mdOpenMenu()")
+						md-icon(md-menu-origin) more_vert
+					md-menu-content(width="2")
+						md-menu-item
+							md-button(ng-click="vm.editCert(cert)")
+								md-icon(md-menu-align-target) mode_edit
+								| Editar
+						md-menu-item
+							md-button(ng-click="vm.removeCert(cert)")
+								md-icon(md-menu-align-target) close
+								| Eliminar
+	
+	div(flex-gt-sm="60")
+		md-input-container(flex)
+			label Nombre de la Certificación
+			input(type="text" ng-model="vm.cert.Nombre" name="Nombre" required)
+
+		div(flex layout layout-sm="column")
+			md-input-container(flex)
+				label Área de la Certificación
+				input(type="text" ng-model="vm.cert.Area" name="Area" required)
+
+			md-input-container(flex)
+				label Tipo de Certificación
+				input(type="text" ng-model="vm.cert.Tipo" name="Tipo" required)
+
+		md-input-container(flex)
+			label Institución Certificadora
+			input(type="text" ng-model="vm.cert.InstitucionCertificadora" name="InstitucionCertificadora" required)
+
+		md-input-container(flex)
+			label Descripción
+			textarea(maxlength="150" md-maxlength="150" rows="3" ng-model="vm.cert.Descripcion" name="Descripcion" required)
+
+		div(layout-padding layout layout-align="end center")
+			md-button.md-primary.md-raised(ng-disabled="certificacion.$invalid || vm.savingCert" ng-click="vm.submitFormCerts(certificacion.$valid)") Guardar

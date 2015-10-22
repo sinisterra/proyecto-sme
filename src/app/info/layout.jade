@@ -1,10 +1,12 @@
 //- h1.md-display-3 Datos Personales
 
-div.full-height(layout layout-align="center center" ng-hide="vm.personalLoaded && vm.experienciaLoaded")
+div.full-height(layout layout-align="center center" ng-hide="vm.personalLoaded && vm.experienciaLoaded && vm.certLoaded")
 	md-progress-circular(md-mode="indeterminate" )
 
 div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/personal.html' " ng-show="vm.personalLoaded" layout-margin)
 div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/experiencia.html' " ng-show="vm.experienciaLoaded" layout-margin)
+div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/certificaciones.html' " layout-margin ng-show="vm.certLoaded")
+
 
 
 //- div.md-whiteframe-z2.card(layout="column" layout-margin)
