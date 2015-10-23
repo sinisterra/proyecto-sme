@@ -33,7 +33,11 @@
 		vm.removeLogro = removeLogro;
 		vm.resetFormLogro = resetFormLogro;
 
-
+		// IDIOMA
+		vm.submitFormIdioma = submitFormIdioma;
+		vm.editIdioma = editIdioma;
+		vm.removeIdioma = removeIdioma;
+		vm.resetFormIdioma = resetFormIdioma;
 
 		// ESTADOS Y MUNICIPIOS
 		function loadLocations() {
@@ -362,49 +366,127 @@
 			vm.logro = {};
 		}
 
-		function submitFormLogro(isValid){
-			if(isValid){
+		function submitFormLogro(isValid) {
+			if (isValid) {
 				saveLogro();
 			}
 		}
 
-		function saveLogro(){
+		function saveLogro() {
 
 			var logro = angular.copy(vm.logro);
 
-			if(!logro.id){
-				Restangular.all('Logro').customPOST(logro).then(function(res){
-					vm.logros.push(res.plain());
-				})
-				.catch(function(err){
-					toastError(err);
-				});
+			if (!logro.id) {
+				Restangular.all('Logro').customPOST(logro).then(function(res) {
+						vm.logros.push(res.plain());
+					})
+					.catch(function(err) {
+						toastError(err);
+					});
 			}
-			else{
-				Restangular.one('Logro', logro.id).customPUT(logro).then(function(){
-					toastSuccess();
-				})
-				.catch(function(err){
-					toastError(err);
-				});
+			else {
+				Restangular.one('Logro', logro.id).customPUT(logro).then(function() {
+						toastSuccess();
+					})
+					.catch(function(err) {
+						toastError(err);
+					});
 			}
 		}
 
-		function formatLogro(logro){
+		function formatLogro(logro) {
 			logro.Fecha = new Date(logro.Fecha);
 			return logro;
 		}
 
-
 		// IDIOMAS
 
 		function loadIdiomaFields() {
+			vm.listaIdiomasLoaded = false;
+			Restangular.all('Idioma').customGET().then(function(res) {
+				vm.listaIdiomas = res.plain();
+				vm.idiomasById = _.groupBy(res.plain(), 'id');
+				vm.listaIdiomasLoaded = true;
+			});
 
 		}
 
 		function loadIdiomas() {
-			vm.idiomasLoaded = true;
+			vm.idiomasLoaded = false;
 
+			Restangular.all('IdiomaUsuario').customGET().then(function(res) {
+				vm.idiomas = _.map(res.plain().idiomas, function(i) {
+					i.pivot.id = i.id;
+					return i.pivot;
+				});
+
+				vm.idiomasLoaded = true;
+			}).
+			catch(function() {
+				vm.idiomasLoaded = true;
+			});
+
+		}
+
+		function saveIdioma() {
+			var idioma = angular.copy(vm.idioma);
+
+			if (!idioma.id) {
+				//crear
+				Restangular.all('IdiomaUsuario').customPOST(idioma)
+					.then(function() {
+						vm.idiomas.push(idioma);
+						toastSuccess();
+					})
+					.catch(function(err) {
+						if (err[0] === "Idioma Ya Existente") {
+							toastr.error('Ya has registrado este idioma', 'Error');
+						}
+						else {
+							toastError(err);
+						}
+					});
+			}
+			else {
+				var id = idioma.id;
+				delete idioma.id;
+				Restangular.one('IdiomaUsuario', id).customPUT(idioma).then(function() {
+						toastSuccess();
+					})
+					.catch(function(err) {
+						toastError(err);
+					});
+			}
+		}
+
+		function submitFormIdioma(isValid) {
+			if (isValid) {
+				saveIdioma();
+			}
+		}
+
+		function editIdioma(idioma) {
+			vm.idioma = idioma;
+		}
+
+		function removeIdioma(idioma) {
+			Restangular.one('IdiomaUsuario', idioma.id).remove().then(function() {
+				vm.idiomas = _.without(vm.idiomas, idioma);
+				toastSuccess();
+				if (vm.idioma.id === idioma.id) {
+					resetFormIdioma();
+				}
+			});
+
+		}
+
+		function resetFormIdioma() {
+			vm.idioma = {
+				Materno: 0,
+				NivelRedaccion: 50,
+				NivelConversacion: 50,
+				NivelLectura: 50
+			};
 		}
 
 		////////////////

@@ -25,11 +25,11 @@ form(name="logro" layout layout-sm="column" layout-padding novalidate)
 	div(flex-gt-sm="60")
 		md-input-container(flex)
 			label Logro
-			input(type="text" ng-model="vm.logro.Logro" name="Logro" required)
+			input(type="text" ng-model="vm.logro.Logro" name="Logro" required maxlength="45")
 		
 		md-input-container(flex)
 			label Documento que avala el logro
-			input(type="text" ng-model="vm.logro.DocumentoAval" name="DocumentoAval" required)
+			input(type="text" ng-model="vm.logro.DocumentoAval" name="DocumentoAval" required maxlength="45")
 
 
 		div(flex layout layout-sm="column")
@@ -40,10 +40,6 @@ form(name="logro" layout layout-sm="column" layout-padding novalidate)
 				md-progress-circular(md-mode="indeterminate")
 			md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.logro.idEntidadFederativa" required ng-show="vm.locationsLoaded")
 				md-option(ng-repeat="state in vm.states" value="{{state.id}}") {{state.Nombre}}
-
-		//- md-input-container(flex)
-		//- 	label Institución Certificadora
-		//- 	input(type="text" ng-model="vm.logro.InstitucionCertificadora" name="InstitucionCertificadora" required)
 
 		md-input-container(flex)
 			label Descripción

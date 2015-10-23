@@ -4,28 +4,65 @@ form(name="idiomas" layout layout-sm="column" layout-padding novalidate)
 
 	div(layout="column" flex-gt-sm="40")
 		md-list(flex)
-			md-list-item.md-3-line(ng-repeat="cert in vm.idionas | orderBy:'Nombre'")
+			md-list-item.md-3-line(ng-repeat="idioma in vm.idiomas | orderBy:'Nombre'")
 				div.md-list-item-text
-					h3 {{cert.Nombre}}
-					h4 {{cert.InstitucionCertificadora}}
-					p {{cert.Area}} - {{cert.Tipo}}
+					h3 
+						span.sp {{vm.idiomasById[idioma.idIdioma][0].NombreIdioma}}
+						span(ng-show="idioma.Materno") (Materno)
+					h4 
+						span.sp Redacción: {{idioma.NivelRedaccion}} %
+						span.sp Conversación: {{idioma.NivelConversacion}} %
+						span.sp Lectura: {{idioma.NivelLectura}} %
+					p Avalado por {{idioma.DocumentoAcredita}}
 				md-menu
 					md-button.md-icon-button(ng-click="$mdOpenMenu()")
 						md-icon(md-menu-origin) more_vert
 					md-menu-content(width="2")
 						md-menu-item
-							md-button(ng-click="vm.editCert(cert)")
+							md-button(ng-click="vm.editIdioma(idioma)")
 								md-icon(md-menu-align-target) mode_edit
 								| Editar
 						md-menu-item
-							md-button(ng-click="vm.removeCert(cert)")
+							md-button(ng-click="vm.removeIdioma(idioma)")
 								md-icon(md-menu-align-target) close
 								| Eliminar
 	
 	div(flex-gt-sm="60")
 		
+		div(layout layout-sm="column" flex)
+			div(ng-show="!vm.listaIdiomasLoaded" layout-align="center center" flex)
+				md-progress-circular(md-mode="indeterminate")
+			md-select(flex name="idIdioma" placeholder="Idioma" ng-model="vm.idioma.idIdioma" required ng-show="vm.listaIdiomasLoaded" ng-disabled="vm.idioma.id !== undefiend")
+				md-option(ng-repeat="i in vm.listaIdiomas" value="{{i.id}}") {{i.NombreIdioma}}
+			div(layout-align="center center" layout="column")
+				md-checkbox.md-primary(ng-model="vm.idioma.Materno" ng-true-value="1" ng-false-value="0" ng-init="vm.idioma.Materno = 0") Materno
+
+		md-input-container(flex)
+			label Documento que acredita
+			input(type="text" ng-model="vm.idioma.DocumentoAcredita" name="DocumentoAcredita" maxlength="45" )
+	
+		div(layout flex)
+			div(flex="20" layout layout-align="center center")
+				span.md-body-1 Redacción
+			md-slider.md-primary(flex min="0" max="100" ng-model="vm.idioma.NivelRedaccion" ng-init="vm.idioma.NivelRedaccion = 50" step="10" aria-label="Nivel de Redacción")
+			div(flex="20" layout layout-align="center center")
+				span.md.body-1 {{vm.idioma.NivelRedaccion}} %
+
+		div(layout flex)
+			div(flex="20" layout layout-align="center center")
+				span.md-body-1 Conversación
+			md-slider.md-primary(flex min="0" max="100" ng-model="vm.idioma.NivelConversacion" ng-init="vm.idioma.NivelConversacion = 50" step="10" aria-label="Nivel de Conversación")
+			div(flex="20" layout layout-align="center center")
+				span.md.body-1 {{vm.idioma.NivelConversacion}} %
+
+		div(layout flex)
+			div(flex="20" layout layout-align="center center")
+				span.md-body-1 Lectura
+			md-slider.md-primary(flex min="0" max="100" ng-model="vm.idioma.NivelLectura" ng-init="vm.idioma.NivelLectura = 50" step="10" aria-label="Nivel de Lectura")
+			div(flex="20" layout layout-align="center center")
+				span.md.body-1 {{vm.idioma.NivelLectura}} %
 		
 
 		div(layout-padding layout layout-align="end center")
-			md-button.md-primary(ng-click="vm.resetFormCerts()") Limpiar forma
-			md-button.md-primary.md-raised(ng-disabled="idiomas.$invalid || vm.savingCert" ng-click="vm.submitFormCerts(idiomas.$valid)") Guardar
+			md-button.md-primary(ng-click="vm.resetFormIdioma()") Nuevo Idioma
+			md-button.md-primary.md-raised(ng-disabled="idiomas.$invalid" ng-click="vm.submitFormIdioma(idiomas.$valid)") Guardar
