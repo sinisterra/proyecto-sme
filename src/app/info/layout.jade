@@ -1,60 +1,14 @@
 //- h1.md-display-3 Datos Personales
 
-div.full-height(layout layout-align="center center" ng-hide="vm.personalLoaded && vm.experienciaLoaded && vm.certLoaded")
+div.full-height(layout layout-align="center center" ng-hide="vm.personalLoaded && vm.experienciaLoaded && vm.certLoaded && vm.logrosLoaded")
 	md-progress-circular(md-mode="indeterminate" )
 
 div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/personal.html' " ng-show="vm.personalLoaded" layout-margin)
 div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/experiencia.html' " ng-show="vm.experienciaLoaded" layout-margin)
 div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/certificaciones.html' " layout-margin ng-show="vm.certLoaded")
-
+div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/logros.html' " layout-margin ng-show="vm.logrosLoaded")
+//- div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/certificaciones.html' " layout-margin ng-show="vm.certLoaded")
+//- div.md-whiteframe-z2.card(layout="column" ng-include=" 'app/info/idiomas.html' " layout-margin ng-show="vm.idiomasLoaded")
 
 
 //- div.md-whiteframe-z2.card(layout="column" layout-margin)
-//- 	div(flex layout-padding).card-header
-//- 		h2.md-title Formación Educativa
-//- 	form(layout layout-sm="column" layout-padding)
-
-//- 		md-list(flex)
-//- 			md-list-item.md-3-line
-//- 				div.md-list-item-text
-//- 					h3 Doctorado - Ingeniería en Sistemas Computacionales
-//- 					h4 Instituto Politécnico Nacional
-//- 					p 1993 - 1995
-		
-//- 		div(flex)
-//- 			md-select(placeholder="Nivel de Estudios" ng-model="vm.education.model.NivelDeEstudios" required)
-//- 				md-option(value="6") Posgrado
-//- 				md-option(value="5") Superior
-//- 				md-option(value="4") Media Superior
-//- 				md-option(value="3") Secundaria
-//- 				md-option(value="2") Primaria
-//- 				md-option(value="1") Jardín de Niños
-
-//- 			div(layout)
-//- 				md-input-container(flex)
-//- 					label Fecha de Inicio
-//- 					input(type="date" required)
-//- 				md-input-container(flex)
-//- 					label Fecha de Término
-//- 					input(type="date" required)
-			
-//- 			md-select(placeholder="Institución Educativa" ng-model="vm.education.model.idInstitucionEducativa")
-//- 				md-option IPN
-			
-//- 			md-input-container
-//- 				label Carrera
-//- 				input(type="text")
-			
-//- 			md-input-container
-//- 				label Área de Estudios
-//- 				input(type="text")
-
-//- 			md-input-container
-//- 				label Cédula Profesional
-//- 				input(type="text")
-
-//- 			md-checkbox.md-primary(ng-model="vm.education.model.complete") Nivel completado
-
-//- 			div(layout-padding layout layout-align="end center")
-//- 				md-button.md-primary.md-raised Agregar
-

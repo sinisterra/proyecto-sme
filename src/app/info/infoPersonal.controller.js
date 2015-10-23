@@ -27,6 +27,14 @@
 		vm.removeCert = removeCert;
 		vm.resetFormCerts = resetFormCerts;
 
+		// LOGROS
+		vm.submitFormLogro = submitFormLogro;
+		vm.editLogro = editLogro;
+		vm.removeLogro = removeLogro;
+		vm.resetFormLogro = resetFormLogro;
+
+
+
 		// ESTADOS Y MUNICIPIOS
 		function loadLocations() {
 			vm.locationsLoaded = false;
@@ -252,7 +260,7 @@
 				});
 		}
 
-		function resetFormExperiencia(){
+		function resetFormExperiencia() {
 			vm.experiencia = {};
 		}
 
@@ -317,8 +325,86 @@
 				});
 		}
 
-		function resetFormCerts(){
+		function resetFormCerts() {
 			vm.cert = {};
+		}
+
+		// LOGROS
+
+		function loadLogros() {
+			vm.logrosLoaded = false;
+
+			Restangular.all('Logro').customGET().then(function(res) {
+					vm.logros = _.map(res.plain().logro, formatLogro);
+					vm.logrosLoaded = true;
+				})
+				.catch(function(err) {
+					toastError(err);
+					vm.logrosLoaded = true;
+				});
+		}
+
+		function editLogro(logro) {
+			vm.logro = logro;
+		}
+
+		function removeLogro(logro) {
+			Restangular.one('Logro', logro.id).remove()
+				.then(function() {
+					vm.logros = _.without(vm.logros, logro);
+				})
+				.catch(function(err) {
+					toastError(err);
+				});
+		}
+
+		function resetFormLogro() {
+			vm.logro = {};
+		}
+
+		function submitFormLogro(isValid){
+			if(isValid){
+				saveLogro();
+			}
+		}
+
+		function saveLogro(){
+
+			var logro = angular.copy(vm.logro);
+
+			if(!logro.id){
+				Restangular.all('Logro').customPOST(logro).then(function(res){
+					vm.logros.push(res.plain());
+				})
+				.catch(function(err){
+					toastError(err);
+				});
+			}
+			else{
+				Restangular.one('Logro', logro.id).customPUT(logro).then(function(){
+					toastSuccess();
+				})
+				.catch(function(err){
+					toastError(err);
+				});
+			}
+		}
+
+		function formatLogro(logro){
+			logro.Fecha = new Date(logro.Fecha);
+			return logro;
+		}
+
+
+		// IDIOMAS
+
+		function loadIdiomaFields() {
+
+		}
+
+		function loadIdiomas() {
+			vm.idiomasLoaded = true;
+
 		}
 
 		////////////////
@@ -327,15 +413,18 @@
 			vm.today = new Date();
 			loadLocations();
 			loadExperienceFields();
+			loadIdiomaFields();
 
 			loadPersonal();
 			loadDireccion();
 			loadExperiencia();
 			loadCerts();
+			loadIdiomas();
+			loadLogros();
 		}
 
 		function toastSuccess() {
-			toastr.success('La información se ha guardado correctamente.', '¡Éxito!');
+			toastr.success('La información se ha modificado correctamente.', '¡Éxito!');
 		}
 
 		function toastError(err) {

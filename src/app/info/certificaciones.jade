@@ -1,6 +1,6 @@
 div(flex layout-padding).card-header
 	h2.md-title Certificaciones
-form(name="certificacion" layout layout-sm="column" layout-padding)
+form(name="certificacion" layout layout-sm="column" layout-padding novalidate)
 
 	div(layout="column" flex-gt-sm="40")
 		md-list(flex)
@@ -45,5 +45,5 @@ form(name="certificacion" layout layout-sm="column" layout-padding)
 			textarea(maxlength="150" md-maxlength="150" rows="3" ng-model="vm.cert.Descripcion" name="Descripcion" required)
 
 		div(layout-padding layout layout-align="end center")
-			md-button.md-primary(ng-click="vm.resetFormCerts()") Limpiar forma
+			md-button.md-primary(ng-click="vm.resetFormCerts()") Nueva Certificación
 			md-button.md-primary.md-raised(ng-disabled="certificacion.$invalid || vm.savingCert" ng-click="vm.submitFormCerts(certificacion.$valid)") Guardar

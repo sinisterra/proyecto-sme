@@ -1,0 +1,31 @@
+div(flex layout-padding).card-header
+	h2.md-title Idiomas
+form(name="idiomas" layout layout-sm="column" layout-padding novalidate)
+
+	div(layout="column" flex-gt-sm="40")
+		md-list(flex)
+			md-list-item.md-3-line(ng-repeat="cert in vm.idionas | orderBy:'Nombre'")
+				div.md-list-item-text
+					h3 {{cert.Nombre}}
+					h4 {{cert.InstitucionCertificadora}}
+					p {{cert.Area}} - {{cert.Tipo}}
+				md-menu
+					md-button.md-icon-button(ng-click="$mdOpenMenu()")
+						md-icon(md-menu-origin) more_vert
+					md-menu-content(width="2")
+						md-menu-item
+							md-button(ng-click="vm.editCert(cert)")
+								md-icon(md-menu-align-target) mode_edit
+								| Editar
+						md-menu-item
+							md-button(ng-click="vm.removeCert(cert)")
+								md-icon(md-menu-align-target) close
+								| Eliminar
+	
+	div(flex-gt-sm="60")
+		
+		
+
+		div(layout-padding layout layout-align="end center")
+			md-button.md-primary(ng-click="vm.resetFormCerts()") Limpiar forma
+			md-button.md-primary.md-raised(ng-disabled="idiomas.$invalid || vm.savingCert" ng-click="vm.submitFormCerts(idiomas.$valid)") Guardar
