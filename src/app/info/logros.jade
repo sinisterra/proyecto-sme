@@ -7,7 +7,7 @@ form(name="logro" layout layout-sm="column" layout-padding novalidate)
 			md-list-item.md-3-line(ng-repeat="logro in vm.logros | orderBy:'Nombre'")
 				div.md-list-item-text
 					h3 {{logro.Logro}} ({{logro.Fecha | date:'yyyy'}})
-					h4 Avalado por {{logro.DocumentoAval}}
+					h4 Avalado por {{logro.DocumentoAval |limitTo:40}}{{logro.DocumentoAval.length > 40 ? '...' : ''}}
 					p {{logro.Descripcion | limitTo:'40'}}{{logro.Descripcion.length > 40 ? '...' : ''}}
 				md-menu
 					md-button.md-icon-button(ng-click="$mdOpenMenu()")

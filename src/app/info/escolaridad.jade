@@ -4,7 +4,7 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 	
 	div(layout="column" flex-gt-sm="40")
 		md-list(flex)
-			pre {{vm.escolaridad | json:2}}
+			//- pre {{vm.escolaridad | json:2}}
 			md-list-item.md-3-line(ng-repeat="esc in vm.escolaridades")
 				div.md-list-item-text
 					h3 {{esc.NivelDeEstudios}} - {{vm.listaCarrerasById[esc.idCarrera]}}

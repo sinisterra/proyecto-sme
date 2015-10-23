@@ -7,7 +7,7 @@ form(name="certificacion" layout layout-sm="column" layout-padding novalidate)
 			md-list-item.md-3-line(ng-repeat="cert in vm.certs | orderBy:'Nombre'")
 				div.md-list-item-text
 					h3 {{cert.Nombre}}
-					h4 {{cert.InstitucionCertificadora}}
+					h4 {{cert.InstitucionCertificadora |limitTo:40}}{{cert.InstitucionCertificadora.length > 40 ? '...' : ''}}
 					p {{cert.Area}} - {{cert.Tipo}}
 				md-menu
 					md-button.md-icon-button(ng-click="$mdOpenMenu()")
