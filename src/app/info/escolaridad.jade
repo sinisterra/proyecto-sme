@@ -1,48 +1,82 @@
 div(flex layout-padding).card-header
 	h2.md-title Formación Educativa
-form(layout layout-sm="column" layout-padding novalidate)
-
-	md-list(flex)
-		md-list-item.md-3-line
-			div.md-list-item-text
-				h3 Doctorado - Ingeniería en Sistemas Computacionales
-				h4 Instituto Politécnico Nacional
-				p 1993 - 1995
+form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 	
-	div(flex)
-		md-select(placeholder="Nivel de Estudios" ng-model="vm.education.model.NivelDeEstudios" required)
-			md-option(value="6") Posgrado
-			md-option(value="5") Superior
-			md-option(value="4") Media Superior
-			md-option(value="3") Secundaria
-			md-option(value="2") Primaria
-			md-option(value="1") Jardín de Niños
+	div(layout="column" flex-gt-sm="40")
+		md-list(flex)
+			pre {{vm.escolaridad | json:2}}
+			md-list-item.md-3-line(ng-repeat="esc in vm.escolaridades")
+				div.md-list-item-text
+					h3 {{esc.NivelDeEstudios}} - {{vm.listaCarrerasById[esc.idCarrera]}}
+					h4 {{vm.listaInstitucionesById[esc.idInstitucionEducativa]}}
+					p {{esc.FechaInicio | date:'yyyy'}} - {{esc.FechaTermino | date:'yyyy'}}
+					md-menu
+						md-button.md-icon-button(ng-click="$mdOpenMenu()")
+							md-icon(md-menu-origin) more_vert
+						md-menu-content(width="2")
+							md-menu-item
+								md-button(ng-click="vm.editEscolaridad(escolaridad)")
+									md-icon(md-menu-align-target) mode_edit
+									| Editar
+							md-menu-item
+								md-button(ng-click="vm.removeEscolaridad(escolaridad)")
+									md-icon(md-menu-align-target) close
+									| Eliminar
+	
+	div(flex-gt-sm="60")
+		md-select(placeholder="Nivel de Estudios" ng-model="vm.escolaridad.NivelDeEstudios" required)
+			md-option(value="Posgrado") Posgrado
+			md-option(value="Superior") Superior
+			md-option(value="Media Superior") Media Superior
+			md-option(value="Secundaria") Secundaria
+			md-option(value="Primaria") Primaria
+			md-option(value="Jardín de Niños") Jardín de Niños
 
 		div(layout)
 			md-input-container(flex)
 				label Fecha de Inicio
-				input(type="date" required)
+				input(type="date" required name="FechaInicio" ng-model="vm.escolaridad.FechaInicio")
 			md-input-container(flex)
 				label Fecha de Término
-				input(type="date" required)
+				input(type="date" required name="FechaInicio" ng-model="vm.escolaridad.FechaTermino" max="vm.escolaridad.FechaInicio")
 		
-		md-select(placeholder="Institución Educativa" ng-model="vm.education.model.idInstitucionEducativa")
-			md-option IPN
+		//- md-select(placeholder="Institución Educativa" ng-model="vm.escolaridad.idInstitucionEducativa" required)
+		//- 	md-option(ng-repeat="edu in vm.listaInstituciones" value="{{edu.id}}") {{edu.Nombre}}
+		
+		//- md-select(placeholder="Carrera" ng-model="vm.escolaridad.idCarrera" required)
+		//- 	md-option(ng-repeat="edu in vm.listaCarreras" value="{{edu.id}}") {{edu.Nombre}}
+		
+		md-input-container
+			label Institución Educativa
+			input(type="text" name="InstitucionEducativa" ng-model="vm.escolaridad.InstitucionEducativa" required)
 		
 		md-input-container
 			label Carrera
-			input(type="text")
-		
+			input(type="text" name="Carrera" ng-model="vm.escolaridad.Carrera" required)
+
 		md-input-container
 			label Área de Estudios
-			input(type="text")
+			input(type="text" name="AreaDeEstudios" ng-model="vm.escolaridad.AreaDeEstudios")
 
 		md-input-container
-			label Cédula Profesional
-			input(type="text")
+			label Grado de Avance
+			input(type="text" name="GradoDeAvance" ng-model="vm.escolaridad.GradoDeAvance")
 
-		md-checkbox.md-primary(ng-model="vm.education.model.complete") Nivel completado
+		md-input-container(ng-show="vm.escolaridad.NivelDeEstudios === 'Superior' || vm.escolaridad.NivelDeEstudios === 'Posgrado'")
+			label Cédula Profesional (si aplica para el nivel)
+			input(type="text" name="CedulaProfesional" ng-model="vm.escolaridad.CedulaProfesional")
+
+		div(flex layout-align="center center")
+			div(ng-show="!vm.locationsLoaded" layout-align="center center")
+				md-progress-circular(md-mode="indeterminate")
+			div(ng-show="vm.locationsLoaded")
+				md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.escolaridad.idEntidadFederativa" required)
+					md-option(ng-repeat="state in vm.states" value="{{state.id}}") {{state.Nombre}}
+
+		md-checkbox.md-primary(ng-model="vm.escolaridad.complete") Nivel completado
 
 		div(layout-padding layout layout-align="end center")
-			md-button.md-primary.md-raised Agregar
+			md-button.md-primary(ng-click="vm.resetFormEscolaridad()") Nueva Escolaridad
+			md-button.md-primary.md-raised(ng-disabled="escolaridad.$invalid" ng-click="vm.submitFormEscolaridad(escolaridad.$valid)") Guardar
+
 

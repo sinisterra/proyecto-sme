@@ -39,6 +39,12 @@
 		vm.removeIdioma = removeIdioma;
 		vm.resetFormIdioma = resetFormIdioma;
 
+		// ESCOLARIDAD
+		vm.submitFormEscolaridad = submitFormEscolaridad;
+		vm.editEscolaridad = editEscolaridad;
+		vm.removeEscolaridad = removeEscolaridad;
+		vm.resetFormEscolaridad = resetFormEscolaridad;
+
 		// ESTADOS Y MUNICIPIOS
 		function loadLocations() {
 			vm.locationsLoaded = false;
@@ -114,8 +120,7 @@
 				delete personal.id;
 				delete personal.idUsuario;
 				saveUrl = Restangular.all('DatosPersonales').customPUT(personal);
-			}
-			else {
+			} else {
 				saveUrl = Restangular.all('DatosPersonales').customPOST(personal);
 			}
 
@@ -162,8 +167,7 @@
 				delete direccion.id;
 				delete direccion.idUsuario;
 				saveUrl = Restangular.all('Direccion').customPUT(direccion);
-			}
-			else {
+			} else {
 				direccion.idUsuario = vm.personal.idUsuario;
 				saveUrl = Restangular.all('Direccion').customPOST(direccion);
 			}
@@ -231,8 +235,7 @@
 					//BUSCAR EN vm.experiencia laboral y reemplazar
 					toastSuccess();
 				});
-			}
-			else {
+			} else {
 				Restangular.all('ExperienciaLaboral').customPOST(experiencia).then(function(res) {
 						vm.experienciaLaboral.push(formatExperiencia(res.plain()));
 						toastSuccess();
@@ -295,8 +298,7 @@
 						toastError(err);
 						vm.savingCert = false;
 					});
-			}
-			else {
+			} else {
 				saveUrl = Restangular.all('Certificacion').customPOST(cert).then(function(res) {
 						toastSuccess();
 						vm.certs.push(res.plain());
@@ -383,8 +385,7 @@
 					.catch(function(err) {
 						toastError(err);
 					});
-			}
-			else {
+			} else {
 				Restangular.one('Logro', logro.id).customPUT(logro).then(function() {
 						toastSuccess();
 					})
@@ -439,22 +440,24 @@
 						toastSuccess();
 					})
 					.catch(function(err) {
-						if (err[0] === "Idioma Ya Existente") {
-							toastr.error('Ya has registrado este idioma', 'Error');
-						}
-						else {
+						if (err.data[0] === "Idioma Ya Existente") {
+							toastr.error('Ya has registrado este idioma.', 'Error');
+						} else {
 							toastError(err);
 						}
 					});
-			}
-			else {
+			} else {
 				var id = idioma.id;
 				delete idioma.id;
 				Restangular.one('IdiomaUsuario', id).customPUT(idioma).then(function() {
 						toastSuccess();
 					})
 					.catch(function(err) {
-						toastError(err);
+						if (err.data[0] === "Idioma Ya Existente") {
+							toastr.error('Ya has registrado este idioma.', 'Error');
+						} else {
+							toastError(err);
+						}
 					});
 			}
 		}
@@ -489,6 +492,92 @@
 			};
 		}
 
+		// ESCOLARIDAD
+
+		function loadListaCarreras() {
+			Restangular.all('Carrera').customGET().then(function(res) {
+					vm.listaCarreras = res.plain();
+
+				})
+				.catch(function() {
+
+				});
+		}
+
+		function loadListaInstituciones() {
+			Restangular.all('InstitucionEducativa').customGET().then(function(res) {
+					vm.listaInstituciones = res.plain();
+				})
+				.catch(function() {
+
+				});
+		}
+
+		function loadEscolaridad() {
+			vm.escolaridadLoaded = true;
+
+			Restangular.all('Escolaridad').customGET()
+				.then(function(res) {
+					vm.escolaridad = _.map(res.plain().escolaridad, formatEscolaridad);
+				})
+				.catch(function() {
+
+				});
+		}
+
+		function submitFormEscolaridad(isValid) {
+			if (isValid) {
+				saveEscolaridad();
+			}
+		}
+
+		function editEscolaridad(esc) {
+			vm.escolaridad = esc;
+		}
+
+		function removeEscolaridad(esc) {
+			Restangular.one('Escolaridad', esc.id).remove().then(function(res){
+				vm.escolaridades = _.without(vm.escolaridades, esc);
+			})
+			.catch(function(err){
+				toastError(err);
+			});
+		}
+
+		function resetFormEscolaridad() {}
+
+		function formatEscolaridad(esc) {
+			esc.FechaInicio = new Date(esc.FechaInicio);
+			esc.FechaTermino = new Date(esc.FechaTermino);
+			return esc;
+		}
+
+		function saveEscolaridad() {
+			var escolaridad = angular.copy(vm.escolaridad);
+
+			if (!escolaridad.id) {
+				// crear
+				Restangular.all('Escolaridad').customPOST(escolaridad)
+					.then(function(res) {
+						vm.escolaridades.push(formatEscolaridad(res.plain()));
+					})
+					.catch(function(err) {
+						toastError(err);
+					});
+			} else {
+				//actualizar
+				Restangular.all('Escolaridad').customPUT(escolaridad)
+					.then(function(res) {
+						toastSuccess();
+					})
+					.catch(function(err) {
+						toastError(err);
+					});
+			}
+		}
+
+
+
 		////////////////
 
 		function activate() {
@@ -496,6 +585,8 @@
 			loadLocations();
 			loadExperienceFields();
 			loadIdiomaFields();
+			loadListaCarreras();
+			loadListaInstituciones();
 
 			loadPersonal();
 			loadDireccion();
@@ -503,6 +594,7 @@
 			loadCerts();
 			loadIdiomas();
 			loadLogros();
+			loadEscolaridad();
 		}
 
 		function toastSuccess() {

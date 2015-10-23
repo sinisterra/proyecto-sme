@@ -9,10 +9,9 @@ form(name="idiomas" layout layout-sm="column" layout-padding novalidate)
 					h3 
 						span.sp {{vm.idiomasById[idioma.idIdioma][0].NombreIdioma}}
 						span(ng-show="idioma.Materno") (Materno)
-					h4 
-						span.sp Redacción: {{idioma.NivelRedaccion}} %
-						span.sp Conversación: {{idioma.NivelConversacion}} %
-						span.sp Lectura: {{idioma.NivelLectura}} %
+					h4 Redacción: {{idioma.NivelRedaccion}} %
+					h4 Conversación: {{idioma.NivelConversacion}} %
+					h4 Lectura: {{idioma.NivelLectura}} %
 					p Avalado por {{idioma.DocumentoAcredita}}
 				md-menu
 					md-button.md-icon-button(ng-click="$mdOpenMenu()")
