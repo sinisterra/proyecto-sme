@@ -19,13 +19,13 @@
 		vm.submitFormExperiencia = submitFormExperiencia;
 		vm.editExperiencia = editExperiencia;
 		vm.removeExperiencia = removeExperiencia;
-		vm.regexCURP = /^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/;
+		vm.resetFormExperiencia = resetFormExperiencia;
 
 		// CERTIFICACIONES
-
 		vm.submitFormCerts = submitFormCerts;
 		vm.editCert = editCert;
 		vm.removeCert = removeCert;
+		vm.resetFormCerts = resetFormCerts;
 
 		// ESTADOS Y MUNICIPIOS
 		function loadLocations() {
@@ -142,6 +142,31 @@
 				});
 		}
 
+		function saveDireccion() {
+			var direccion = angular.copy(vm.direccion);
+			var saveUrl;
+
+			if (direccion.id) {
+				delete direccion.id;
+				delete direccion.idUsuario;
+				saveUrl = Restangular.all('Direccion').customPUT(direccion);
+			}
+			else {
+				direccion.idUsuario = vm.personal.idUsuario;
+				saveUrl = Restangular.all('Direccion').customPOST(direccion);
+			}
+
+			saveUrl.then(function(res) {
+					// toastr.success('La información ha sido guardada correctamente', '¡Éxito!');
+					vm.savingPersonal = false;
+				})
+				.catch(function(error) {
+					toastr.error('La información no pudo guardarse correctamente ' + '(' + error.status + ')', 'Error');
+					vm.savingPersonal = false;
+
+				});
+
+		}
 
 		// EXPERIENCIA LABORAL
 		function loadExperiencia() {
@@ -227,67 +252,74 @@
 				});
 		}
 
-		// CERTIFICACIONES
-
-		function loadCerts(){
-			vm.certLoaded = false;
-			Restangular.all('Certificacion').customGET().then(function(res){
-				vm.certs = res.plain().certificacion;
-				vm.certLoaded = true;
-			})
-			.catch(function(){
-				vm.certLoaded = true;
-			});
+		function resetFormExperiencia(){
+			vm.experiencia = {};
 		}
 
-		function saveCert(){
+		// CERTIFICACIONES
+
+		function loadCerts() {
+			vm.certLoaded = false;
+			Restangular.all('Certificacion').customGET().then(function(res) {
+					vm.certs = res.plain().certificacion;
+					vm.certLoaded = true;
+				})
+				.catch(function() {
+					vm.certLoaded = true;
+				});
+		}
+
+		function saveCert() {
 			var cert = angular.copy(vm.cert);
 			var saveUrl;
 			vm.savingCert = true;
 
-			if(cert.id){
-				saveUrl = Restangular.one('Certificacion', cert.id).customPUT(cert).then(function(res){
-					toastSuccess();
-					vm.savingCert = false;
-				})
-				.catch(function(err){
-					toastError(err);
-					vm.savingCert = false;
-				});
+			if (cert.id) {
+				saveUrl = Restangular.one('Certificacion', cert.id).customPUT(cert).then(function(res) {
+						toastSuccess();
+						vm.savingCert = false;
+					})
+					.catch(function(err) {
+						toastError(err);
+						vm.savingCert = false;
+					});
 			}
-			else{
-				saveUrl = Restangular.all('Certificacion').customPOST(cert).then(function(res){
-					toastSuccess();
-					vm.certs.push(res.plain());
-					vm.savingCert = false;
-				})
-				.catch(function(err){
-					toastError(err);
-					vm.savingCert = false;
-				});
+			else {
+				saveUrl = Restangular.all('Certificacion').customPOST(cert).then(function(res) {
+						toastSuccess();
+						vm.certs.push(res.plain());
+						vm.savingCert = false;
+					})
+					.catch(function(err) {
+						toastError(err);
+						vm.savingCert = false;
+					});
 			}
 		}
 
-		function submitFormCerts(isValid){
-			if(isValid){
+		function submitFormCerts(isValid) {
+			if (isValid) {
 				saveCert();
 			}
 		}
 
-		function editCert(cert){
+		function editCert(cert) {
 			vm.cert = cert;
 		}
 
-		function removeCert(cert){
-			Restangular.one('Certificacion', cert.id).remove().then(function(){
-				toastSuccess();
-				vm.certs = _.without(vm.certs, cert);
-			})
-			.catch(function(err){
-				toastError(err);
-			});
+		function removeCert(cert) {
+			Restangular.one('Certificacion', cert.id).remove().then(function() {
+					toastSuccess();
+					vm.certs = _.without(vm.certs, cert);
+				})
+				.catch(function(err) {
+					toastError(err);
+				});
 		}
 
+		function resetFormCerts(){
+			vm.cert = {};
+		}
 
 		////////////////
 
@@ -302,12 +334,12 @@
 			loadCerts();
 		}
 
-		function toastSuccess(){
+		function toastSuccess() {
 			toastr.success('La información se ha guardado correctamente.', '¡Éxito!');
 		}
 
-		function toastError(err){
-			toastr.error('Hubo un error al guardar la información ('+err.status+')', 'Error');
+		function toastError(err) {
+			toastr.error('Hubo un error al guardar la información (' + err.status + ')', 'Error');
 		}
 
 		activate();

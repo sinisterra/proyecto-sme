@@ -13,6 +13,13 @@
 		vm.signupSubmit = signupSubmit;
 
 
+		function activate(){
+			if(Auth.isLoggedIn()){
+				$state.go('dashboard');
+			}
+		}
+
+		activate();
 		function submit(isValid) {
 			if (isValid) {
 				vm.attemptingLogin = true;
@@ -28,7 +35,6 @@
 							toastr.error('Usuario y/o contraseña equivocados. Prueba de nuevo.', 'Error');
 						}
 					});
-
 			}
 		}
 
@@ -50,7 +56,7 @@
 
 					})
 					.catch(function(err) {
-						toastr.error('Hubo un error.');
+						toastr.error('Hubo un error al intentar iniciar sesión ('+err.status+')');
 					});
 			}
 		}

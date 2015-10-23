@@ -45,4 +45,5 @@ form(name="certificacion" layout layout-sm="column" layout-padding)
 			textarea(maxlength="150" md-maxlength="150" rows="3" ng-model="vm.cert.Descripcion" name="Descripcion" required)
 
 		div(layout-padding layout layout-align="end center")
+			md-button.md-primary(ng-click="vm.resetFormCerts()") Limpiar forma
 			md-button.md-primary.md-raised(ng-disabled="certificacion.$invalid || vm.savingCert" ng-click="vm.submitFormCerts(certificacion.$valid)") Guardar
