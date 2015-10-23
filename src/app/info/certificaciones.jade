@@ -25,20 +25,20 @@ form(name="certificacion" layout layout-sm="column" layout-padding novalidate)
 	div(flex-gt-sm="60")
 		md-input-container(flex)
 			label Nombre de la Certificación
-			input(type="text" ng-model="vm.cert.Nombre" name="Nombre" required)
+			input(type="text" ng-model="vm.cert.Nombre" name="Nombre" required maxlength="80")
 
 		div(flex layout layout-sm="column")
 			md-input-container(flex)
 				label Área de la Certificación
-				input(type="text" ng-model="vm.cert.Area" name="Area" required)
+				input(type="text" ng-model="vm.cert.Area" name="Area" required maxlength="80")
 
 			md-input-container(flex)
 				label Tipo de Certificación
-				input(type="text" ng-model="vm.cert.Tipo" name="Tipo" required)
+				input(type="text" ng-model="vm.cert.Tipo" name="Tipo" required maxlength="80")
 
 		md-input-container(flex)
 			label Institución Certificadora
-			input(type="text" ng-model="vm.cert.InstitucionCertificadora" name="InstitucionCertificadora" required)
+			input(type="text" ng-model="vm.cert.InstitucionCertificadora" name="InstitucionCertificadora" required maxlength="80")
 
 		md-input-container(flex)
 			label Descripción

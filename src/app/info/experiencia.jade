@@ -42,16 +42,16 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 
 		md-input-container(flex)
 			label Nombre de la Institución
-			input(type="text" required name="NombreInstitucion"  ng-model="vm.experiencia.NombreInstitucion")
+			input(type="text" required name="NombreInstitucion"  ng-model="vm.experiencia.NombreInstitucion" maxlength="80")
 
 		div(flex layout layout-sm="column")
 			md-input-container(flex)
 				label Nombre del Puesto
-				input(type="text" required name="NombreDelPuesto" ng-model="vm.experiencia.NombreDelPuesto")
+				input(type="text" required name="NombreDelPuesto" ng-model="vm.experiencia.NombreDelPuesto" maxlength="80")
 
 			md-input-container(flex)
 				label Jerarquía
-				input(type="text" required name="Jerarquia" ng-model="vm.experiencia.Jerarquia")
+				input(type="text" required name="Jerarquia" ng-model="vm.experiencia.Jerarquia" maxlength="80")
 
 		div(flex layout)
 			md-input-container(flex)
@@ -81,15 +81,15 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 		div(flex layout layout-sm="column")
 			md-input-container(flex)
 				label Nombre
-				input(type="text" ng-model="vm.experiencia.NombreSuperiorInmediato" name="NombreSuperiorInmediato")
+				input(type="text" ng-model="vm.experiencia.NombreSuperiorInmediato" name="NombreSuperiorInmediato" maxlength="80")
 
 			md-input-container(flex)
 				label Apellido Paterno
-				input(type="text" ng-model="vm.experiencia.ApellidoPSuperiorInmediato" name="ApellidoPSuperiorInmediato" )
+				input(type="text" ng-model="vm.experiencia.ApellidoPSuperiorInmediato" name="ApellidoPSuperiorInmediato"  maxlength="80")
 
 			md-input-container(flex)
 				label Apellido Materno
-				input(type="text" ng-model="vm.experiencia.ApellidoMSuperiorInmediato" name="ApellidoMSuperiorInmediato")
+				input(type="text" ng-model="vm.experiencia.ApellidoMSuperiorInmediato" name="ApellidoMSuperiorInmediato" maxlength="80")
 
 
 		md-input-container(flex)

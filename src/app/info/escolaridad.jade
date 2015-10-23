@@ -48,23 +48,23 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 		
 		md-input-container
 			label Institución Educativa
-			input(type="text" name="InstitucionEducativa" ng-model="vm.escolaridad.InstitucionEducativa" required)
+			input(type="text" name="InstitucionEducativa" ng-model="vm.escolaridad.InstitucionEducativa" required maxlength="80")
 		
 		md-input-container
 			label Carrera
-			input(type="text" name="Carrera" ng-model="vm.escolaridad.Carrera" required)
+			input(type="text" name="Carrera" ng-model="vm.escolaridad.Carrera" required maxlength="80")
 
 		md-input-container
 			label Área de Estudios
-			input(type="text" name="AreaDeEstudios" ng-model="vm.escolaridad.AreaDeEstudios")
+			input(type="text" name="AreaDeEstudios" ng-model="vm.escolaridad.AreaDeEstudios" maxlength="80")
 
 		md-input-container
 			label Grado de Avance
-			input(type="text" name="GradoDeAvance" ng-model="vm.escolaridad.GradoDeAvance")
+			input(type="text" name="GradoDeAvance" ng-model="vm.escolaridad.GradoDeAvance" maxlength="80")
 
 		md-input-container(ng-show="vm.escolaridad.NivelDeEstudios === 'Superior' || vm.escolaridad.NivelDeEstudios === 'Posgrado'")
 			label Cédula Profesional (si aplica para el nivel)
-			input(type="text" name="CedulaProfesional" ng-model="vm.escolaridad.CedulaProfesional")
+			input(type="text" name="CedulaProfesional" ng-model="vm.escolaridad.CedulaProfesional" maxlength="80")
 
 		div(flex layout-align="center center")
 			div(ng-show="!vm.locationsLoaded" layout-align="center center")
