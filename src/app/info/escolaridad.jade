@@ -4,7 +4,7 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 	div(layout="column" flex)
 		div
 			//- pre {{vm.listaCarrerasById[vm.escolaridad.idCarrera] | json:2}}
-			pre {{vm.escolaridad | json:2}}
+			//- pre {{vm.escolaridad | json:2}}
 
 		div(layout layout-sm="column")
 			md-select(placeholder="Nivel de Estudios" ng-model="vm.escolaridad.NivelDeEstudios" required flex ng-change="vm.loadLevel(vm.escolaridad.NivelDeEstudios)")
@@ -31,13 +31,17 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 				input(type="text" name="CedulaProfesional" ng-model="vm.escolaridad.CedulaProfesional" maxlength="40")
 
 
+	
+
 		div(layout layout-sm="column"  ng-hide="['1','2','3','4','5'].indexOf(vm.escolaridad.NivelDeEstudios) !== -1 && vm.escolaridad.NivelDeEstudios")
-			md-input-container(flex)
+			div(ng-show="!vm.listaCarrerasById" layout-align="center center" flex )
+				md-progress-circular(md-mode="indeterminate")
+			md-input-container(flex ng-show="vm.listaCarrerasById")
 				label Busca una carrera...
 				input(type='text' ng-model="vm.searchText")
-			md-select(placeholder="Carrera" ng-model="vm.escolaridad.idCarrera" flex) 			
+			md-select(placeholder="Carrera" ng-model="vm.escolaridad.idCarrera" flex ng-show="vm.listaCarrerasById") 			
 				md-option(ng-repeat="carr in vm.listaCarreras | filter:{'NombreCarrera':vm.searchText}" value="{{carr.id}}") {{carr.NombreCarrera | cut:false:40:'...'}}
-			md-input-container(flex)
+			md-input-container(flex ng-show="vm.listaCarrerasById")
 				label Área de Estudios
 				input(type="text" name="AreaDeEstudios" ng-model="vm.listaCarrerasById[vm.escolaridad.idCarrera].Area" maxlength="80" disabled)
 

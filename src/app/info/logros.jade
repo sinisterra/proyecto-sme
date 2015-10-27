@@ -3,6 +3,7 @@ div(flex layout-padding).card-header
 form(name="logro" layout layout-sm="column" layout-padding novalidate)
 
 	div(layout="column" flex-gt-sm="40")
+		p(ng-show="vm.logros.length=== 0 ") No se han registrado elementos.
 		md-list(flex)
 			md-list-item.md-3-line(ng-repeat="logro in vm.logros | orderBy:'Nombre'")
 				div.md-list-item-text

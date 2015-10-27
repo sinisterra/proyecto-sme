@@ -6,7 +6,7 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 	div(layout="column" flex-gt-sm="40")
 		//- div {{vm.areasByCampos[vm.experiencia.idCampoDeExperiencia] | json:2}}
 
-
+		p(ng-show="vm.experienciaLaboral.length === 0") No se han registrado elementos.
 		md-list(flex)
 			md-list-item.md-3-line(ng-repeat="experiencia in vm.experienciaLaboral | orderBy:'-FechaTermino'")
 				div.md-list-item-text

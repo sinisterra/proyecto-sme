@@ -170,7 +170,7 @@
 				var id = direccion.id;
 				delete direccion.id;
 				delete direccion.idUsuario;
-				saveUrl = Restangular.one('Direccion', id).customPUT(direccion);
+				saveUrl = Restangular.all('Direccion').customPUT(direccion);
 			}
 			else {
 				direccion.idUsuario = vm.personal.idUsuario;
@@ -585,6 +585,7 @@
 
 			escolaridad.FechaDeInicio = $filter('date')(escolaridad.FechaDeInicio, 'yyyy-MM-dd');
 			escolaridad.FechaDeTermino = $filter('date')(escolaridad.FechaDeTermino, 'yyyy-MM-dd');
+
 
 			if (!escolaridad.id) {
 				// crear
