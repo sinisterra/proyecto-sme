@@ -46,16 +46,16 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 		div(layout)
 			md-input-container(flex)
 				label Fecha de Inicio
-				input(type="date" required name="FechaInicio" ng-model="vm.escolaridad.FechaInicio")
+				input(type="date" required name="FechaInicio" ng-model="vm.escolaridad.FechaDeInicio")
 			md-input-container(flex)
 				label Fecha de Término
-				input(type="date" required name="FechaTermino" ng-model="vm.escolaridad.FechaTermino" max="vm.escolaridad.FechaInicio")
-			div(flex layout-align="center center")
-				div(ng-show="!vm.locationsLoaded" layout-align="center center")
-					md-progress-circular(md-mode="indeterminate")
-				div(ng-show="vm.locationsLoaded")
-					md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.escolaridad.idEntidadFederativa" required)
-						md-option(ng-repeat="state in vm.states" value="{{state.id}}") {{state.Nombre}}
+				input(type="date" required name="FechaTermino" ng-model="vm.escolaridad.FechaDeTermino" max="vm.escolaridad.FechaDeInicio")
+			//- div(flex layout-align="center center")
+			//- 	div(ng-show="!vm.locationsLoaded" layout-align="center center")
+			//- 		md-progress-circular(md-mode="indeterminate")
+			//- 	div(ng-show="vm.locationsLoaded")
+			//- 		md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.escolaridad.idEntidadFederativa" required)
+			//- 			md-option(ng-repeat="state in vm.states" value="{{state.id}}") {{state.Nombre}}
 
 		//- md-select(placeholder="Institución Educativa" ng-model="vm.escolaridad.idInstitucionEducativa" required)
 		//- 	md-option(ng-repeat="edu in vm.listaInstituciones" value="{{edu.id}}") {{edu.Nombre}}

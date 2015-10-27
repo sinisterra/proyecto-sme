@@ -566,7 +566,7 @@
 		function resetFormEscolaridad() {}
 
 		function formatEscolaridad(esc) {
-			var props = ['FechaInicio', 'FechaTermino'];
+			var props = ['FechaDeInicio', 'FechaDeTermino'];
 			
 
 			for (var p in props) {
@@ -583,8 +583,8 @@
 			var escolaridad = angular.copy(vm.escolaridad);
 			escolaridad.idPais = 1;
 
-			escolaridad.FechaInicio = $filter('date')(escolaridad.FechaInicio, 'yyyy-MM-dd');
-			escolaridad.FechaTermino = $filter('date')(escolaridad.FechaTermino, 'yyyy-MM-dd');
+			escolaridad.FechaDeInicio = $filter('date')(escolaridad.FechaDeInicio, 'yyyy-MM-dd');
+			escolaridad.FechaDeTermino = $filter('date')(escolaridad.FechaDeTermino, 'yyyy-MM-dd');
 
 			if (!escolaridad.id) {
 				// crear
