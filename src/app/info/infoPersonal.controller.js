@@ -121,7 +121,7 @@
 				var id = personal.id;
 				delete personal.id;
 				delete personal.idUsuario;
-				saveUrl = Restangular.one('DatosPersonales', id).customPUT(personal);
+				saveUrl = Restangular.all('DatosPersonales').customPUT(personal);
 			}
 			else {
 				saveUrl = Restangular.all('DatosPersonales').customPOST(personal);
@@ -598,7 +598,7 @@
 			}
 			else {
 				//actualizar
-				Restangular.one('Escolaridad', escolaridad.id).customPUT(escolaridad)
+				Restangular.all('Escolaridad').customPUT(escolaridad)
 					.then(function(res) {
 						toastSuccess();
 					})
