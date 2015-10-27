@@ -44,6 +44,7 @@
 		vm.editEscolaridad = editEscolaridad;
 		vm.removeEscolaridad = removeEscolaridad;
 		vm.resetFormEscolaridad = resetFormEscolaridad;
+		vm.loadLevel = loadLevel;
 
 		// ESTADOS Y MUNICIPIOS
 		function loadLocations() {
@@ -117,10 +118,12 @@
 			personal.FechaNacimiento = $filter('date')(vm.personal.FechaNacimiento, 'yyyy-MM-dd');
 
 			if (personal.id) {
+				var id = personal.id;
 				delete personal.id;
 				delete personal.idUsuario;
-				saveUrl = Restangular.all('DatosPersonales').customPUT(personal);
-			} else {
+				saveUrl = Restangular.one('DatosPersonales', id).customPUT(personal);
+			}
+			else {
 				saveUrl = Restangular.all('DatosPersonales').customPOST(personal);
 			}
 
@@ -164,10 +167,12 @@
 			var saveUrl;
 
 			if (direccion.id) {
+				var id = direccion.id;
 				delete direccion.id;
 				delete direccion.idUsuario;
-				saveUrl = Restangular.all('Direccion').customPUT(direccion);
-			} else {
+				saveUrl = Restangular.one('Direccion', id).customPUT(direccion);
+			}
+			else {
 				direccion.idUsuario = vm.personal.idUsuario;
 				saveUrl = Restangular.all('Direccion').customPOST(direccion);
 			}
@@ -235,7 +240,8 @@
 					//BUSCAR EN vm.experiencia laboral y reemplazar
 					toastSuccess();
 				});
-			} else {
+			}
+			else {
 				Restangular.all('ExperienciaLaboral').customPOST(experiencia).then(function(res) {
 						vm.experienciaLaboral.push(formatExperiencia(res.plain()));
 						toastSuccess();
@@ -298,7 +304,8 @@
 						toastError(err);
 						vm.savingCert = false;
 					});
-			} else {
+			}
+			else {
 				saveUrl = Restangular.all('Certificacion').customPOST(cert).then(function(res) {
 						toastSuccess();
 						vm.certs.push(res.plain());
@@ -385,7 +392,8 @@
 					.catch(function(err) {
 						toastError(err);
 					});
-			} else {
+			}
+			else {
 				Restangular.one('Logro', logro.id).customPUT(logro).then(function() {
 						toastSuccess();
 					})
@@ -442,11 +450,13 @@
 					.catch(function(err) {
 						if (err.data[0] === "Idioma Ya Existente") {
 							toastr.error('Ya has registrado este idioma.', 'Error');
-						} else {
+						}
+						else {
 							toastError(err);
 						}
 					});
-			} else {
+			}
+			else {
 				var id = idioma.id;
 				delete idioma.id;
 				Restangular.one('IdiomaUsuario', id).customPUT(idioma).then(function() {
@@ -455,7 +465,8 @@
 					.catch(function(err) {
 						if (err.data[0] === "Idioma Ya Existente") {
 							toastr.error('Ya has registrado este idioma.', 'Error');
-						} else {
+						}
+						else {
 							toastError(err);
 						}
 					});
@@ -518,7 +529,15 @@
 
 			Restangular.all('Escolaridad').customGET()
 				.then(function(res) {
-					vm.escolaridad = _.map(res.plain().escolaridad, formatEscolaridad);
+					var esc = res.plain().escolaridad;
+					if (esc[0] !== undefined) {
+
+						vm.escolaridad = formatEscolaridad(res.plain().escolaridad[0]);
+						loadLevel(vm.escolaridad.NivelDeEstudios);
+					}
+					else {
+						vm.escolaridad = {};
+					}
 				})
 				.catch(function() {
 
@@ -536,24 +555,36 @@
 		}
 
 		function removeEscolaridad(esc) {
-			Restangular.one('Escolaridad', esc.id).remove().then(function(res){
-				vm.escolaridades = _.without(vm.escolaridades, esc);
-			})
-			.catch(function(err){
-				toastError(err);
-			});
+			Restangular.one('Escolaridad', esc.id).remove().then(function(res) {
+					vm.escolaridades = _.without(vm.escolaridades, esc);
+				})
+				.catch(function(err) {
+					toastError(err);
+				});
 		}
 
 		function resetFormEscolaridad() {}
 
 		function formatEscolaridad(esc) {
-			esc.FechaInicio = new Date(esc.FechaInicio);
-			esc.FechaTermino = new Date(esc.FechaTermino);
+			var props = ['FechaInicio', 'FechaTermino'];
+			
+
+			for (var p in props) {
+				if (esc[props[p]] !== undefined) {
+					esc[props[p]] = new Date(esc[props[p]]);
+				}
+			}
+			// esc.FechaInicio = new Date(esc.FechaInicio);
+			// esc.FechaTermino = new Date(esc.FechaTermino);
 			return esc;
 		}
 
 		function saveEscolaridad() {
 			var escolaridad = angular.copy(vm.escolaridad);
+			escolaridad.idPais = 1;
+
+			escolaridad.FechaInicio = $filter('date')(escolaridad.FechaInicio, 'yyyy-MM-dd');
+			escolaridad.FechaTermino = $filter('date')(escolaridad.FechaTermino, 'yyyy-MM-dd');
 
 			if (!escolaridad.id) {
 				// crear
@@ -564,9 +595,10 @@
 					.catch(function(err) {
 						toastError(err);
 					});
-			} else {
+			}
+			else {
 				//actualizar
-				Restangular.all('Escolaridad').customPUT(escolaridad)
+				Restangular.one('Escolaridad', escolaridad.id).customPUT(escolaridad)
 					.then(function(res) {
 						toastSuccess();
 					})
@@ -576,7 +608,65 @@
 			}
 		}
 
+		function loadLevel(level) {
+			level = Number(level);
+			if (level >= 5 && level <= 8) {
 
+				if (level === 8) {
+					level = 7;
+				}
+
+				vm.loadingInstitutions = true;
+
+				Restangular.all('InstitucionEducativa').one('Nivel', level).customGET()
+					.then(function(res) {
+						vm.listaInstitucionesById = {};
+
+						_.forEach(_.groupBy(res.plain().InstitucionEducativa, 'id'), function(s, i) {
+							vm.listaInstitucionesById[i] = s[0];
+						});
+
+						Restangular.all('Carrera').one('Nivel', level).customGET()
+						.then(function(res){
+
+							vm.listaCarreras = res.plain().Carrera;
+							vm.listaCarrerasById = {};
+
+
+							_.forEach(_.groupBy(res.plain().Carrera, 'id'), function(s, i){
+								vm.listaCarrerasById[i] = s[0];
+							});
+
+							if(vm.escolaridad.idCarrera){
+								if(vm.listaCarrerasById[vm.escolaridad.idCarrera] === undefined){
+									delete vm.escolaridad.idCarrera;
+								}
+							}
+						})
+						.catch(function(){
+
+						});
+
+						// de-seleccionar institucion si no es del nivel
+						if (vm.escolaridad.idInstitucionEducativa) {
+							if (vm.listaInstitucionesById[vm.escolaridad.idInstitucionEducativa] === undefined) {
+								delete vm.escolaridad.idInstitucionEducativa;
+							}
+						}
+
+						vm.loadingInstitutions = false;
+					})
+					.catch(function() {
+						vm.loadingInstitutions = false;
+					});
+
+
+			}
+			else {
+				delete vm.escolaridad.idInstitucionEducativa;
+				delete vm.escolaridad.idCarrera;
+			}
+		}
 
 		////////////////
 
@@ -585,8 +675,8 @@
 			loadLocations();
 			loadExperienceFields();
 			loadIdiomaFields();
-			loadListaCarreras();
-			loadListaInstituciones();
+			// loadListaCarreras();
+			// loadListaInstituciones();
 
 			loadPersonal();
 			loadDireccion();

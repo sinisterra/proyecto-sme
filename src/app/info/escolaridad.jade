@@ -1,36 +1,47 @@
 div(flex layout-padding).card-header
 	h2.md-title Formación Educativa
 form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
-	
-	div(layout="column" flex-gt-sm="40")
-		md-list(flex)
-			//- pre {{vm.escolaridad | json:2}}
-			md-list-item.md-3-line(ng-repeat="esc in vm.escolaridades")
-				div.md-list-item-text
-					h3 {{esc.NivelDeEstudios}} - {{vm.listaCarrerasById[esc.idCarrera]}}
-					h4 {{vm.listaInstitucionesById[esc.idInstitucionEducativa]}}
-					p {{esc.FechaInicio | date:'yyyy'}} - {{esc.FechaTermino | date:'yyyy'}}
-					md-menu
-						md-button.md-icon-button(ng-click="$mdOpenMenu()")
-							md-icon(md-menu-origin) more_vert
-						md-menu-content(width="2")
-							md-menu-item
-								md-button(ng-click="vm.editEscolaridad(escolaridad)")
-									md-icon(md-menu-align-target) mode_edit
-									| Editar
-							md-menu-item
-								md-button(ng-click="vm.removeEscolaridad(escolaridad)")
-									md-icon(md-menu-align-target) close
-									| Eliminar
-	
-	div(flex-gt-sm="60")
-		md-select(placeholder="Nivel de Estudios" ng-model="vm.escolaridad.NivelDeEstudios" required)
-			md-option(value="Posgrado") Posgrado
-			md-option(value="Superior") Superior
-			md-option(value="Media Superior") Media Superior
-			md-option(value="Secundaria") Secundaria
-			md-option(value="Primaria") Primaria
-			md-option(value="Jardín de Niños") Jardín de Niños
+	div(layout="column" flex)
+		div
+			//- pre {{vm.listaCarrerasById[vm.escolaridad.idCarrera] | json:2}}
+			pre {{vm.escolaridad | json:2}}
+
+		div(layout layout-sm="column")
+			md-select(placeholder="Nivel de Estudios" ng-model="vm.escolaridad.NivelDeEstudios" required flex ng-change="vm.loadLevel(vm.escolaridad.NivelDeEstudios)")
+				md-option(value="8") Doctorado
+				md-option(value="7") Maestría
+				md-option(value="6") Licenciatura
+				md-option(value="5") Bachillerato
+				md-option(value="4") Secundaria
+				md-option(value="3") Primaria
+				md-option(value="2") Sabe Leer y Escribir
+				md-option(value="1") Sin Instrucción		
+
+			md-select(placeholder="Institución Educativa" ng-model="vm.escolaridad.idInstitucionEducativa" flex ng-hide="['1','2','3','4'].indexOf(vm.escolaridad.NivelDeEstudios) !== -1") 			
+				md-option(ng-repeat="ins in vm.listaInstitucionesById" value="{{ins.id}}") {{ins.Nombre}}
+
+			md-select(placeholder="Grado de Avance" ng-model="vm.escolaridad.GradoDeAvance" flex)
+				md-option(value="Estudiante") Estudiante
+				md-option(value="Trunco") Trunco
+				md-option(value="Pasante") Pasante
+				md-option(value="Egresado") Egresado
+
+			md-input-container(ng-show="['5','6','7','8'].indexOf(vm.escolaridad.NivelDeEstudios) !== -1 && vm.escolaridad.GradoDeAvance === 'Egresado'" flex)
+				label Cédula Profesional
+				input(type="text" name="CedulaProfesional" ng-model="vm.escolaridad.CedulaProfesional" maxlength="40")
+
+
+		div(layout layout-sm="column"  ng-hide="['1','2','3','4','5'].indexOf(vm.escolaridad.NivelDeEstudios) !== -1 && vm.escolaridad.NivelDeEstudios")
+			md-input-container(flex)
+				label Busca una carrera...
+				input(type='text' ng-model="vm.searchText")
+			md-select(placeholder="Carrera" ng-model="vm.escolaridad.idCarrera" flex) 			
+				md-option(ng-repeat="carr in vm.listaCarreras | filter:{'NombreCarrera':vm.searchText}" value="{{carr.id}}") {{carr.NombreCarrera | cut:false:40:'...'}}
+			md-input-container(flex)
+				label Área de Estudios
+				input(type="text" name="AreaDeEstudios" ng-model="vm.listaCarrerasById[vm.escolaridad.idCarrera].Area" maxlength="80" disabled)
+
+
 
 		div(layout)
 			md-input-container(flex)
@@ -38,45 +49,36 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 				input(type="date" required name="FechaInicio" ng-model="vm.escolaridad.FechaInicio")
 			md-input-container(flex)
 				label Fecha de Término
-				input(type="date" required name="FechaInicio" ng-model="vm.escolaridad.FechaTermino" max="vm.escolaridad.FechaInicio")
-		
+				input(type="date" required name="FechaTermino" ng-model="vm.escolaridad.FechaTermino" max="vm.escolaridad.FechaInicio")
+			div(flex layout-align="center center")
+				div(ng-show="!vm.locationsLoaded" layout-align="center center")
+					md-progress-circular(md-mode="indeterminate")
+				div(ng-show="vm.locationsLoaded")
+					md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.escolaridad.idEntidadFederativa" required)
+						md-option(ng-repeat="state in vm.states" value="{{state.id}}") {{state.Nombre}}
+
 		//- md-select(placeholder="Institución Educativa" ng-model="vm.escolaridad.idInstitucionEducativa" required)
 		//- 	md-option(ng-repeat="edu in vm.listaInstituciones" value="{{edu.id}}") {{edu.Nombre}}
 		
 		//- md-select(placeholder="Carrera" ng-model="vm.escolaridad.idCarrera" required)
 		//- 	md-option(ng-repeat="edu in vm.listaCarreras" value="{{edu.id}}") {{edu.Nombre}}
 		
-		md-input-container
-			label Institución Educativa
-			input(type="text" name="InstitucionEducativa" ng-model="vm.escolaridad.InstitucionEducativa" required maxlength="80")
+		div(layout layout-sm="column")
+			md-input-container(flex ng-show="['2','3','4'].indexOf(vm.escolaridad.NivelDeEstudios) !== -1")
+				label Institución Educativa
+				input(type="text" name="InstitucionEducativa" ng-model="vm.escolaridad.InstitucionEducativa" maxlength="80" )
+			
+			//- md-input-container(flex)
+			//- 	label Carrera
+			//- 	input(type="text" name="Carrera" ng-model="vm.escolaridad.Carrera" required maxlength="80" ng-if="")
+
+		//- div(layout layout-sm="column")
+
+
 		
-		md-input-container
-			label Carrera
-			input(type="text" name="Carrera" ng-model="vm.escolaridad.Carrera" required maxlength="80")
-
-		md-input-container
-			label Área de Estudios
-			input(type="text" name="AreaDeEstudios" ng-model="vm.escolaridad.AreaDeEstudios" maxlength="80")
-
-		md-input-container
-			label Grado de Avance
-			input(type="text" name="GradoDeAvance" ng-model="vm.escolaridad.GradoDeAvance" maxlength="80")
-
-		md-input-container(ng-show="vm.escolaridad.NivelDeEstudios === 'Superior' || vm.escolaridad.NivelDeEstudios === 'Posgrado'")
-			label Cédula Profesional (si aplica para el nivel)
-			input(type="text" name="CedulaProfesional" ng-model="vm.escolaridad.CedulaProfesional" maxlength="80")
-
-		div(flex layout-align="center center")
-			div(ng-show="!vm.locationsLoaded" layout-align="center center")
-				md-progress-circular(md-mode="indeterminate")
-			div(ng-show="vm.locationsLoaded")
-				md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.escolaridad.idEntidadFederativa" required)
-					md-option(ng-repeat="state in vm.states" value="{{state.id}}") {{state.Nombre}}
-
-		md-checkbox.md-primary(ng-model="vm.escolaridad.complete") Nivel completado
 
 		div(layout-padding layout layout-align="end center")
-			md-button.md-primary(ng-click="vm.resetFormEscolaridad()") Nueva Escolaridad
+			//- md-button.md-primary(ng-click="vm.resetFormEscolaridad()") Nueva Escolaridad
 			md-button.md-primary.md-raised(ng-disabled="escolaridad.$invalid" ng-click="vm.submitFormEscolaridad(escolaridad.$valid)") Guardar
 
 

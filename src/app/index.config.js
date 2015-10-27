@@ -23,7 +23,7 @@
       .accentPalette('amber')
       .warnPalette('pink');
 
-    RestangularProvider.setBaseUrl('http://201.110.146.176:8888/luz_fuerza_laravel/public/api');
+    RestangularProvider.setBaseUrl('http://sme.org.mx/ipnsme2015/luz_fuerza_laravel/public/api');
 
     $httpProvider.interceptors.push('AuthInterceptor');
 
