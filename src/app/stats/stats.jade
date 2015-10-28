@@ -1,23 +1,34 @@
 div(layout-fill layout="column" layout-margin)
 	div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin)
-		div(flex layout layout-align="center" layout-sm="column")
+		div(flex layout layout-align="center" layout-gt-md="row" layout-md="column" layout-sm="column")
 			div(layout="column" layout-align="center center" flex)
 				canvas#edades(width='320' height="320")
 			div(flex)
 				h3.md-display-2 EDADES
 				div(layout flex layout-align="space-around")
-					p(style="color:{{stats.getColor(index)}}" ng-repeat="(index,i) in stats.edadesLabels") {{i}}
+					p(style="color:{{stats.getColor(index)}}" ng-repeat="(index,i) in stats.edadesLabels") {{i}}  ({{stats.edadesData[index]}})
 
 	div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin)
-		div(flex layout layout-align="center" layout-sm="column")
+		div(flex layout layout-align="center" layout-gt-md="row" layout-md="column" layout-sm="column")
 			div(layout="column" layout-align="center center" flex)
 				canvas#ubicacion(width='320' height="320")
 			div(flex)
 				h3.md-display-2 UBICACIÓN
 				div(flex layout layout-align="space-between" layout-wrap)
-					p(style="color:{{stats.getColor(index)}};margin:0px 5px;" ng-repeat="(index,i) in stats.ubicacionLabels") {{i}}
+					p(style="color:{{stats.getColor(index)}};margin:0px 5px;" ng-repeat="(index,i) in stats.ubicacionLabels") {{i}}  ({{stats.ubicacionData[index]}})
+
+	div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin)
+		div(flex layout layout-align="center" layout-gt-md="row" layout-md="column" layout-sm="column")
+			div(layout="column" layout-align="center center" flex)
+				canvas#educacion(width='320' height="320")
+			div(flex)
+				h3.md-display-2 EDUCACIÓN
+				div(flex layout layout-align="space-between" layout-wrap)
+					p(style="color:{{stats.getColor(index)}};margin:0px 5px;" ng-repeat="(index,i) in stats.educacionLabels") {{i}} ({{stats.educacionData[index]}})
 					
 					
+
+				
 
 					
 
