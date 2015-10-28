@@ -16,7 +16,7 @@ section(layout="row" flex)
 					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'infoPersonal' }")
 						md-icon dashboard
 					span Datos Personales
-				md-list-item(ng-click="sidebar.$state.go('stats')")
+				md-list-item(ng-click="sidebar.$state.go('stats')" ng-if="!sidebar.isUser")
 					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'stats' }")
 						md-icon insert_chart
 					span Estadísticas

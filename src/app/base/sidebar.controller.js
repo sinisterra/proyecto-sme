@@ -6,7 +6,7 @@
 		.controller('SidebarController', SidebarController);
 
 	/* @ngInject */
-	function SidebarController($state, User, $mdSidenav) {
+	function SidebarController($state, User, $mdSidenav, Restangular, Auth) {
 		var vm = this;
 
 		vm.$state = $state;
@@ -18,6 +18,14 @@
 		function close() {
 			$mdSidenav('left').toggle();
 		}
+
+		function activate() {
+			vm.auth = Auth;
+			vm.isUser = vm.auth.type === 'User' ? true : false;
+
+		}
+
+		activate();
 
 	}
 })();

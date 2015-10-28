@@ -17,13 +17,16 @@
 		////////////////
 
 		function checkAuth() {
-			return true;
+			return Auth.type === 'Admin';
 		}
 
 		function activate() {
 
 			if (checkAuth()) {
 				drawPlots();
+			}
+			else{
+				$state.go('dashboard');
 			}
 
 		}

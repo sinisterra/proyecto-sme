@@ -58,7 +58,7 @@
 				vm.paises = _.sortBy(res.paises, 'Nombre');
 				vm.paises.unshift(mx);
 				vm.states = mx.entidades_federativas;
-				debugger
+				
 				vm.locationsLoaded = true;
 
 			}).catch(function(err) {
