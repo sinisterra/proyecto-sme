@@ -17,7 +17,7 @@
 		////////////////
 
 		function checkAuth() {
-			return Auth.type === 'Admin';
+			return localStorage.type === 'Admin';
 		}
 
 		function activate() {
