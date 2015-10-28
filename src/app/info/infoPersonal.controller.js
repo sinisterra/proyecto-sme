@@ -100,7 +100,7 @@
 				.then(function(res) {
 					vm.personal = res.datosPersonales;
 
-					// 
+					//
 					//validar fecha
 					vm.personal.FechaNacimiento = new Date(res.datosPersonales.FechaNacimiento);
 					// $filter('date')(res.datosPersonales.FechaNacimiento,'yyyy-MM-dd');
@@ -121,9 +121,8 @@
 				var id = personal.id;
 				delete personal.id;
 				delete personal.idUsuario;
-				saveUrl = Restangular.all('DatosPersonales').customPUT(personal);
-			}
-			else {
+				saveUrl = Restangular.all('DatosPersonales').all('Update').customPOST(personal);
+			} else {
 				saveUrl = Restangular.all('DatosPersonales').customPOST(personal);
 			}
 
@@ -170,9 +169,8 @@
 				var id = direccion.id;
 				delete direccion.id;
 				delete direccion.idUsuario;
-				saveUrl = Restangular.all('Direccion').customPUT(direccion);
-			}
-			else {
+				saveUrl = Restangular.all('Direccion').all('Update').customPOST(direccion);
+			} else {
 				direccion.idUsuario = vm.personal.idUsuario;
 				saveUrl = Restangular.all('Direccion').customPOST(direccion);
 			}
@@ -225,7 +223,7 @@
 			var experiencia = angular.copy(vm.experiencia);
 
 			// if(experiencia.idExperienciaEspecifica){
-			// 	//editar
+			//      //editar
 			// }
 			// else{
 
@@ -235,13 +233,12 @@
 			experiencia.FechaTermino = $filter('date')(experiencia.FechaTermino, 'yyyy-MM-dd');
 
 			if (experiencia.id) {
-				Restangular.one('ExperienciaLaboral', experiencia.id).customPUT(experiencia).then(function(res) {
+				Restangular.one('ExperienciaLaboral', experiencia.id).all('Update').customPOST(experiencia).then(function(res) {
 					// vm.experienciaLaboral.push(formatExperiencia(res.plain()));
 					//BUSCAR EN vm.experiencia laboral y reemplazar
 					toastSuccess();
 				});
-			}
-			else {
+			} else {
 				Restangular.all('ExperienciaLaboral').customPOST(experiencia).then(function(res) {
 						vm.experienciaLaboral.push(formatExperiencia(res.plain()));
 						toastSuccess();
@@ -265,7 +262,7 @@
 		}
 
 		function removeExperiencia(exp) {
-			Restangular.one('ExperienciaLaboral', exp.id).remove().then(function(res) {
+			Restangular.one('ExperienciaLaboral', exp.id).all('Delete').customGET().then(function(res) {
 					vm.experienciaLaboral = _.without(vm.experienciaLaboral, exp);
 				})
 				.catch(function(error) {
@@ -296,7 +293,7 @@
 			vm.savingCert = true;
 
 			if (cert.id) {
-				saveUrl = Restangular.one('Certificacion', cert.id).customPUT(cert).then(function(res) {
+				saveUrl = Restangular.one('Certificacion', cert.id).all('Update').customPOST(cert).then(function(res) {
 						toastSuccess();
 						vm.savingCert = false;
 					})
@@ -304,8 +301,7 @@
 						toastError(err);
 						vm.savingCert = false;
 					});
-			}
-			else {
+			} else {
 				saveUrl = Restangular.all('Certificacion').customPOST(cert).then(function(res) {
 						toastSuccess();
 						vm.certs.push(res.plain());
@@ -329,7 +325,7 @@
 		}
 
 		function removeCert(cert) {
-			Restangular.one('Certificacion', cert.id).remove().then(function() {
+			Restangular.one('Certificacion', cert.id).all('Delete').customGET().then(function() {
 					toastSuccess();
 					vm.certs = _.without(vm.certs, cert);
 				})
@@ -362,7 +358,7 @@
 		}
 
 		function removeLogro(logro) {
-			Restangular.one('Logro', logro.id).remove()
+			Restangular.one('Logro', logro.id).all('Delete').customGET()
 				.then(function() {
 					vm.logros = _.without(vm.logros, logro);
 				})
@@ -392,9 +388,8 @@
 					.catch(function(err) {
 						toastError(err);
 					});
-			}
-			else {
-				Restangular.one('Logro', logro.id).customPUT(logro).then(function() {
+			} else {
+				Restangular.one('Logro', logro.id).all('Update').customPOST(logro).then(function() {
 						toastSuccess();
 					})
 					.catch(function(err) {
@@ -450,23 +445,20 @@
 					.catch(function(err) {
 						if (err.data[0] === "Idioma Ya Existente") {
 							toastr.error('Ya has registrado este idioma.', 'Error');
-						}
-						else {
+						} else {
 							toastError(err);
 						}
 					});
-			}
-			else {
+			} else {
 				var id = idioma.id;
 				delete idioma.id;
-				Restangular.one('IdiomaUsuario', id).customPUT(idioma).then(function() {
+				Restangular.one('IdiomaUsuario', id).all('Update').customPOST(idioma).then(function() {
 						toastSuccess();
 					})
 					.catch(function(err) {
 						if (err.data[0] === "Idioma Ya Existente") {
 							toastr.error('Ya has registrado este idioma.', 'Error');
-						}
-						else {
+						} else {
 							toastError(err);
 						}
 					});
@@ -484,7 +476,7 @@
 		}
 
 		function removeIdioma(idioma) {
-			Restangular.one('IdiomaUsuario', idioma.id).remove().then(function() {
+			Restangular.one('IdiomaUsuario', idioma.id).all('Delete').customGET().then(function() {
 				vm.idiomas = _.without(vm.idiomas, idioma);
 				toastSuccess();
 				if (vm.idioma.id === idioma.id) {
@@ -534,8 +526,7 @@
 
 						vm.escolaridad = formatEscolaridad(res.plain().escolaridad[0]);
 						loadLevel(vm.escolaridad.NivelDeEstudios);
-					}
-					else {
+					} else {
 						vm.escolaridad = {};
 					}
 				})
@@ -555,7 +546,7 @@
 		}
 
 		function removeEscolaridad(esc) {
-			Restangular.one('Escolaridad', esc.id).remove().then(function(res) {
+			Restangular.one('Escolaridad', esc.id).all('Delete').customGET().then(function(res) {
 					vm.escolaridades = _.without(vm.escolaridades, esc);
 				})
 				.catch(function(err) {
@@ -567,7 +558,7 @@
 
 		function formatEscolaridad(esc) {
 			var props = ['FechaDeInicio', 'FechaDeTermino'];
-			
+
 
 			for (var p in props) {
 				if (esc[props[p]] !== undefined) {
@@ -596,10 +587,9 @@
 					.catch(function(err) {
 						toastError(err);
 					});
-			}
-			else {
+			} else {
 				//actualizar
-				Restangular.all('Escolaridad').customPUT(escolaridad)
+				Restangular.all('Escolaridad').all('Update').customPOST(escolaridad)
 					.then(function(res) {
 						toastSuccess();
 					})
@@ -628,25 +618,25 @@
 						});
 
 						Restangular.all('Carrera').one('Nivel', level).customGET()
-						.then(function(res){
+							.then(function(res) {
 
-							vm.listaCarreras = res.plain().Carrera;
-							vm.listaCarrerasById = {};
+								vm.listaCarreras = res.plain().Carrera;
+								vm.listaCarrerasById = {};
 
 
-							_.forEach(_.groupBy(res.plain().Carrera, 'id'), function(s, i){
-								vm.listaCarrerasById[i] = s[0];
-							});
+								_.forEach(_.groupBy(res.plain().Carrera, 'id'), function(s, i) {
+									vm.listaCarrerasById[i] = s[0];
+								});
 
-							if(vm.escolaridad.idCarrera){
-								if(vm.listaCarrerasById[vm.escolaridad.idCarrera] === undefined){
-									delete vm.escolaridad.idCarrera;
+								if (vm.escolaridad.idCarrera) {
+									if (vm.listaCarrerasById[vm.escolaridad.idCarrera] === undefined) {
+										delete vm.escolaridad.idCarrera;
+									}
 								}
-							}
-						})
-						.catch(function(){
+							})
+							.catch(function() {
 
-						});
+							});
 
 						// de-seleccionar institucion si no es del nivel
 						if (vm.escolaridad.idInstitucionEducativa) {
@@ -662,8 +652,7 @@
 					});
 
 
-			}
-			else {
+			} else {
 				delete vm.escolaridad.idInstitucionEducativa;
 				delete vm.escolaridad.idCarrera;
 			}
