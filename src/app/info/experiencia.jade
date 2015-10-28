@@ -74,7 +74,18 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 					md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.experiencia.idEntidadFederativa" required)
 						md-option(ng-repeat="state in vm.states" value="{{state.id}}") {{state.Nombre}}
 
-		
+		div(layout flex)
+			md-select(required placeholder="Tipo de Experiencia" name="TipoDeExperiencia" ng-model="vm.experiencia.TipoDeExperiencia" flex)
+				md-option(value="Plaza") Plaza
+				md-option(value="Honorarios") Honorarios
+				md-option(value="Otro") Otro
+				
+		div(layout flex)
+			md-input-container(flex)
+				label Experiencias
+				textarea(maxlength="100" md-maxlength="100" rows="3" ng-model="vm.experiencia.Experiencias" name="Experiencias" required)
+
+
 		div(flex layout layout-sm="column")
 			p Datos del Superior Inmediato
 
