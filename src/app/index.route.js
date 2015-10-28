@@ -35,6 +35,13 @@
         url: '/dashboard',
         templateUrl: 'app/dashboard/dashboard.html',
       })
+      .state('stats', {
+        parent: 'base',
+        url: '/stats',
+        templateUrl: 'app/stats/stats.html',
+        controller: 'StatsController',
+        controllerAs: 'stats'
+      })
 
       // .state('info',{
       //   url: '/info',

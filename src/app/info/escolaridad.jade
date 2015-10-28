@@ -34,7 +34,7 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 	
 
 		div(layout layout-sm="column"  ng-hide="['1','2','3','4','5'].indexOf(vm.escolaridad.NivelDeEstudios) !== -1 && vm.escolaridad.NivelDeEstudios")
-			div(ng-show="!vm.listaCarrerasById" layout-align="center center" flex )
+			div(ng-show="!vm.listaCarrerasById || vm.loadingNiveles" layout-align="center center" flex )
 				md-progress-circular(md-mode="indeterminate")
 			md-input-container(flex ng-show="vm.listaCarrerasById")
 				label Busca una carrera...

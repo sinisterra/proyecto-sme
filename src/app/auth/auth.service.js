@@ -25,11 +25,14 @@
 				password: password
 			})
 			.then(function(res){
+
 				if(res.token){
 					localStorage.setItem('token', res.token);
 				}
-					
+
+
 				deferred.resolve(res);
+				
 			})
 			.catch(function(err){
 				deferred.reject(err);

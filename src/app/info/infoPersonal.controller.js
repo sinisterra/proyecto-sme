@@ -50,8 +50,15 @@
 		function loadLocations() {
 			vm.locationsLoaded = false;
 			Restangular.all('Pais').customGET().then(function(res) {
-				vm.states = res.paises[0].entidades_federativas;
+				
+				//poner méxico en primer lugar
 
+				var mx = res.paises.shift();
+
+				vm.paises = _.sortBy(res.paises, 'Nombre');
+				vm.paises.unshift(mx);
+				vm.states = mx.entidades_federativas;
+				debugger
 				vm.locationsLoaded = true;
 
 			}).catch(function(err) {
@@ -59,6 +66,8 @@
 
 			});
 		}
+
+
 
 		// CAMPOS, ÁREAS Y EXPERIENCIAS
 		function loadExperienceFields() {
@@ -264,6 +273,7 @@
 		function removeExperiencia(exp) {
 			Restangular.one('ExperienciaLaboral', exp.id).all('Delete').customGET().then(function(res) {
 					vm.experienciaLaboral = _.without(vm.experienciaLaboral, exp);
+					toastSuccess();
 				})
 				.catch(function(error) {
 					toastError(error);

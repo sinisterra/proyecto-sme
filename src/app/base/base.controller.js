@@ -18,6 +18,7 @@
 		vm.stateNames = {
 			'dashboard': 'Menú Principal',
 			'infoPersonal': 'Datos Personales',
+			'stats': 'Estadísticas'
 		};
 
 		////////////////

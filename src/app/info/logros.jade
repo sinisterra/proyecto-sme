@@ -39,8 +39,8 @@ form(name="logro" layout layout-sm="column" layout-padding novalidate)
 				input(type="date" ng-model="vm.logro.Fecha" name="Fecha" required max="{{vm.today | date:'yyyy-MM-dd'}}")
 			div(ng-show="!vm.locationsLoaded" layout-align="center center" flex)
 				md-progress-circular(md-mode="indeterminate")
-			md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.logro.idEntidadFederativa" required ng-show="vm.locationsLoaded")
-				md-option(ng-repeat="state in vm.states" value="{{state.id}}") {{state.Nombre}}
+			md-select(flex name="Entidad" placeholder="País" ng-model="vm.logro.idPais" required ng-show="vm.locationsLoaded")
+				md-option(ng-repeat="state in vm.paises" value="{{state.id}}") {{state.Nombre}}
 
 		md-input-container(flex)
 			label Descripción

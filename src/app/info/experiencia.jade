@@ -12,7 +12,7 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 				div.md-list-item-text
 					h3 {{experiencia.NombreDelPuesto }}
 					h4 {{experiencia.NombreInstitucion | limitTo:40}}{{experiencia.NombreInstitucion.length > 40 ? '...' : ''}}
-					h4 {{vm.camposById[experiencia.idCampoDeExperiencia].Nombre |titleCase}} - {{vm.areasById[experiencia.idAreaDeExperiencia].Nombre  |titleCase}}
+					h4 {{vm.camposById[experiencia.idCampoDeExperiencia].Nombre |cut:false:40:'...'}} - {{vm.areasById[experiencia.idAreaDeExperiencia].Nombre  |cut:false:40:'...'}}
 					p {{experiencia.FechaInicio | date:'yyyy'}} - {{experiencia.FechaTermino | date:'yyyy'}} 
 				md-menu
 					md-button.md-icon-button(ng-click="$mdOpenMenu()")
@@ -32,13 +32,13 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 		
 		div(flex layout layout-sm="column")
 			md-select(flex name="CampoExperiencia" placeholder="Campo de Experiencia" ng-model="vm.experiencia.idCampoDeExperiencia" required)
-				md-option(ng-repeat="campo in vm.camposById" value="{{campo.id}}") {{campo.Nombre |titleCase}}
+				md-option(ng-repeat="campo in vm.camposById" value="{{campo.id}}") {{campo.Nombre |cut:false:40:'...'}}
 
 			md-select(flex name="AreaExperiencia" placeholder="Área de Experiencia" ng-model="vm.experiencia.idAreaDeExperiencia" required ng-disabled="vm.areasByCampos[vm.experiencia.idCampoDeExperiencia].length === 0")
-				md-option(ng-repeat="area in vm.areasByCampos[vm.experiencia.idCampoDeExperiencia]" value="{{area.id}}") {{area.Nombre |titleCase}}
+				md-option(ng-repeat="area in vm.areasByCampos[vm.experiencia.idCampoDeExperiencia]" value="{{area.id}}") {{area.Nombre |cut:false:40:'...'}}
 
 			md-select(flex name="ExperienciaEspecifica" placeholder="Experiencia Específica" ng-model="vm.experiencia.idExperienciaEspecifica" required ng-disabled="vm.expByAreas[vm.areasByCampos[vm.experiencia.idCampoDeExperiencia][vm.experiencia.idAreaDeExperiencia].id].length === 0 || vm.areasByCampos[vm.experiencia.idCampoDeExperiencia].length === 0")
-				md-option(ng-repeat="especifica in vm.expByAreas[vm.experiencia.idAreaDeExperiencia]" value="{{especifica.id}}") {{especifica.Nombre |titleCase}}
+				md-option(ng-repeat="especifica in vm.expByAreas[vm.experiencia.idAreaDeExperiencia]" value="{{especifica.id}}") {{especifica.Nombre |cut:false:40:'...'}}
 
 		md-input-container(flex)
 			label Nombre de la Institución
