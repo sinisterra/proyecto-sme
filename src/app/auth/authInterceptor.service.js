@@ -27,12 +27,7 @@
 		}
 
 		function response(res) {
-			if ($injector.get('Auth').type === undefined) {
-				$injector.get('Restangular').all('authenticate').customGET().then(function(res) {
-					Auth.type = res.user.tipo;
-					$log.log('User type', Auth.type);
-				});
-			}
+		
 			return res;
 		}
 

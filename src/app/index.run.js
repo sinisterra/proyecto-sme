@@ -10,12 +10,7 @@
 
 		$log.debug('runBlock end');
 
-		if (Auth.type === undefined) {
-			Restangular.all('authenticate').customGET().then(function(res) {
-				Auth.type = res.user.tipo;
-				$log.log('User type', Auth.type);
-			});
-		}
+		
 
 		$rootScope.$on('$stateChangeSuccess', function(event, toState) {
 

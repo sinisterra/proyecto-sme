@@ -20,8 +20,14 @@
 		}
 
 		function activate() {
-			vm.auth = Auth;
-			vm.isUser = vm.auth.type === 'User' ? true : false;
+
+
+			if (!localStorage.getItem('type')) {
+				Restangular.all('authenticate').customGET().then(function(res) {
+					localStorage['type'] = res.user.tipo;
+					vm.isUser = localStorage['type'] === 'User' ? true : false;
+				});
+			}
 
 		}
 
