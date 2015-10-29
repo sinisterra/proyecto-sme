@@ -69,6 +69,28 @@
 
 
 
+		// SUBDIRECCIONES y GERENCIAS
+		function loadHiearchy()
+		{
+			Restangular.all('Subdireccion').customGET().then(function(res){
+				vm.subdirecciones = res.subdireccion;
+
+				vm.subdireccionesById = {};
+				vm.gerenciasBySubdireccion = {};
+
+				_.forEach(res.subdireccion,function(subdireccion){
+					vm.subdireccionesById[subdireccion.id]=subdireccion;
+				});
+
+
+
+			}).catch(function(){
+
+			});
+		}
+
+
+
 		// CAMPOS, ÁREAS Y EXPERIENCIAS
 		function loadExperienceFields() {
 			Restangular.all('CampoDeExperiencia').customGET().then(function(res) {
@@ -673,6 +695,7 @@
 		function activate() {
 			vm.today = new Date();
 			loadLocations();
+			loadHiearchy();
 			loadExperienceFields();
 			loadIdiomaFields();
 			// loadListaCarreras();

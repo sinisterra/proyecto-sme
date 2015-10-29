@@ -24,7 +24,7 @@
       .warnPalette('pink');
 
 
-    // var api = "http://201.110.146.176:8888/luz_fuerza_laravel/public/api";
+    // var api = "http://127.0.0.1:8888/luz_fuerza_laravel/public/api";
     var api = 'http://sme.org.mx/ipnsme2015/luz_fuerza_laravel/public/api';
     RestangularProvider.setBaseUrl(api);
 
