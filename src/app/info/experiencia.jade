@@ -3,7 +3,7 @@ div(flex layout-padding).card-header
 	h2.md-title Experiencia Laboral
 form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.submitFormExperiencia()" novalidate)
 
-	div(layout="column" flex-gt-sm="40")
+	div(layout="column" flex-gt-sm="35")
 		//- div {{vm.areasByCampos[vm.experiencia.idCampoDeExperiencia] | json:2}}
 
 		p(ng-show="vm.experienciaLaboral.length === 0") No se han registrado elementos.
@@ -28,7 +28,7 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 								| Eliminar
 			
 	
-	div(flex-gt-sm="60")
+	div(flex-gt-sm="65")
 		
 		div(flex layout layout-sm="column")
 			md-select(flex name="CampoExperiencia" placeholder="Campo de Experiencia" ng-model="vm.experiencia.idCampoDeExperiencia" required)
