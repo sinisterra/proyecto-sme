@@ -606,8 +606,8 @@
 			var escolaridad = angular.copy(vm.escolaridad);
 			escolaridad.idPais = 1;
 
-			escolaridad.FechaDeInicio = $filter('date')(escolaridad.FechaDeInicio, 'yyyy-MM-dd');
-			escolaridad.FechaDeTermino = $filter('date')(escolaridad.FechaDeTermino, 'yyyy-MM-dd');
+			escolaridad.FechaDeInicio = $filter('date')(new Date(escolaridad.FechaDeInicio), 'yyyy-MM-dd');
+			escolaridad.FechaDeTermino = $filter('date')(new Date(escolaridad.FechaDeTermino), 'yyyy-MM-dd');
 
 
 			if (!escolaridad.id) {

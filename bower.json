@@ -9,7 +9,7 @@
     "jquery": "~2.1.4",
     "restangular": "~1.5.1",
     "angular-ui-router": "~0.2.15",
-    "angular-material": "~0.10",
+    "angular-material": "0.11.1",
     "malarkey": "yuanqing/malarkey#~1.3.0",
     "toastr": "~2.1.1",
     "moment": "~2.10.3",
@@ -32,6 +32,9 @@
   "overrides": {
     "angular-messages": {
       "main": "angular-messages.min.js"
+    },
+    "moment": {
+      "main": ["moment.js", "./locale/es.js"]
     }
   }
 }

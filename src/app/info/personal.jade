@@ -15,31 +15,35 @@ div(flex layout-padding).card-header
 				input(ng-model="vm.personal.ApellidoM" required name="ApellidoM")
 
 		div(layout layout-sm="column")
+				
 			md-input-container(flex)
 				label Correo Electrónico
 				input(ng-model="vm.personal.CorreoElectronico" required type="email" name="CorreoElectronico")
-			div(layout flex)
-				md-input-container(flex)
-					label Fecha de Nacimiento
-					input(ng-model="vm.personal.FechaNacimiento" type="date" required name="FechaNacimiento" max="{{vm.today | date:'yyyy-MM-dd'}}")
-				md-select(flex ng-model="vm.personal.Sexo" placeholder="Sexo" name="Sexo")
-					md-option(value="H") Hombre
-					md-option(value="M") Mujer
-				md-select(flex ng-model="vm.personal.EstadoCivil" placeholder="Estado Civil" name="EstadoCivil")
-					md-option.md-primary(value="S") Soltero
-					md-option.md-primary(value="C") Casado
-					md-option.md-primary(value="D") Divorciado
-					md-option.md-primary(value="V") Viudo
-					md-option.md-primary(value="U") En Unión Libre
+			div(layout flex layout-sm="column")
+				md-datepicker(placeholder="Fecha de Nacimiento" ng-model="vm.personal.FechaNacimiento" md-max-date="vm.today" required name="FechaNacimiento")
+
+				//- md-input-container(flex)
+				//- 	label Fecha de Nacimiento
+				//- 	input(ng-model="vm.personal.FechaNacimiento" type="date" required name="FechaNacimiento" max="{{vm.today | date:'yyyy-MM-dd'}}")
+				div(layout layout-sm="column" flex)
+					md-select(flex ng-model="vm.personal.Sexo" placeholder="Sexo" name="Sexo")
+						md-option(value="H") Hombre
+						md-option(value="M") Mujer
+					md-select(flex ng-model="vm.personal.EstadoCivil" placeholder="Estado Civil" name="EstadoCivil")
+						md-option.md-primary(value="S") Soltero
+						md-option.md-primary(value="C") Casado
+						md-option.md-primary(value="D") Divorciado
+						md-option.md-primary(value="V") Viudo
+						md-option.md-primary(value="U") En Unión Libre
 					
 		div(layout layout-sm="column")
 			md-input-container(flex)
 				label RFC
-				input(ng-model="vm.personal.RFC" required minlength="12" maxlength="13" name="RFC")
+				input(ng-model="vm.personal.RFC" required minlength="12" maxlength="13" name="RFC" md-minlength="12" md-maxlength="13")
 				
 			md-input-container(flex)
 				label CURP
-				input(ng-model="vm.personal.CURP" required minlength="18" maxlength="18" md-minlength="18" md-maxlength="18" name="CURP" ng-pattern="/^[A-Z]{4}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/")
+				input(ng-model="vm.personal.CURP" required minlength="18" maxlength="18" md-minlength="18" md-maxlength="18" name="CURP" ng-pattern="/^[A-Z]{4}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/" )
 		
 		div(layout layout-sm="column" ng-show="!vm.locationsLoaded" layout-align="center center")
 			md-progress-circular(md-mode="indeterminate")
