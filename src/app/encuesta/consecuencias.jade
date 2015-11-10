@@ -1,0 +1,44 @@
+//
+   Created by lockonDaniel on 11/8/15.
+
+h2 11. ¿Durante estos cuatro años de resistencia tomaste alguna capacitación relacionada laboralmente a las actividades que realizabas en la Compañía de Luz y Fuerza del Centro?
+div(layout="row" layout-align="center center")
+   questions-radio(ng-model="vm.cuestionario.Capacitacion" options="vm.radioGeneral")
+h2 12.	De las siguientes actividades, ¿cuál o cuáles has realizado principalmente durante estos cuatro años de resistencia?
+questions-table(ng-model="vm.cuestionario.ActividadesResistencia" items="vm.actividadesResistencia.items" options="vm.actividadesResistencia.options")
+h2 13. ¿Si estuviste desempleado durante estos últimos cuatro años de resistencia, que otra actividad realizaste?
+questions-table(ng-model="vm.cuestionario.OtrasActividades" items="vm.otrasActividades.items" options="vm.otrasActividades.options")
+h2 14. Durante el año 2013, ¿trabajaste o tuviste una actividad remunerada, con salario, ganancia o beneficio económico?
+div(layout="row" layout-align="center center")
+   questions-radio(ng-model="vm.cuestionario.ActividadRemunerada" options="vm.radioGeneral")
+div(ng-show="vm.cuestionario.ActividadRemunerada.value==1")
+   h2 15. Si tu respuesta fue Sí. ¿Durante cuánto tiempo lo has venido realizando? (En meses)
+   md-input-container
+      label Meses de actividad remunerada
+      input(type="number" ng-model="vm.cuestionario.MesesActividadRemunerada")
+h2 16. ¿Durante este tiempo de resistencia recibiste algún tipo de ayuda económica de: …?
+questions-table(ng-model="vm.cuestionario.AyudaEconomica" items="vm.ayudaEconomica.items" options="vm.ayudaEconomica.options")
+h2 17. ¿A la extinción de la empresa, participaste en:…?
+questions-table(ng-model="vm.cuestionario.ParticipacionOrganizacion" items="vm.participacionOrganizacion.items" options="vm.participacionOrganizacion.options")
+h2 18. ¿Actualmente participas en alguna organización política, social o ciudadana?
+div(layout="row" layout-align="center center")
+   questions-radio(ng-model="vm.cuestionario.OrganizacionPolitica" options="vm.radioGeneral")
+div(ng-show="vm.cuestionario.OrganizacionPolitica.value==1")
+   h2 19. Si tu respuesta fue Sí. ¿En qué organización?
+   md-input-container
+      label Anota Aquí la Organización
+      input(type="text" ng-model="vm.cuestionario.NombreOrganizacionPolitica")
+h2 20. ¿De qué manera impactó la extinción de la Compañía de Luz y Fuerza del Centro en tu economía familiar?
+questions-table(ng-model="vm.cuestionario.ImpactoEconomia" items="vm.impactoEconomia.items" options="vm.impactoEconomia.options")
+h2 21. Enfermedades físicas y de salud:
+questions-table(ng-model="vm.cuestionario.Enfermedades" items="vm.enfermedades.items" options="vm.enfermedades.options")
+h2 22. Y en cuanto a enfermedades emocionales:
+questions-table(ng-model="vm.cuestionario.EnfermedadesEmocionales" items="vm.enfermedadesEmocionales.items" options="vm.enfermedadesEmocionales.options")
+h2 23. Provocó adicciones como:
+questions-table(ng-model="vm.cuestionario.Adicciones" items="vm.adicciones.items" options="vm.adicciones.options")
+h2 24. Provocó consecuencias como:
+questions-table(ng-model="vm.cuestionario.Consecuencias" items="vm.consecuencias.items" options="vm.consecuencias.options")
+h2 25. ¿De que manera impactó la extinción de la Compañía de Luz y Fuerza del Centro en la integración familiar?
+questions-table(ng-model="vm.cuestionario.IntegracionFamiliar" items="vm.integracionFamiliar.items" options="vm.integracionFamiliar.options")
+h2 26. ¿De que manera impactó la extinción de la Compañía de Luz y Fuerza del Centro en tus relaciones sociales y laborales?
+questions-table(ng-model="vm.cuestionario.RelacionesSociales" items="vm.relacionesSociales.items" options="vm.relacionesSociales.options")

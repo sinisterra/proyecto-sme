@@ -24,7 +24,7 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 				md-option(value="Estudiante") Estudiante
 				md-option(value="Trunco") Trunco
 				md-option(value="Pasante") Pasante
-				md-option(value="Egresado") Egresado
+				md-option(value="Titulado") Titulado
 
 			md-input-container(ng-show="['5','6','7','8'].indexOf(vm.escolaridad.NivelDeEstudios) !== -1 && vm.escolaridad.GradoDeAvance === 'Egresado'" flex)
 				label Cédula Profesional
@@ -39,7 +39,7 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 			md-input-container(flex ng-show="vm.listaCarrerasById")
 				label Busca una carrera...
 				input(type='text' ng-model="vm.searchText")
-			md-select(placeholder="Carrera" ng-model="vm.escolaridad.idCarrera" flex ng-show="vm.listaCarrerasById") 			
+			md-select(placeholder="Carrera u Oficio" ng-model="vm.escolaridad.idCarrera" flex ng-show="vm.listaCarrerasById")
 				md-option(ng-repeat="carr in vm.listaCarreras | filter:{'NombreCarrera':vm.searchText}" value="{{carr.id}}") {{carr.NombreCarrera | cut:false:40:'...'}}
 			md-input-container(flex ng-show="vm.listaCarrerasById")
 				label Área de Estudios

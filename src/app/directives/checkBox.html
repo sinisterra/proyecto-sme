@@ -1,0 +1,11 @@
+{{vm.model}}
+<div ng-repeat="option in vm.options">
+    <md-checkbox ng-model="vm.model.values[$index]">
+            {{option.name}}
+    </md-checkbox>
+    <md-input-container ng-show="vm.model.values[$index]==true" ng-if="option.hasOther!=undefined">
+        <label>{{option.hasOther}}</label>
+        <input ng-model="vm.model.others[$index]">
+    </md-input-container>
+
+</div>

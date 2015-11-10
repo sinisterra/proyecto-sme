@@ -1,0 +1,13 @@
+<md-radio-group flex ng-model="vm.model.value" class="md-primary" layout-gt-lg="{{vm.align}}" layout-gt-sm="column" layout-wrap="{{vm.wrap}}">
+        <md-radio-button ng-repeat="option in vm.options" ng-value="option.value">
+            {{option.name}}
+        </md-radio-button>
+</md-radio-group>
+
+
+<div ng-repeat="option in vm.options">
+    <md-input-container ng-show="vm.model.value==option.value" ng-if="option.hasOther!=undefined">
+        <label>{{option.hasOther}}</label>
+        <input ng-model="vm.model.other">
+    </md-input-container>
+</div>

@@ -1,0 +1,19 @@
+//
+   Created by lockonDaniel on 11/10/15.
+h2 27. Con cuál de las siguientes frases estás más de acuerdo: Durante los cuatro años de resistencia...
+div(layout="row" layout-align="center center")
+   questions-radio(ng-model="vm.cuestionario.Capacitacion" options="vm.radioFrasesResistencia")
+h2 28. ¿Participaste en alguna actividad destacada del movimiento de resistencia?
+div(layout="row" layout-align="center center")
+   questions-radio(ng-model="vm.cuestionario.ParticipacionResistencia" options="vm.radioResistencia")
+h2 29. ¿Ocupas o has ocupado un cargo sindical?
+div(layout="row" layout-align="center center")
+   questions-radio(ng-model="vm.cuestionario.CargoSindical" options="vm.radioGeneral")
+div(ng-show="vm.cuestionario.CargoSindical.value==1")
+   h2 30. Si tu respuesta fue Sí, ¿Especifica el cargo y periodo de permanencia?
+   md-input-container
+      label Cargo
+      input(type="text" ng-model="vm.cuestionario.CargoSindical.Cargo")
+   md-input-container
+      label Periodo
+      input(type="text" ng-model="vm.cuestionario.Cargosindical.Periodo")

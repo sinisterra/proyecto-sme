@@ -54,7 +54,15 @@
         templateUrl: 'app/info/layout.html',
         controller: 'InfoPersonalController',
         controllerAs: 'vm'
-      });
+      })
+        .state('encuesta',{
+          parent:'base',
+          url:'/encuesta',
+          templateUrl:'app/encuesta/encuesta.html',
+          controller: 'EncuestaController',
+          controllerAs: 'vm'
+        })
+    ;
 
 
 
