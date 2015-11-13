@@ -31,6 +31,7 @@
             },
             templateUrl:'app/directives/table.html',
             controller: controller,
+            controllerAs: 'vm',
             link: link
         };
 
@@ -46,7 +47,7 @@
     }
 
     controller.$inject =['$scope'];
-    function controller()
+    function controller($scope)
     {
         var vm = this;
         vm.scope            = $scope;

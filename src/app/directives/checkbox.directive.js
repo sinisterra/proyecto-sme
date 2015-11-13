@@ -23,6 +23,7 @@
             },
             templateUrl:'app/directives/checkBox.html',
             controller: controller,
+            controllerAs: 'vm',
             link: link
         };
 
@@ -38,8 +39,9 @@
     }
 
     controller.$inject =['$scope'];
-    function controller()
+    function controller($scope)
     {
+
         var vm = this;
         vm.scope            = $scope;
         vm.options          = $scope.options;
