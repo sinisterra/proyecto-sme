@@ -8,7 +8,7 @@
         .module('appSme')
         .controller('TrabajoController', TrabajoController);
 
-    /** @ngInject */
+    /* @ngInject */
     function TrabajoController() {
         var vm = this;
 

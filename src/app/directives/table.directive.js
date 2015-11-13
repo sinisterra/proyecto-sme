@@ -15,6 +15,8 @@
         .module('appSme')
         .directive('questionsTable',tableQuestions);
 
+    /* @ngInject */
+
     function tableQuestions()
     {
         var directive =
@@ -29,7 +31,6 @@
             },
             templateUrl:'app/directives/table.html',
             controller: controller,
-            controllerAs: 'vm',
             link: link
         };
 
@@ -44,7 +45,8 @@
 
     }
 
-    function controller($scope)
+    controller.$inject =['$scope'];
+    function controller()
     {
         var vm = this;
         vm.scope            = $scope;
@@ -102,11 +104,6 @@
                         vm.model[value].value = vm.setAllValue;
                     })
                 }
-
-                /*if(vm.model[vm.hasOtherModel].value!=vm.showWhenValue)
-                {
-                    vm.model[vm.hasOtherModel].otro = null;
-                }*/
             }
 
         }

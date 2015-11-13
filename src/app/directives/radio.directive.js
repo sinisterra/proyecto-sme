@@ -12,6 +12,8 @@
         .module('appSme')
         .directive('questionsRadio',radioButtonQuestion);
 
+    /* @ngInject */
+
     function radioButtonQuestion()
     {
         var directive =
@@ -26,7 +28,6 @@
             },
             templateUrl:'app/directives/radio.html',
             controller: controller,
-            controllerAs: 'vm',
             link: link
         };
 
@@ -41,7 +42,9 @@
 
     }
 
-    function controller($scope)
+
+    controller.$inject =['$scope'];
+    function controller()
     {
         var vm = this;
         vm.scope            = $scope;

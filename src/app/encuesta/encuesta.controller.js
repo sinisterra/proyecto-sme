@@ -5,8 +5,8 @@
         .module('appSme')
         .controller('EncuestaController', EncuestaController);
 
-    /** @ngInject */
-    function EncuestaController(Restangular, $filter, toastr, _) {
+    /* @ngInject */
+    function EncuestaController() {
         var vm = this;
 
     }

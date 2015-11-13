@@ -9,6 +9,8 @@
         .module('appSme')
         .directive('questionsCheckBox',checkBoxQuestion);
 
+    /* @ngInject */
+
     function checkBoxQuestion()
     {
         var directive =
@@ -21,7 +23,6 @@
             },
             templateUrl:'app/directives/checkBox.html',
             controller: controller,
-            controllerAs: 'vm',
             link: link
         };
 
@@ -36,7 +37,8 @@
 
     }
 
-    function controller($scope)
+    controller.$inject =['$scope'];
+    function controller()
     {
         var vm = this;
         vm.scope            = $scope;
