@@ -48,16 +48,17 @@
 
 		vm.q40Data = {
 			items: [{
-				submodel: 'a',
-				text: 'Mesa de quejas'
+				id: '37a',
+				text: 'Mesa de quejas',
+				default: 9
 			}, {
-				submodel: 'b',
+				id: '37b',
 				text: 'Reconexiones'
 			}, {
-				submodel: 'c',
+				id: '37c',
 				text: 'Asamblea de usuarios'
 			}, {
-				submodel: 'd',
+				id: '37d',
 				text: 'En todas'
 			},
 
