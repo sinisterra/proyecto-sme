@@ -118,11 +118,11 @@
         {
             var impacto = {
                 items:[
-                    {text:"Adquisición de deudas",subModel:"Deudas"},
-                    {text:"Perdida de bienes",subModel:"PerdidaBienes"},
-                    {text:"Insolvencia para cumplir pagos",subModel:"Insolvencia"},
-                    {text:"Dejaron de estudiar hijos para ayudar a la economía familiar",subModel:"AbandonoEscuela"},
-                    {text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1}
+                    {id:'18a',default:9,text:"Adquisición de deudas",subModel:"Deudas"},
+                    {id:'18b',default:9,text:"Perdida de bienes",subModel:"PerdidaBienes"},
+                    {id:'18c',default:9,text:"Insolvencia para cumplir pagos",subModel:"Insolvencia"},
+                    {id:'18d',default:9,text:"Dejaron de estudiar hijos para ayudar a la economía familiar",subModel:"AbandonoEscuela"},
+                    {id:'18e',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1}
                 ],
                 options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
             }
@@ -133,12 +133,12 @@
         {
             var enfermedades = {
                 items:[
-                    {text:"Diabetes",subModel:"Diabetes"},
-                    {text:"Enfermedades cardiovasculares",subModel:"CardioVascular"},
-                    {text:"Enfermedades gastrointestinales",subModel:"GastroIntestinal"},
-                    {text:"Enfermedades respiratorias",subModel:"Respiratorias"},
-                    {text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1},
-                    {text:"Ninguna",subModel:"Ninguna",hasConflict:1,conflictValue:1,setAllValue:2}
+                    {id:'19a',default:9,text:"Diabetes",subModel:"Diabetes"},
+                    {id:'19b',default:9,text:"Enfermedades cardiovasculares",subModel:"CardioVascular"},
+                    {id:'19c',default:9,text:"Enfermedades gastrointestinales",subModel:"GastroIntestinal"},
+                    {id:'19d',default:9,text:"Enfermedades respiratorias",subModel:"Respiratorias"},
+                    {id:'19e',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1},
+                    {id:'19f',default:9,text:"Ninguna",subModel:"Ninguna",hasConflict:1,conflictValue:1,setAllValue:2}
                 ],
                 options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
             }
@@ -148,11 +148,11 @@
         {
             var enfermedades = {
                 items:[
-                    {text:"Depresión",subModel:"Depresion"},
-                    {text:"Estrés",subModel:"Estres"},
-                    {text:"Ansiedad",subModel:"Ansiedad"},
-                    {text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1},
-                    {text:"Ninguna",subModel:"Ninguna",hasConflict:1,conflictValue:1,setAllValue:2}
+                    {id:'20a',default:9,text:"Depresión",subModel:"Depresion"},
+                    {id:'20b',default:9,text:"Estrés",subModel:"Estres"},
+                    {id:'20c',default:9,text:"Ansiedad",subModel:"Ansiedad"},
+                    {id:'20d',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1},
+                    {id:'20e',default:9,text:"Ninguna",subModel:"Ninguna",hasConflict:1,conflictValue:1,setAllValue:2}
                 ],
                 options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
             }
@@ -163,10 +163,10 @@
         {
             var enfermedades = {
                 items:[
-                    {text:"Alcoholismo",subModel:"Alcoholismo"},
-                    {text:"Drogadicción",subModel:"Drogadiccion"},
-                    {text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1},
-                    {text:"Ninguna",subModel:"Ninguna",hasConflict:1,conflictValue:1,setAllValue:2}
+                    {id:'21a',default:9,text:"Alcoholismo",subModel:"Alcoholismo"},
+                    {id:'21b',default:9,text:"Drogadicción",subModel:"Drogadiccion"},
+                    {id:'21c',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1},
+                    {id:'21d',default:9,text:"Ninguna",subModel:"Ninguna",hasConflict:1,conflictValue:1,setAllValue:2}
                 ],
                 options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
             }
@@ -175,48 +175,48 @@
 
         function getConsecuencias()
         {
-            var enfermedades = {
+            var consecuencias = {
                 items:[
-                    {text:"Muerte de algún familiar",subModel:"Muerte"},
-                    {text:"Suicidio de algún familiar",subModel:"Suicidio"},
-                    {text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1},
-                    {text:"Ninguna",subModel:"Ninguna",hasConflict:1,conflictValue:1,setAllValue:2}
+                    {id:'22a',default:9,text:"Muerte de algún familiar",subModel:"Muerte"},
+                    {id:'22b',default:9,text:"Suicidio de algún familiar",subModel:"Suicidio"},
+                    {id:'22c',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1},
+                    {id:'22d',default:9,text:"Ninguna",subModel:"Ninguna",hasConflict:1,conflictValue:1,setAllValue:2}
                 ],
                 options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
             }
-            return enfermedades;
+            return consecuencias;
         }
 
         function getIntegracionFamiliar()
         {
-            var enfermedades = {
+            var problemas = {
                 items:[
-                    {text:"Problemas en la familia",subModel:"ProblemasFamiliares"},
-                    {text:"Consolidó la unión familiar",subModel:"ConsolidacionFamiliar"},
-                    {text:"Separación de integrantes",subModel:"Separacion"},
-                    {text:"Mejoró mi calidad de vida",subModel:"MejoraCalidadDeVida"},
-                    {text:"Divorcio",subModel:"Divorcio"},
-                    {text:"Me abrió mejores oportunidades de empleo en beneficio de mi familia",subModel:"MejoresOportunidades"},
-                    {text:"Pérdida de patria potestad de hijos",subModel:"PerdidaPatriaPotestad"},
-                    {text:"Truncó la educación de hijos o la de usted mismo",subModel:"EducacionTrunca"},
-                    {text:"Pérdida de bienes (casas, autos, otros)",subModel:"PerdidaDeVienes"},
-                    {text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1}
+                    {id:'23a',default:9,text:"Problemas en la familia",subModel:"ProblemasFamiliares"},
+                    {id:'23b',default:9,text:"Consolidó la unión familiar",subModel:"ConsolidacionFamiliar"},
+                    {id:'23c',default:9,text:"Separación de integrantes",subModel:"Separacion"},
+                    {id:'23d',default:9,text:"Mejoró mi calidad de vida",subModel:"MejoraCalidadDeVida"},
+                    {id:'23e',default:9,text:"Divorcio",subModel:"Divorcio"},
+                    {id:'23f',default:9,text:"Me abrió mejores oportunidades de empleo en beneficio de mi familia",subModel:"MejoresOportunidades"},
+                    {id:'23g',default:9,text:"Pérdida de patria potestad de hijos",subModel:"PerdidaPatriaPotestad"},
+                    {id:'23h',default:9,text:"Truncó la educación de hijos o la de usted mismo",subModel:"EducacionTrunca"},
+                    {id:'23i',default:9,text:"Pérdida de bienes (casas, autos, otros)",subModel:"PerdidaDeVienes"},
+                    {id:'23j',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1}
                 ],
                 options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
             }
-            return enfermedades;
+            return problemas;
         }
 
         function getRelacionesSociales()
         {
             var relaciones = {
                 items:[
-                    {text:"Pérdida de amistades",subModel:"PerdidaAmistades"},
-                    {text:"Rechazo de vecinos y otros grupos sociales",subModel:"Rechazo"},
-                    {text:"Aislamiento personal",subModel:"Aislamiento"},
-                    {text:"Rechazo laboral",subModel:"Rechazo"},
-                    {text:"Identificación con otros grupos sociales",subModel:"IdentificacionOtrosGrupos"},
-                    {text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1}
+                    {id:'24a',default:9,text:"Pérdida de amistades",subModel:"PerdidaAmistades"},
+                    {id:'24b',default:9,text:"Rechazo de vecinos y otros grupos sociales",subModel:"Rechazo"},
+                    {id:'24c',default:9,text:"Aislamiento personal",subModel:"Aislamiento"},
+                    {id:'24d',default:9,text:"Rechazo laboral",subModel:"Rechazo"},
+                    {id:'24e',default:9,text:"Identificación con otros grupos sociales",subModel:"IdentificacionOtrosGrupos"},
+                    {id:'24f',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1}
                 ],
                 options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
             }
