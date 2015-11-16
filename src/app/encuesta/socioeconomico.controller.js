@@ -9,7 +9,10 @@
 	function SocioeconomicoController() {
 		var vm = this;
 		vm.title = 'SocioeconomicoController';
-
+		vm.encuesta = {
+      preguntas: [],
+      encuesta: 1
+    };
 
 
 		activate();
