@@ -9,6 +9,8 @@
 	function ProyectosController() {
 		var vm = this;
 		vm.title = 'ProyectosController';
+		vm.encuesta         = {preguntas:[],encuesta:1};
+
 
 		vm.radioGeneral = [{
 			name: "Si",

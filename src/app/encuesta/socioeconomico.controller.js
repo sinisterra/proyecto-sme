@@ -10,6 +10,8 @@
 		var vm = this;
 		vm.title = 'SocioeconomicoController';
 
+
+
 		activate();
 
 		////////////////

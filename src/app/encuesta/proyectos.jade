@@ -1,45 +1,45 @@
 h2 35. ¿Conoces los proyectos del Sindicato Mexicano de Electricistas (SME)?
-questions-table(ng-model="vm.q38" items="vm.q38Data.items" options="vm.q38Data.options")
+questions-table(ng-model="vm.encuesta.preguntas" items="vm.q38Data.items" options="vm.q38Data.options")
 h2 36. ¿Participas en alguno de ellos? (Si: Pasa a 37. No: Pasa a 38)
 div(layout="row" layout-align="center center")
-    questions-radio(ng-model="vm.q39" options="vm.radioGeneral")
+    questions-radio(ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
 div(ng-show="vm.q39.value === 1")
     h2 37. Si tu respuesta fue Sí. En que actividades con organizaciones de usuarios has participado:
-    questions-table(ng-model="vm.q40" items="vm.q40Data.items" options="vm.q40Data.options")
+    questions-table(ng-model="vm.encuesta.preguntas" items="vm.q40Data.items" options="vm.q40Data.options")
 h2 38. ¿Domo calificaría la solución alcanzada a nuestras demandas, donde 1 es pésimo y 10 es excelente?
 div(layout="row" layout-align="center center")
-    questions-radio(ng-model="vm.q42" options="vm.q42Options" wrap="true")
+    questions-radio(ng-model="vm.encuesta.preguntas" options="vm.q42Options" wrap="true")
 h2 39. De entre las siguientes acciones, ¿cuáles considerabas necesarias para que el gobierno resolviera la reinserción de los trabajadores del Sindicato Mexicano de Electricistas (SME)?
 div(layout="row" layout-align="center center")
-    questions-radio(ng-model="vm.q43" options="vm.q43Options")
+    questions-radio(ng-model="vm.encuesta.preguntas" options="vm.q43Options")
 h2 40. ¿Qué tanto te enteras de lo que ocurre en tu organización sindical, a través de…: mucho, algo, poco o nada?
-questions-table(ng-model="vm.q44" items="vm.q44Data.items" options="vm.q44Data.options")
+questions-table(ng-model="vm.encuesta.preguntas" items="vm.q44Data.items" options="vm.q44Data.options")
 h2 41. ¿En Internet, que sitios visitas?
 div(layout="row" layout-align="center center")
-    questions-check-box(ng-model="vm.q44x" options="vm.q45Options")
+    questions-check-box(ng-model="vm.encuesta.preguntasx" options="vm.q45Options")
 h2 42. ¿Acostumbras a leer el periódico? (Si: Pasa a 43. No: Pasa a 44)
 div(layout="row" layout-align="center center")
-    questions-radio(ng-model="vm.q45" options="vm.radioGeneral")
+    questions-radio(ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
 div(ng-show="vm.q45.value === 1")
     h2 43. Si tu respuesta fue Sí. ¿Cuál es la sección que más acostumbras a leer en el periódico?
     div(layout="row" layout-align="center center")
-        questions-radio(ng-model="vm.q46" options="vm.q46Options")
+        questions-radio(ng-model="vm.encuesta.preguntas" options="vm.q46Options")
 h2 44. ¿Acostumbras a leer revistas? (Si: Pasa a 45. No: Pasa a 46)
 div(layout="row" layout-align="center center")
-    questions-radio(ng-model="vm.q47" options="vm.radioGeneral")
+    questions-radio(ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
 div(ng-show="vm.q47.value === 1")
     h2 45. Si tu respuesta fue Sí. ¿Qué tipo de revista acostumbra leer?
     div(layout="row" layout-align="center center")
-        questions-radio(ng-model="vm.q48" options="vm.q48Options")
+        questions-radio(ng-model="vm.encuesta.preguntas" options="vm.q48Options")
 h2 46. ¿Utilizas regularmente Internet?
 div(layout="row" layout-align="center center")
-    questions-radio(ng-model="vm.q49" options="vm.radioGeneral")
+    questions-radio(ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
 h2 47. ¿Eres derechohabiente de algún servicio de salud? (Si: pasa a 48 No: Pasa a 49)
 div(layout="row" layout-align="center center")
-    questions-radio(ng-model="vm.q50" options="vm.radioGeneral")
+    questions-radio(ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
 div(ng-show="vm.q50.value ===  1")
     h2 48. Si tu respuesta fue Sí. ¿Quién le proporciona la atención?
     div(layout="row" layout-align="center center")
-        questions-radio(ng-model="vm.q51" options="vm.q51Options")
+        questions-radio(ng-model="vm.encuesta.preguntas" options="vm.q51Options")
 div(layout="row" layout-align="center center")
     md-button.md-primary.md-raised Guardar
