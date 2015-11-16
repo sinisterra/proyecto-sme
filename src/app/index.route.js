@@ -55,13 +55,48 @@
         controller: 'InfoPersonalController',
         controllerAs: 'vm'
       })
-        .state('encuesta',{
-          parent:'base',
-          url:'/encuesta',
-          templateUrl:'app/encuesta/encuesta.html',
-          controller: 'EncuestaController',
-          controllerAs: 'encuesta',
-        })
+      .state('encuesta',{
+        parent:'base',
+        url:'/encuesta',
+        templateUrl:'app/encuesta/encuesta.html',
+        controller: 'EncuestaController',
+        controllerAs: 'encuesta',
+      })
+      .state('trabajo',{
+        parent:'encuesta',
+        url:'/trabajo',
+        templateUrl:'app/encuesta/trabajo.html',
+        controller: 'TrabajoController',
+        controllerAs: 'vm'
+      })
+      .state('consecuencias',{
+        parent:'encuesta',
+        url:'/consecuencias',
+        templateUrl:'app/encuesta/consecuencias.html',
+        controller: 'ConsecuenciasController',
+        controllerAs: 'vm'
+      })
+      .state('condiciones',{
+        parent:'encuesta',
+        url:'/condiciones',
+        templateUrl:'app/encuesta/condicionesRegreso.html',
+        controller: 'CondicionesRegresoController',
+        controllerAs: 'vm'
+      })
+      .state('proyectos',{
+        parent:'encuesta',
+        url:'/proyectos',
+        templateUrl:'app/encuesta/proyectos.html',
+        controller: 'ProyectosController',
+        controllerAs: 'vm'
+      })
+      .state('socioeconomico',{
+        parent:'encuesta',
+        url:'/socioeconomico',
+        templateUrl:'app/encuesta/socioeconomico.html',
+        controller: 'SocioeconomicoController',
+        controllerAs: 'vm'
+      })
     ;
 
 

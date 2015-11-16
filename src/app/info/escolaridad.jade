@@ -47,9 +47,13 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 
 
 
-		div(layout layout-sm="column" layout-align-sm="center")
-			md-datepicker(placeholder="Inicio" ng-model="vm.escolaridad.FechaDeInicio" md-max-date="vm.today" required name="FechaInicio" flex)
-			md-datepicker(placeholder="Término" md-min-date="vm.escolaridad.FechaDeInicio"  md-max-date="vm.today" ng-model="vm.escolaridad.FechaDeTermino" required name="FechaTermino" flex)
+		div(layout layout-sm="column" layout-align-sm="center" layout-align="space-around center")
+			div(layout="column" layout-align="center center")
+				label Fecha de Inicio
+				md-datepicker(placeholder="Inicio" ng-model="vm.escolaridad.FechaDeInicio" md-max-date="vm.today" required name="FechaInicio" flex)
+			div(layout="column" layout-align="center center")
+				label Fecha de Término
+				md-datepicker(placeholder="Término" md-min-date="vm.escolaridad.FechaDeInicio"  md-max-date="vm.today" ng-model="vm.escolaridad.FechaDeTermino" required name="FechaTermino" flex)
 
 			//- md-input-container(flex)
 			//- 	label Fecha de Inicio

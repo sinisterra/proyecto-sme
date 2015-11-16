@@ -68,6 +68,7 @@
         {
             if(vm.firstTime)
             {
+                //console.log(vm.model);
                 vm.itemsWhenCreated =  vm.model.length;
                 vm.firstTime        =  false;
             }

@@ -15,10 +15,14 @@
         .controller('CondicionesRegresoController', CondicionesRegresoController);
 
     /** @ngInject */
-    function CondicionesRegresoController() {
+    function CondicionesRegresoController(Restangular,$state,toastr,_) {
         var vm = this;
 
-        vm.cuestionario = {};
+        vm.activate                     = activate();
+        vm.submitForm                   = submitForm;
+        vm.encuesta                     = {encuesta:3,preguntas:[]};
+        vm.arrayNumber                  = {};
+
         vm.radioGeneral                 =   [{name:"Si",value:1},{name:"No",value:2}];
         vm.radioFrasesResistencia       =   [
             {name:"Fui y soy parte de la organización y realización de actividades de forma permanente.",value:1},
@@ -36,7 +40,7 @@
                 {name:"Iniciar o terminar estudios",value:4},
                 {name:"Pagar gastos de salud",value:5},
                 {name:"Otro",value:6,hasOther:"¿Cuál?"}
-            ]
+            ];
         vm.radioNoRegreso               =
             [
                 {name:"Encontré otro empleo",value:1},
@@ -49,7 +53,27 @@
                 {name:"Incapacidad física",value:8},
                 {name:"Otro",value:9,hasOther:"¿Cuál?"},
                 {name:"NS/NC",value:99}
-            ]
+            ];
+        function activate()
+        {
+            vm.nivel = localStorage.nivel;
+            if(vm.nivel!=2)
+                $state.go('encuesta', {}, {reload: true});
+        }
+
+        function submitForm(isValid)
+        {
+            console.log(vm.encuesta);
+            Restangular.all('Cuestionario').customPOST(vm.encuesta).then(function(res){
+                localStorage.setItem('nivel',vm.encuesta.encuesta);
+                $state.go('encuesta', {}, {reload: true});
+                //$rootScope.$emit('rootScope:emit', ''); // $rootScope.$on
+                toastr.success('Se ha guardado éste bloque, prosigue al siguiente');
+
+            }).catch(function(err){
+                toastr.error('Error al guardar éste bloque('+err.status+')')
+            });
+        }
 
     }
 })();

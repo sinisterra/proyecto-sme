@@ -6,12 +6,18 @@
     .controller('ProyectosController', ProyectosController);
 
   /* @ngInject */
-  function ProyectosController(Restangular, toastr) {
+  function ProyectosController($state,Restangular, toastr) {
     var vm = this;
+    vm.submitForm = submitForm;
+    vm.activate   = activate();
+
+
+
+
     vm.title = 'ProyectosController';
     vm.encuesta = {
       preguntas: [],
-      encuesta: 1
+      encuesta: 4
     };
 
     vm.radioGeneral = [{
@@ -25,7 +31,6 @@
       value: 9
     }];
 
-    vm.sendForm = sendForm;
 
     vm.q38Data = {
       'items': [{
@@ -271,16 +276,25 @@
       value: 10
     }];
 
-    activate();
 
-    function activate() {}
+    function  activate()
+    {
+      vm.nivel = localStorage.nivel;
+      if(vm.nivel!=3)
+        $state.go('encuesta', {}, {reload: true});
+    }
+    function submitForm(valid)
+    {
+      // console.log(vm.encuesta);
 
-    function sendForm(){
-      Restangular.all('Cuestionario').customPOST(vm.encuesta).then(function(){
-        toastr.success('Datos guardados correctamente.');
-      })
-      .catch(function(err){
-        toastr.error('Error al guardar la información.'+'('+err.status+')');
+      Restangular.all('Cuestionario').customPOST(vm.encuesta).then(function(res){
+        localStorage.setItem('nivel',vm.encuesta.encuesta);
+        $state.go('encuesta', {}, {reload: true});
+        //$rootScope.$emit('rootScope:emit', ''); // $rootScope.$on
+        toastr.success('Se ha guardado éste bloque, prosigue al siguiente');
+
+      }).catch(function(err){
+        toastr.error('Error al guardar éste bloque('+err.status+')')
       });
     }
 

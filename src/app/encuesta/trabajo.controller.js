@@ -9,9 +9,11 @@
         .controller('TrabajoController', TrabajoController);
 
     /* @ngInject */
-    function TrabajoController($rootScope,Restangular, toastr) {
+    function TrabajoController($state,Restangular, toastr) {
         var vm = this;
-        vm.rootScope        = $rootScope;
+
+        vm.activate         = activate();
+        //vm.rootScope        = $rootScope;
         vm.submitForm       = submitForm;
         vm.encuesta         = {preguntas:[],encuesta:1};
         vm.tableOptions     =
@@ -45,7 +47,7 @@
                 {text:'Servicios',value:5},
                 {text:'Planeación',value:6},
                 {text:'Organizativo',value:7},
-                {text:'Otro',value:8,hasOther:'Anotar aquí'},
+                {text:'Otro',value:8,showWhenValue:1,hasOther:'Anotar aquí'},
                 {text:'No se',value:99}
             ],
             [
@@ -84,12 +86,22 @@
 
         }
 
+        function  activate()
+        {
+            vm.nivel = localStorage.nivel;
+            if(vm.nivel!=0)
+                $state.go('encuesta', {}, {reload: true});
+        }
+
 
         function submitForm(valid)
         {
+           // console.log(vm.encuesta);
+
             Restangular.all('Cuestionario').customPOST(vm.encuesta).then(function(res){
-                localStorage.setItem('nivel',1);
-                $rootScope.$emit('rootScope:emit', ''); // $rootScope.$on
+                localStorage.setItem('nivel',vm.encuesta.encuesta);
+                $state.go('encuesta', {}, {reload: true});
+                //$rootScope.$emit('rootScope:emit', ''); // $rootScope.$on
                 toastr.success('Se ha guardado éste bloque, prosigue al siguiente');
 
             }).catch(function(err){

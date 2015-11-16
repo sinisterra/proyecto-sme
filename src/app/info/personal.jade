@@ -19,7 +19,8 @@ div(flex layout-padding).card-header
 			md-input-container(flex)
 				label Correo Electrónico
 				input(ng-model="vm.personal.CorreoElectronico" required type="email" name="CorreoElectronico")
-			div(layout flex layout-sm="column")
+			div(layout="column" layout-align="end center")
+				label Fecha de Nacimiento
 				md-datepicker(placeholder="Fecha de Nacimiento" ng-model="vm.personal.FechaNacimiento" md-max-date="vm.today" required name="FechaNacimiento")
 
 				//- md-input-container(flex)

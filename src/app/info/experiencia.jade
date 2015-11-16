@@ -59,12 +59,12 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 				label Jerarquía
 				input(type="text" required name="Jerarquia" ng-model="vm.experiencia.Jerarquia" maxlength="80")
 
-		div(flex layout="row" layout-align="space-around center")
-			div(layout="column")
+		div(flex layout="row" layout-align="space-around center" layout-sm="column")
+			div(layout="column" layout-align="space-around center")
 				span Fecha de Inicio
 				md-datepicker(placeholder="Inicio" ng-model="vm.experiencia.FechaInicio" md-max-date="vm.today" required name="FechaInicio" flex)
 			div(layout="column")
-				span Fecha de Inicio
+				span Fecha de Término
 				md-datepicker(placeholder="Término" md-min-date="vm.experiencia.FechaInicio"  md-max-date="vm.today" ng-model="vm.experiencia.FechaTermino" required name="FechaTermino" flex)
 
 			//- pre {{vm.experiencia.FechaInicio | json:2}}

@@ -6,20 +6,15 @@
 		.controller('SocioeconomicoController', SocioeconomicoController);
 
 	/* @ngInject */
-	function SocioeconomicoController() {
+	function SocioeconomicoController($state,Restangular,toastr) {
 		var vm = this;
 		vm.title = 'SocioeconomicoController';
-		vm.encuesta = {
-      preguntas: [],
-      encuesta: 1
-    };
+		vm.encuesta = { preguntas: [], encuesta: 5};
 
-
-		activate();
-
+		vm.submitForm 	= submitForm;
+		vm.activate 	= activate();
 		////////////////
 
-		function activate() {
 
 			vm.radioGeneral = [{
 				name: "Si",
@@ -45,10 +40,8 @@
 			}, {
 				name: 'Más de $32,000',
 				value: 5
-			}, {
-				name: 'No contestó',
-				value: 9
-			}];
+			}
+			];
 
 			vm.EOptions = [{
 				value: 1,
@@ -73,10 +66,7 @@
 				name: 'Jubilado '
 			}, {
 				value: 98,
-				name: 'Otro'
-			}, {
-				value: 99,
-				name: 'No contestó'
+				name: 'Otro',hasOther:'¿Cuál?'
 			}];
 
 			vm.FOptions = [{
@@ -91,9 +81,6 @@
 			}, {
 				value: 4,
 				name: 'Tengo ambos'
-			}, {
-				value: 9,
-				name: 'Ns/Nc'
 			}];
 
 			vm.GOptions = [{
@@ -135,9 +122,6 @@
 			}, {
 				value: 13,
 				name: ' Doctorado'
-			}, {
-				value: 99,
-				name: ' Ns/Nc'
 			}];
 
 			vm.HOptions = [{
@@ -208,9 +192,33 @@
 				name: 'Cemento'
 			}, {
 				value: 3,
-				name: 'Otro tipo de material o acabo'
+				name: 'Otro tipo de material o acabo',
+				hasOther: '¿Cuál?'
 			}];
 
+		function  activate()
+		{
+			vm.nivel = localStorage.nivel;
+			if(vm.nivel!=4)
+				$state.go('encuesta', {}, {reload: true});
 		}
+
+
+		function submitForm(valid)
+		{
+			// console.log(vm.encuesta);
+
+			Restangular.all('Cuestionario').customPOST(vm.encuesta).then(function(res){
+				localStorage.setItem('nivel',vm.encuesta.encuesta);
+				$state.go('encuesta', {}, {reload: true});
+				//$rootScope.$emit('rootScope:emit', ''); // $rootScope.$on
+				toastr.success('Se ha guardado éste bloque, prosigue al siguiente');
+
+			}).catch(function(err){
+				toastr.error('Error al guardar éste bloque('+err.status+')')
+			});
+		}
+
+
 	}
 })();

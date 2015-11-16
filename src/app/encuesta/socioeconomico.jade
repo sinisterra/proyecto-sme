@@ -1,61 +1,63 @@
-h2 D. Sumando todo lo que ganan en tu familia, ¿como cuánto ganan todos los que trabajan en tu familia al mes? 
-div(layout="row" layout-align="center center")
-	questions-radio(id-pregunta="D" ng-model="vm.qD" options="vm.DOptions")
+form(name='socioeconomico')
+	h2 D. Sumando todo lo que ganan en tu familia, ¿como cuánto ganan todos los que trabajan en tu familia al mes?
+	div(layout="row" layout-align="center center")
+		questions-radio(default="9" id-pregunta="D" ng-model="vm.encuesta.preguntas" options="vm.DOptions")
 
-h2 E. ¿Cuál es actualmente tu principal ocupación?
-div(layout="row" layout-align="center center")
-	questions-radio(id-pregunta="E" ng-model="vm.qE" options="vm.EOptions")
+	h2 E. ¿Cuál es actualmente tu principal ocupación?
+	div(layout="row" layout-align="center center")
+		questions-radio(default="99" id-pregunta="E" ng-model="vm.encuesta.preguntas" options="vm.EOptions")
 
-h2 F. ¿Tienes teléfono en tu casa, o tienes celular o no tienes teléfono?
-div(layout="row" layout-align="center center")
-	questions-radio(id-pregunta="F" ng-model="vm.qF" options="vm.FOptions")
+	h2 F. ¿Tienes teléfono en tu casa, o tienes celular o no tienes teléfono?
+	div(layout="row" layout-align="center center")
+		questions-radio(default="9" id-pregunta="F" ng-model="vm.encuesta.preguntas" options="vm.FOptions")
 
-h2 G. Pensando en el Jefe de Familia de tu hogar, ¿cuál fue el último año de estudios que completó?
-div(layout="row" layout-align="center center")
-	questions-radio(id-pregunta="G" ng-model="vm.qG" options="vm.GOptions"  wrap="true")
+	h2 G. Pensando en el Jefe de Familia de tu hogar, ¿cuál fue el último año de estudios que completó?
+	div(layout="row" layout-align="center center")
+		questions-radio(default="99" id-pregunta="G" ng-model="vm.encuesta.preguntas" options="vm.GOptions"  wrap="true")
 
-h2 H. ¿Cuál es el total de piezas y/o habitaciones con que cuenta tu hogar?, por favor no incluya baños, medios baños, pasillos, patios y zotehuelas.
-div(layout="row" layout-align="center center")
-	questions-radio(id-pregunta="H" ng-model="vm.qH" options="vm.HOptions")
+	h2 H. ¿Cuál es el total de piezas y/o habitaciones con que cuenta tu hogar?, por favor no incluya baños, medios baños, pasillos, patios y zotehuelas.
+	div(layout="row" layout-align="center center")
+		questions-radio(default="99"  id-pregunta="H" ng-model="vm.encuesta.preguntas" options="vm.HOptions")
 
-h2 I. ¿Cuántos baños completos con regadera y W.C. (excusado) hay para uso exclusivo de los integrantes de tu hogar?
-div(layout="row" layout-align="center center")
-	questions-radio(id-pregunta="I" ng-model="vm.qI" options="vm.IOptions")
+	h2 I. ¿Cuántos baños completos con regadera y W.C. (excusado) hay para uso exclusivo de los integrantes de tu hogar?
+	div(layout="row" layout-align="center center")
+		questions-radio(default="99"  id-pregunta="I" ng-model="vm.encuesta.preguntas" options="vm.IOptions")
 
-h2 J. En tu hogar ¿cuenta con calentador de agua o boiler? 
-div(layout="row" layout-align="center center")
-	questions-radio(id-pregunta="J" ng-model="vm.qJ" options="vm.radioGeneral")
+	h2 J. En tu hogar ¿cuenta con calentador de agua o boiler?
+	div(layout="row" layout-align="center center")
+		questions-radio(default="9" id-pregunta="J" ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
 
-h2 K. Contando todos los focos que utilizas para iluminar tu hogar, incluyendo los de techos, paredes y lámparas de buró o piso, indica ¿cuántos focos tiene tu vivienda?
-div(layout="row" layout-align="center center")
-	questions-radio(id-pregunta="K" ng-model="vm.qK" options="vm.KOptions")
+	h2 K. Contando todos los focos que utilizas para iluminar tu hogar, incluyendo los de techos, paredes y lámparas de buró o piso, indica ¿cuántos focos tiene tu vivienda?
+	div(layout="row" layout-align="center center")
+		questions-radio(default="99" id-pregunta="K" ng-model="vm.encuesta.preguntas" options="vm.KOptions")
 
-h2 L. ¿El piso de tu hogar es predominantemente de tierra, o de cemento, o de algún otro tipo de acabado?
-div(layout="row" layout-align="center center")
-	questions-radio(id-pregunta="L" ng-model="vm.qL" options="vm.LOptions")
+	h2 L. ¿El piso de tu hogar es predominantemente de tierra, o de cemento, o de algún otro tipo de acabado?
+	div(layout="row" layout-align="center center")
+		questions-radio(default="99" id-pregunta="L" ng-model="vm.encuesta.preguntas" options="vm.LOptions")
 
-h2 M. ¿Cuántos automóviles propios, excluyendo taxis, tienen en tu hogar?
-md-input-container
-	label Numere aquí
-	input(type="number" ng-model="vm.qN")
-h2 O. ¿Cuenta tu hogar con lavadora de ropa que lave y enjuague automáticamente que funcione?
-div(layout="row" layout-align="center center")
-	questions-radio(id-pregunta="O" ng-model="vm.qO" options="vm.radioGeneral")
+	h2 M. ¿Cuántos automóviles propios, excluyendo taxis, tienen en tu hogar?
+	questions-input(type="number" id-pregunta="M" ng-model="vm.encuesta.preguntas" label="Numere aquí")
+	h2 O. ¿Cuenta tu hogar con aspiradora que funcione?
+	div(layout="row" layout-align="center center")
+		questions-radio(default="9" id-pregunta="N" ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
+	h2 O. ¿Cuenta tu hogar con lavadora de ropa que lave y enjuague automáticamente que funcione?
+	div(layout="row" layout-align="center center")
+		questions-radio(default="9" id-pregunta="O" ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
 
-h2 P. ¿Cuenta tu hogar con horno de microondas que funcione?
-div(layout="row" layout-align="center center")
-	questions-radio(id-pregunta="P" ng-model="vm.qP" options="vm.radioGeneral")
+	h2 P. ¿Cuenta tu hogar con horno de microondas que funcione?
+	div(layout="row" layout-align="center center")
+		questions-radio(default="9" id-pregunta="P" ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
 
-h2 Q. ¿Cuenta tu hogar con tostador eléctrico de pan que funcione?
-div(layout="row" layout-align="center center")
-	questions-radio(id-pregunta="Q" ng-model="vm.qQ" options="vm.radioGeneral")
+	h2 Q. ¿Cuenta tu hogar con tostador eléctrico de pan que funcione?
+	div(layout="row" layout-align="center center")
+		questions-radio(default="9" id-pregunta="Q" ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
 
-h2 R. ¿Cuenta tu hogar con DVD que funcione?
-div(layout="row" layout-align="center center")
-	questions-radio(id-pregunta="R" ng-model="vm.qR" options="vm.radioGeneral")
+	h2 R. ¿Cuenta tu hogar con DVD que funcione?
+	div(layout="row" layout-align="center center")
+		questions-radio(default="9" id-pregunta="R" ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
 
-h2 S. ¿Cuenta tu hogar con Computadora Personal propia que funcione?
-div(layout="row" layout-align="center center")
-	questions-radio(id-pregunta="S" ng-model="vm.qS" options="vm.radioGeneral")
-div(layout="row" layout-align="center center")
-	md-button.md-primary.md-raised Guardar
+	h2 S. ¿Cuenta tu hogar con Computadora Personal propia que funcione?
+	div(layout="row" layout-align="center center")
+		questions-radio(default="9" id-pregunta="S" ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
+	div(layout-padding layout layout-align="end center")
+		md-button.md-primary.md-raised(ng-disabled="socioeconomico.$invalid" ng-click="vm.submitForm(socioeconomico.$valid)") Guardar

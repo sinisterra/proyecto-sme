@@ -13,19 +13,15 @@
 
     /** @ngInject */
 
-    function ConsecuenciasController($scope) {
+    function ConsecuenciasController($state,Restangular,toastr) {
         var vm = this;
+
+        vm.activate = activate();
+
 
         vm.encuesta = {preguntas:[],encuesta:2};
 
         vm.arrayNumber = {};
-
-        $scope.$watchCollection('vm.encuesta',watchFunction);
-
-        function watchFunction(newValue,oldValue)
-        {
-            vm.numPreguntas = vm.encuesta.length;
-        }
 
         /*
             Opciones para las preguntas
@@ -148,11 +144,11 @@
         {
             var enfermedades = {
                 items:[
-                    {id:'20a',default:9,text:"Depresión",subModel:"Depresion"},
-                    {id:'20b',default:9,text:"Estrés",subModel:"Estres"},
-                    {id:'20c',default:9,text:"Ansiedad",subModel:"Ansiedad"},
-                    {id:'20d',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1},
-                    {id:'20e',default:9,text:"Ninguna",subModel:"Ninguna",hasConflict:1,conflictValue:1,setAllValue:2}
+                    {id:'20a',default:9,text:"Depresión"},
+                    {id:'20b',default:9,text:"Estrés"},
+                    {id:'20c',default:9,text:"Ansiedad"},
+                    {id:'20d',default:9,text:"Otra",hasOther:"Otro",showWhenValue:1},
+                    {id:'20e',default:9,text:"Ninguna",hasConflict:1,conflictValue:1,setAllValue:2}
                 ],
                 options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
             }
@@ -191,15 +187,15 @@
         {
             var problemas = {
                 items:[
-                    {id:'23a',default:9,text:"Problemas en la familia",subModel:"ProblemasFamiliares"},
-                    {id:'23b',default:9,text:"Consolidó la unión familiar",subModel:"ConsolidacionFamiliar"},
-                    {id:'23c',default:9,text:"Separación de integrantes",subModel:"Separacion"},
-                    {id:'23d',default:9,text:"Mejoró mi calidad de vida",subModel:"MejoraCalidadDeVida"},
-                    {id:'23e',default:9,text:"Divorcio",subModel:"Divorcio"},
-                    {id:'23f',default:9,text:"Me abrió mejores oportunidades de empleo en beneficio de mi familia",subModel:"MejoresOportunidades"},
-                    {id:'23g',default:9,text:"Pérdida de patria potestad de hijos",subModel:"PerdidaPatriaPotestad"},
-                    {id:'23h',default:9,text:"Truncó la educación de hijos o la de usted mismo",subModel:"EducacionTrunca"},
-                    {id:'23i',default:9,text:"Pérdida de bienes (casas, autos, otros)",subModel:"PerdidaDeVienes"},
+                    {id:'23a',default:9,text:"Problemas en la familia"},
+                    {id:'23b',default:9,text:"Consolidó la unión familiar"},
+                    {id:'23c',default:9,text:"Separación de integrantes"},
+                    {id:'23d',default:9,text:"Mejoró mi calidad de vida"},
+                    {id:'23e',default:9,text:"Divorcio"},
+                    {id:'23f',default:9,text:"Me abrió mejores oportunidades de empleo en beneficio de mi familia"},
+                    {id:'23g',default:9,text:"Pérdida de patria potestad de hijos"},
+                    {id:'23h',default:9,text:"Truncó la educación de hijos o la de usted mismo"},
+                    {id:'23i',default:9,text:"Pérdida de bienes (casas, autos, otros)"},
                     {id:'23j',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1}
                 ],
                 options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
@@ -225,10 +221,26 @@
 
 
 
+        function activate()
+        {
+            vm.nivel = localStorage.nivel;
+            if(localStorage.nivel!=1)
+                $state.go('encuesta', {}, {reload: true});
+        }
+
 
         function submitForm(isValid)
         {
             console.log(vm.encuesta);
+            Restangular.all('Cuestionario').customPOST(vm.encuesta).then(function(res){
+                localStorage.setItem('nivel',vm.encuesta.encuesta);
+                $state.go('encuesta', {}, {reload: true});
+                //$rootScope.$emit('rootScope:emit', ''); // $rootScope.$on
+                toastr.success('Se ha guardado éste bloque, prosigue al siguiente');
+
+            }).catch(function(err){
+                toastr.error('Error al guardar éste bloque('+err.status+')')
+            });
         }
 
 

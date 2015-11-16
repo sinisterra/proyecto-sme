@@ -1,5 +1,7 @@
 //- h1.md-display-3 Datos Personales
 div(layout-fill layout-margin)
-    div.md-whiteframe-z2.card( layout="column" ng-include=" 'app/encuesta/proposito.html' " layout-margin)
+    div.md-whiteframe-z2.card(ng-show="encuesta.nivel!=5" layout="column" ng-include=" 'app/encuesta/proposito.html' " layout-margin)
+    div.md-whiteframe-z2.card(ng-show="encuesta.nivel==5" layout="column" ng-include="'app/encuesta/agradecimiento.html'" layout-margin)
+
     div.md-whiteframe-z2.card(layout="column" layout-margin)
         div(ui-view)
