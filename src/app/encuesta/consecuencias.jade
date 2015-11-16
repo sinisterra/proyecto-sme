@@ -1,6 +1,7 @@
 //
    Created by lockonDaniel on 11/8/15.
 form(name="consecuencias")
+   span {{vm.encuesta.preguntas}}
    h2 9. ¿Durante estos cuatro años de resistencia tomaste alguna capacitación relacionada laboralmente a las actividades que realizabas en la Compañía de Luz y Fuerza del Centro?
    div(layout="row" layout-align="center center")
       questions-radio(id-pregunta="9" default="9" ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")

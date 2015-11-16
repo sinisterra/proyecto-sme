@@ -20,7 +20,7 @@
         {
             Restangular.all('Cuestionario').customGET().then(function(res){
                 localStorage.setItem('nivel',res.nivel);
-                vm.nivel = localStorage.nivel;
+                vm.nivel = localStorage;
                 console.log(vm.nivel);
             }).catch(function(err){
                 toastr.error('Error al procesar encuesta('+err.status+')');
