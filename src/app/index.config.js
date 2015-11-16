@@ -23,7 +23,7 @@
       .accentPalette('amber')
       .warnPalette('pink');
 
-    // var api = "http://127.0.0.1:8888/luz_fuerza_laravel/public/api";
+    //var api = "http://192.168.1.144:8888/luz_fuerza_laravel/public/api";
     var api = 'http://sme.org.mx/ipnsme2015/luz_fuerza_laravel/public/api';
     RestangularProvider.setBaseUrl(api);
 

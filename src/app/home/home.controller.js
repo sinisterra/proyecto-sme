@@ -11,6 +11,8 @@
 
 		vm.submit = submit;
 		vm.signupSubmit = signupSubmit;
+		vm.validateHash = validateHash;
+		vm.isHashValid  = false;
 
 
 		function activate(){
@@ -45,6 +47,7 @@
 						username: vm.signupModel.username,
 						password: vm.signupModel.password,
 						id: vm.signupModel.id,
+						hash: vm.signupModel.hash
 						// tipo: 'User',
 					})
 					.then(function(res) {
@@ -60,5 +63,20 @@
 					});
 			}
 		}
+
+		function validateHash()
+		{
+			Restangular.all('validate').customPOST({
+				id:	vm.signupModel.id,
+				hash: vm.signupModel.hash
+			}).then(function(res){
+				vm.isHashValid = true;
+			}).catch(function(err){
+				vm.isHashValid = false;
+				toastr.error('Los datos no coinciden ('+err.status+')');
+			});
+		}
+
+
 	}
 })();

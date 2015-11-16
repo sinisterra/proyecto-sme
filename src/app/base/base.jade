@@ -3,8 +3,7 @@ section(layout="row" flex)
 	md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id='left' md-is-locked-open="$mdMedia('gt-md')")
 		md-content(ng-controller="SidebarController as sidebar" )
 			md-toolbar.md-primary.md-tall(layout="column" layout-align="center center" )
-				//- img(src="assets/images/logo.jpg")
-
+				img(height="80%" src="assets/images/logo.png")
 				h1.md-toolbar-tools {{sidebar.user.username}}
 
 			md-list(ng-swipe-left="sidebar.close()")
@@ -19,7 +18,7 @@ section(layout="row" flex)
 				md-list-item(ng-click="sidebar.$state.go('encuesta')")
 					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'encuesta' }")
 						md-icon dashboard
-					span Encuesta
+					span Censo
 				md-list-item(ng-click="sidebar.$state.go('stats')" ng-if="!sidebar.isUser")
 					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'stats' }")
 						md-icon insert_chart

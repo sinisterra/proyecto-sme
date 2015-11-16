@@ -1,40 +1,42 @@
 //
    Created by lockonDaniel on 11/10/15.
-h2 27. Con cuál de las siguientes frases estás más de acuerdo: Durante los cuatro años de resistencia...
+h2 25. Con cuál de las siguientes frases estás más de acuerdo: Durante los cuatro años de resistencia...
 div(layout="row" layout-align="center center")
    questions-radio(ng-model="vm.cuestionario.Capacitacion" options="vm.radioFrasesResistencia")
-h2 28. ¿Participaste en alguna actividad destacada del movimiento de resistencia?
+h2 26. ¿Participaste en alguna actividad destacada del movimiento de resistencia?
 div(layout="row" layout-align="center center")
    questions-radio(ng-model="vm.cuestionario.ParticipacionResistencia" options="vm.radioResistencia")
-h2 29. ¿Ocupas o has ocupado un cargo sindical?
+h2 27. ¿Ocupas o has ocupado un cargo sindical?
 div(layout="row" layout-align="center center")
    questions-radio(ng-model="vm.cuestionario.CargoSindical" options="vm.radioGeneral")
 div(ng-show="vm.cuestionario.CargoSindical.value==1")
-   h2 30. Si tu respuesta fue Sí, ¿Especifica el cargo y periodo de permanencia?
+   h2 28. Si tu respuesta fue Sí, ¿Especifica el cargo y periodo de permanencia?
    md-input-container
       label Cargo
       input(type="text" ng-model="vm.cuestionario.CargoSindical.Cargo")
    md-input-container
       label Periodo
       input(type="text" ng-model="vm.cuestionario.Cargosindical.Periodo")
-h2 31. ¿En este momento, tienes disposición para regresar a trabajar en el sector eléctrico?
+h2 29. ¿En este momento, tienes disposición para regresar a trabajar en el sector eléctrico? (Si: Pasa a pregunta 30. No: Pasa a Pregunta 34)
 div(layout="row" layout-align="center center")
    questions-radio(ng-model="vm.cuestionario.RegresoTrabajo" options="vm.radioResistencia")
 div(ng-show="vm.cuestionario.RegresoTrabajo.value==1")
-   h2 32 Si tu respuesta fue Sí. ¿En que área del sector eléctrico crees que podrías tener un mejor desempeño?
+   h2 30. Si tu respuesta fue Sí. ¿En que área del sector eléctrico crees que podrías tener un mejor desempeño?
    md-input-container
       label Escribe el Área Aqui
       input(type="text" ng-model="vm.cuestionario.AreaMejorPerformance")
-   h2 33 Si tu respuesta fue Sí. ¿Crees que debes actualizar tus conocimientos, habilidades y aptitudes en el área de tu desempeño laboral?
+   h2 31 Si tu respuesta fue Sí. ¿Crees que debes actualizar tus conocimientos, habilidades y aptitudes en el área de tu desempeño laboral?
    div(layout="row" layout-align="center center")
       questions-radio(ng-model="vm.cuestionario.ActualizarConocimientos" options="vm.radioResistencia")
-   h2 34 Si tu respuesta fue Sí. ¿Estarías dispuesto a tomar la capacitación necesaria para actualizarte?
+   h2 32 Si tu respuesta fue Sí. ¿Estarías dispuesto a tomar la capacitación necesaria para actualizarte?
    div(layout="row" layout-align="center center")
       questions-radio(ng-model="vm.cuestionario.Capacitacion" options="vm.radioResistencia")
-   h2 35 Si tu respuesta fue Sí. De lograr tu reinserción al sector eléctrico, ¿Cuál sería tu prioridad?
+   h2 33 Si tu respuesta fue Sí. De lograr tu reinserción al sector eléctrico, ¿Cuál sería tu prioridad?
    div(layout="row" layout-align="center center")
       questions-radio(ng-model="vm.cuestionario.Prioridad" options="vm.radioPrioridad")
 div(ng-show="vm.cuestionario.RegresoTrabajo.value==2")
-   h2 36 Si tu respuesta fue No. Menciona la razón por la cual no regresarías a laborar en el sector eléctrico
+   h2 34 Si tu respuesta fue No. Menciona la razón por la cual no regresarías a laborar en el sector eléctrico
       div(layout-align="center center")
       questions-radio(ng-model="vm.cuestionario.RazonNoRegreso" options="vm.radioNoRegreso" align="column")
+div(layout="row" layout-align="center center")
+   md-button.md-primary.md-raised Guardar

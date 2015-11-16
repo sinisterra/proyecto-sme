@@ -7,10 +7,11 @@
 
 	/* @ngInject */
 	function User() {
-
 		return {
 			isLoggedIn : localStorage.isLoggedIn || false
 		};
 
 	}
+
+
 })();

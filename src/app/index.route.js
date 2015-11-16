@@ -60,7 +60,7 @@
           url:'/encuesta',
           templateUrl:'app/encuesta/encuesta.html',
           controller: 'EncuestaController',
-          controllerAs: 'vm'
+          controllerAs: 'encuesta',
         })
     ;
 

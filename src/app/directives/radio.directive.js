@@ -24,7 +24,10 @@
                 ngModel: '=',
                 options: '=',
                 align:   '@',
-                wrap: '@'
+                idPregunta: '@',
+                default: '@',
+                wrap: '@',
+                arrayNumber:'='
             },
             templateUrl:'app/directives/radio.html',
             controller: controller,
@@ -52,10 +55,18 @@
         vm.options          = $scope.options;
         vm.align            = $scope.align;
         vm.wrap             = $scope.wrap;
-        vm.model            = {value:null};
+        $scope.default==undefined ? vm.default = null : vm.default = $scope.default;
 
 
-        vm.scope.$watch('vm.model',watchFunction,true);
+        $scope.ngModel.push({idPregunta:$scope.idPregunta,value:$scope.default});
+
+        vm.scope.arrayNumber    = vm.scope.ngModel.length-1;
+        vm.model                = $scope.ngModel[$scope.ngModel.length-1];
+        vm.model.value          = vm.default;
+
+
+
+
 
         angular.forEach($scope.options,function(value,key){
            if(value.hasOther!=undefined)
@@ -65,10 +76,13 @@
         });
 
 
+        /*
+        vm.scope.$watch('vm.model',watchFunction,true);
+
         function watchFunction(newValue,oldValue)
         {
             $scope.ngModel = vm.model;
-        }
+        }*/
 
 
 

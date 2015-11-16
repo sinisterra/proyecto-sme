@@ -12,10 +12,25 @@
         .controller('ConsecuenciasController', ConsecuenciasController);
 
     /** @ngInject */
-    function ConsecuenciasController() {
+
+    function ConsecuenciasController($scope) {
         var vm = this;
 
-        vm.cuestionario = {};
+        vm.encuesta = {preguntas:[],encuesta:2};
+
+        vm.arrayNumber = {};
+
+        $scope.$watchCollection('vm.encuesta',watchFunction);
+
+        function watchFunction(newValue,oldValue)
+        {
+            vm.numPreguntas = vm.encuesta.length;
+        }
+
+        /*
+            Opciones para las preguntas
+         */
+
         vm.radioGeneral                 =   [{name:"Si",value:1},{name:"No",value:2}];
         vm.radioFrasesResistencia       =   [
                                                 {name:"Fui y soy parte de la organización y realización de actividades de forma permanente.",value:1},
@@ -37,18 +52,20 @@
         vm.consecuencias                =   getConsecuencias();
         vm.integracionFamiliar          =   getIntegracionFamiliar();
         vm.relacionesSociales           =   getRelacionesSociales();
+        vm.submitForm                   =   submitForm;
+
 
         function getActividadesResistencia()
         {
             var actividades = {
                 items:[
-                    {text:"Te empleaste por un salario",subModel:"Empleado"},
-                    {text:"Iniciaste alguna actividad por tu cuenta, con un ingreso económico personal o familiar",subModel:"EmpleoPropio"},
-                    {text:"Realizaste algún trabajo profesional independiente",subModel:"Independiente"},
-                    {text:"Estuviste desempleado",subModel:"Desempleado"},
-                    {text:"Otro",subModel:"Otro"}
+                    {id:'10a',default:"9",text:"Te empleaste por un salario"},
+                    {id:'10b',default:"9",text:"Iniciaste alguna actividad por tu cuenta, con un ingreso económico personal o familiar"},
+                    {id:'10c',default:"9",text:"Realizaste algún trabajo profesional independiente"},
+                    {id:'10d',default:"9",text:"Estuviste desempleado"},
+                    {id:'10e',default:"9",text:"Otro",hasOther:"¿Cuál?",showWhenValue:1}
                 ],
-                options:[{name:"Si, de forma permanente", value:1},{name:"Si, de forma eventual", value:2},{name:"No", value:3},{name:"No se", value:99}]
+                options:[{name:"Si, de forma permanente", value:1},{name:"Si, de forma eventual", value:2},{name:"No", value:3}]
             }
             return actividades;
         }
@@ -57,13 +74,13 @@
         {
             var actividades = {
                 items:[
-                    {text:"Actividades del hogar e hijos",subModel:"Hogar"},
-                    {text:"Trabajo familiar no remunerado",subModel:"TrabajoFamiliar"},
-                    {text:"Estudios escolarizados",subModel:"Estudios"},
-                    {text:"Tomé cursos de capacitación",subModel:"Cursos"},
-                    {text:"Otro",subModel:"Otro"}
+                    {id:'11a',default:"9",text:"Actividades del hogar e hijos",subModel:"Hogar"},
+                    {id:'11b',default:"9",text:"Trabajo familiar no remunerado",subModel:"TrabajoFamiliar"},
+                    {id:'11c',default:"9",text:"Estudios escolarizados",subModel:"Estudios"},
+                    {id:'11d',default:"9",text:"Tomé cursos de capacitación",subModel:"Cursos"},
+                    {id:'11e',default:"9",text:"Otro",subModel:"Otro"}
                 ],
-                options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
+                options:[{name:"Si", value:1},{name:"No", value:2}]
             }
             return actividades;
         }
@@ -72,11 +89,11 @@
         {
             var ayuda = {
                 items:[
-                    {text:"Familiares",subModel:"Familiares"},
-                    {text:"Instituciones Públicas",subModel:"InstitucionesPublicas"},
-                    {text:"Organizaciones Sociales",subModel:"OrganizacionesSociales"}
+                    {id:'14a',default:9,text:"Familiares",subModel:"Familiares"},
+                    {id:'14b',default:9,text:"Instituciones Públicas",subModel:"InstitucionesPublicas"},
+                    {id:'14c',default:9,text:"Organizaciones Sociales",subModel:"OrganizacionesSociales"}
                 ],
-                options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
+                options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:9}]
             }
             return ayuda;
         }
@@ -85,12 +102,12 @@
         {
             var participacion = {
                 items:[
-                    {text:"Alguna organización cultural o deportiva",subModel:"Cultural"},
-                    {text:"Acciones de beneficio social",subModel:"BeneficioSocial"},
-                    {text:"Alguna organización política",subModel:"Politica"},
-                    {text:"Asistía a la escuela/capacitación",subModel:"Escuela"},
-                    {text:"Ninguna",subModel:"Ninguna"},
-                    {text:"Otra",subModel:"Otra"}
+                    {id:'15a',default:9,text:"Alguna organización cultural o deportiva",subModel:"Cultural"},
+                    {id:'15b',default:9,text:"Acciones de beneficio social",subModel:"BeneficioSocial"},
+                    {id:'15c',default:9,text:"Alguna organización política",subModel:"Politica"},
+                    {id:'15d',default:9,text:"Asistía a la escuela/capacitación",subModel:"Escuela"},
+                    {id:'15e',default:9,text:"Ninguna",subModel:"Ninguna"},
+                    {id:'15f',default:9,text:"Otra",subModel:"Otra"}
                 ],
                 options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
             }
@@ -205,6 +222,17 @@
             }
             return relaciones;
         }
+
+
+
+
+        function submitForm(isValid)
+        {
+            console.log(vm.encuesta);
+        }
+
+
+
 
 
     }

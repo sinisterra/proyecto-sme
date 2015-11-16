@@ -1,8 +1,9 @@
 div(style="background-color:#eee;height:100vh")
 	div.container(layout="column" layout-align="start center" style="height:100vh" layout-margin)
 		div.md-whiteframe-z2.card.card-md(layout="column" layout-align="center" ng-if="!home.showSignup")
-			div.primary-bg(flex layout-padding )
+			div.primary-bg(flex layout="row" layout-align="space-around center" layout-padding )
 				h1.md-headline Iniciar Sesión
+				img(src="assets/images/logo.png" height="70px")
 			div(flex layout-padding )
 				form(name="loginForm")
 					md-input-container
@@ -20,23 +21,28 @@ div(style="background-color:#eee;height:100vh")
 		div(layout layout-align="center" ng-show="!home.showSignup")
 			md-button.md-primary(ng-click="home.showSignup = true") Regístrate
 		div.md-whiteframe-z2.card.card-md(layout="column" layout-align="center"  ng-if="home.showSignup")
-			div.primary-bg(flex layout-padding )
+			div.primary-bg(flex layout="row" layout-align="space-around center" layout-padding )
 				h1.md-headline Registrar un usuario
+				img(src="assets/images/logo.png" height="70px")
 			div(flex layout-padding )
-				h2 Ingre
-
-				form(name="signupForm")
+				h2 Ingresa los datos que se piden
+				form(name="validateDataForm")
 					md-input-container
 						label Introduce tu número de Credencial
 						input(type="text" required name="Usuario" ng-model="home.signupModel.id")
 					md-input-container
 						label Clave
 						input(type="text" required name="Usuario" ng-model="home.signupModel.hash")
-					md-input-container
-						label Usuario
-						input(type="text" required name="Usuario" ng-model="home.signupModel.username")
-					md-input-container
-						label Genera tu contraseña
-						input(type="password" required name="password" ng-model="home.signupModel.password")
 					div(layout layout-align="center")
-						md-button.md-primary.md-raised(ng-disabled="loginForm.$invalid" ng-click="home.signupSubmit(signupForm.$valid)") Registrar
+							md-button.md-primary.md-raised(ng-disabled="validateDataForm.$invalid" ng-click="home.validateHash(validateDataForm.$valid)") Validar datos
+				div(ng-show="home.isHashValid")
+					h3 Ingresa tus nuevos datos de usuario. Recuerda que estos serán los datos con los que ingreses al sistema
+					form(name="signupForm")
+						md-input-container
+							label Introduce tu nuevo usuario
+							input(type="text" required name="Usuario" ng-model="home.signupModel.username")
+						md-input-container
+							label Genera tu nueva contraseña
+							input(type="password" required name="password" ng-model="home.signupModel.password")
+						div(layout layout-align="center")
+							md-button.md-primary.md-raised(ng-disabled="loginForm.$invalid" ng-click="home.signupSubmit(signupForm.$valid)") Registrar

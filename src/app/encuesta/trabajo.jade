@@ -1,60 +1,29 @@
 md-card-content
-   h2.md-headline 1. Indica a qué Departamento, Sección, Centro de Trabajo, Subgerencia y Gerencia pertenecías como trabajador en el momento de la extinción de la Compañía de Luz y Fuerza del Centro:
-   md-input-container
-      label Departamento
-      input(ng-model="vm.cuestionario.Trabajo.Departamento")
-   md-input-container
-      label Seccion
-      input(ng-model="vm.cuestionario.Trabajo.Seccion")
-   md-input-container
-      label Centro de Trabajo
-      input(ng-model="vm.cuestionario.Trabajo.CentroDeTrabajo")
-   md-input-container
-      label Subgerencia
-      input(ng-model="vm.cuestionario.Trabajo.Subgerencia")
-   md-input-container
-      label Gerencia
-      input(ng-model="vm.cuestionario.Trabajo.Gerencia")
-   h2.md-headline 4. Indica el último puesto y categoría que desempeñabas en la Compañía de Luz y Fuerza del Centro: (Escribe textualmente la respuesta para cada opción)
-   md-input-container
-      label Puesto
-      input(ng-model="vm.cuestionario.Trabajo.Puesto")
-   md-input-container
-      label Categoría
-      input(ng-model="vm.cuestionario.Trabajo.Categoria")
-   h2.md-headline 5. Describe tu definición de labores: (Escribe textualmente la respuesta)
-   md-input-container
-      label Definición de Labores
-      input(ng-model="vm.cuestionario.Trabajo.DefinicionDeLabores")
-   h2.md-headline 6. ¿Qué tipo de trabajo realizabas principalmente? (Selecciona la respuesta correcta)
-   md-input-container
-      label Selecciona el tipo de trabajo
-      md-select(ng-model="vm.cuestionario.Trabajo")
-         md-option(ng-repeat="trabajo in vm.options[1]" value="{{trabajo.id}}") {{trabajo.Nombre}}
-   h2.md-headline 7. ¿Qué aspectos consideras que resultaron fundamentales para el buen desempeño de tu última actividad laboral? (Circula la respuesta correcta para cada opción)
-   questions-table(ng-model="vm.cuestionario.Trabajo.Aspectos" options="vm.tableOptions[0].options" items="vm.tableOptions[0].items" align="row")
-   h2.md-headline 8. Indica qué otros puestos o actividades laborales desempeñaste antes de ocupar tu último puesto: (Registrar textualmente hasta 3 menciones de tus anteriores Puestos/Actividades)
-   md-input-container
-      label Actividades Laborales
-      input(ng-model="vm.cuestionario.Actividades[0]")
-   md-input-container(ng-show="vm.cuestionario.Actividades[0]!=undefined && vm.cuestionario.Actividades[0]!=''")
-      label Actividades Laborales 2
-      input(ng-model="vm.cuestionario.Actividades[1]")
-   md-input-container(ng-show="vm.cuestionario.Actividades[0]!=undefined && vm.cuestionario.Actividades[0]!='' && vm.cuestionario.Actividades[1]!=undefined && vm.cuestionario.Actividades[1]!=''")
-      label Actividades Laborales 3
-      input(ng-model="vm.cuestionario.Actividades[2]")
-   h2.md-headline 9. Indica qué otros puestos o actividades laborales desempeñaste antes de ocupar tu último puesto: (Registrar textualmente hasta 3 menciones de tus anteriores Puestos/Actividades)
-   md-input-container
-      label Otras Actividades Laborales
-      input(ng-model="vm.cuestionario.OtrasActividades[0]")
-   md-input-container(ng-show="vm.cuestionario.OtrasActividades[0]!=undefined && vm.cuestionario.OtrasActividades[0]!=''")
-      label Otras Actividades Laborales 2
-      input(ng-model="vm.cuestionario.OtrasOtrasActividades[1]")
-   md-input-container(ng-show="vm.cuestionario.OtrasActividades[0]!=undefined && vm.cuestionario.OtrasActividades[0]!='' && vm.cuestionario.Actividades[1]!=undefined && vm.cuestionario.Actividades[1]!=''")
-      label Otras Actividades Laborales 3
-      input(ng-model="vm.cuestionario.OtrasActividades[2]")
-   h2.md-headline 10. ¿Cuál fue el último año de estudios que completaste al momento de la extinción de la Compañía de Luz y Fuerza del Centro (Selecciona la respuesta correcta)
-   md-input-container
-      label Selecciona tu escolaridad
-      md-select(ng-model="vm.cuestionario.Educacion")
-         md-option(ng-repeat="escolaridad in vm.escolaridades" value="{{escolaridad.id}}") {{escolaridad.Nombre}}
+form(name="trabajo")
+   h2 1. Indica a qué Departamento, Sección, Centro de Trabajo, Subgerencia y Gerencia pertenecías como trabajador en el momento de la extinción de la Compañía de Luz y Fuerza del Centro:
+   questions-input(type="text" id-pregunta="1a" ng-model="vm.encuesta.preguntas" label="Departamento")
+   questions-input(type="text" id-pregunta="1b" ng-model="vm.encuesta.preguntas" label="Sección")
+   questions-input(type="text" id-pregunta="1c" ng-model="vm.encuesta.preguntas" label="Centro")
+   questions-input(type="text" id-pregunta="1d" ng-model="vm.encuesta.preguntas" label="Subgerencia")
+   questions-input(type="text" id-pregunta="1e" ng-model="vm.encuesta.preguntas" label="Gerencia")
+   h2 2. Indica el último puesto y categoría que desempeñabas en la Compañía de Luz y Fuerza del Centro: (Escribe textualmente la respuesta para cada opción)
+   questions-input(type="text" id-pregunta="2a" ng-model="vm.encuesta.preguntas" label="Puesto")
+   questions-input(type="text" id-pregunta="2b" ng-model="vm.encuesta.preguntas" label="Categoría")
+   h2 3 Describe tu definición de labores: (Escribe textualmente la respuesta)
+   questions-input(type="text" id-pregunta="2c" ng-model="vm.encuesta.preguntas" label="Puesto")
+   h2 4. ¿Qué tipo de trabajo realizabas principalmente? (Selecciona la respuesta correcta)
+   questions-select(ng-model="vm.encuesta.preguntas" id-pregunta="4" options="vm.options[1]")
+   h2 5. ¿Qué aspectos consideras que resultaron fundamentales para el buen desempeño de tu última actividad laboral? (Circula la respuesta correcta para cada opción)
+   questions-table(ng-model="vm.encuesta.preguntas" options="vm.tableOptions[0].options" items="vm.tableOptions[0].items" align="row")
+   h2 6. Indica qué otros puestos o actividades laborales desempeñaste antes de ocupar tu último puesto: (Registrar textualmente hasta 3 menciones de tus anteriores Puestos/Actividades)
+   questions-input(type="text" id-pregunta="6a" ng-model="vm.encuesta.preguntas" label="Actividad 1")
+   questions-input(type="text" id-pregunta="6b" ng-model="vm.encuesta.preguntas" label="Actividad 2")
+   questions-input(type="text" id-pregunta="6c" ng-model="vm.encuesta.preguntas" label="Actividad 3")
+   h2 7. Indica qué otros puestos o actividades laborales desempeñaste antes de ocupar tu último puesto: (Registrar textualmente hasta 3 menciones de tus anteriores Puestos/Actividades)
+   questions-input(type="text" id-pregunta="7a" ng-model="vm.encuesta.preguntas" label="Otra Actividad 1")
+   questions-input(type="text" id-pregunta="7b" ng-model="vm.encuesta.preguntas" label="Otra Actividad 2")
+   questions-input(type="text" id-pregunta="7c" ng-model="vm.encuesta.preguntas" label="Otra Actividad 3")
+   h2 8. ¿Cuál fue el último año de estudios que completaste al momento de la extinción de la Compañía de Luz y Fuerza del Centro (Selecciona la respuesta correcta)
+   questions-select(ng-model="vm.encuesta.preguntas" id-pregunta="8" options="vm.escolaridades")
+   div(layout-padding layout layout-align="end center")
+      md-button.md-primary.md-raised(ng-disabled="trabajo.$invalid" ng-click="vm.submitForm(trabajo.$valid)") Guardar

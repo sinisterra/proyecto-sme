@@ -1,8 +1,8 @@
 div(flex layout-gt-sm="colum" layout-gt-md="row" layout-align-gt-sm="center center" layout-align="space-around center" layout-padding ng-repeat="item in vm.items")
    h3(flex-sm="100" flex="20") {{item.text}}
-   questions-radio(ng-model="vm.model[item.subModel]" options="vm.options" align="{{vm.align}}" )
-div(ng-if="vm.hasOtherModel!=null" ng-show="vm.model[vm.hasOtherModel].value == vm.showWhenValue")
-   md-input-container
-      label {{vm.hasOtherText}}
-      input(type="text" ng-model="vm.model[vm.hasOtherModel].Otro")
-md-divider
+   questions-radio(id-pregunta="{{item.id}}" default="{{item.default}}" ng-model="vm.model" options="vm.options" align="{{vm.align}}" )
+   div(layout="column" ng-if="item.hasOther!=undefined" ng-show="vm.model[vm.itemsWhenCreated+$index].value==item.showWhenValue")
+      md-input-container
+         label {{item.hasOther}}
+         input(type="text" ng-model="vm.model[vm.itemsWhenCreated+$index].other")
+   md-divider

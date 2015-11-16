@@ -35,13 +35,9 @@ div(layout="row" layout-align="center center")
 	questions-radio(ng-model="vm.qL" options="vm.LOptions")
 
 h2 M. ¿Cuántos automóviles propios, excluyendo taxis, tienen en tu hogar?
-div(layout="row" layout-align="center center")
-	questions-radio(ng-model="vm.qN" options="vm.radioGeneral")
-
-h2 N. ¿Cuenta tu hogar con aspiradora que funcione?
-div(layout="row" layout-align="center center")
-	questions-radio(ng-model="vm.qN" options="vm.radioGeneral")
-
+md-input-container
+	label Numere aquí
+	input(type="number" ng-model="vm.qN")
 h2 O. ¿Cuenta tu hogar con lavadora de ropa que lave y enjuague automáticamente que funcione?
 div(layout="row" layout-align="center center")
 	questions-radio(ng-model="vm.qO" options="vm.radioGeneral")
@@ -61,3 +57,5 @@ div(layout="row" layout-align="center center")
 h2 S. ¿Cuenta tu hogar con Computadora Personal propia que funcione?
 div(layout="row" layout-align="center center")
 	questions-radio(ng-model="vm.qS" options="vm.radioGeneral")
+div(layout="row" layout-align="center center")
+	md-button.md-primary.md-raised Guardar

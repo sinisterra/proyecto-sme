@@ -40,7 +40,7 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 			md-select(flex name="ExperienciaEspecifica" placeholder="Experiencia Específica" ng-model="vm.experiencia.idExperienciaEspecifica" required ng-disabled="vm.expByAreas[vm.areasByCampos[vm.experiencia.idCampoDeExperiencia][vm.experiencia.idAreaDeExperiencia].id].length === 0 || vm.areasByCampos[vm.experiencia.idCampoDeExperiencia].length === 0")
 				md-option(ng-repeat="especifica in vm.expByAreas[vm.experiencia.idAreaDeExperiencia]" value="{{especifica.id}}") {{especifica.Nombre |cut:false:40:'...'}}
 
-		div(flex layout layout-sm="column")
+		//div(flex layout layout-sm="column")
 			md-select(flex name="Subdireccion" placeholder="Subdirección de LyF" ng-model="vm.experiencia.idSubdireccion" required)
 				md-option(ng-repeat="subdireccion in vm.subdireccionesById" value="{{subdireccion.id}}") {{subdireccion.Nombre | cut:false:40:'...'}}
 			md-select(flex name="Gerencia" placeholder="Gerencia de LyF" ng-model="vm.experiencia.idGerencia" required ng-disabled="vm.experiencia.idSubdireccion==null")
@@ -59,9 +59,13 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 				label Jerarquía
 				input(type="text" required name="Jerarquia" ng-model="vm.experiencia.Jerarquia" maxlength="80")
 
-		div(flex layout)
-			md-datepicker(placeholder="Inicio" ng-model="vm.experiencia.FechaInicio" md-max-date="vm.today" required name="FechaInicio" flex)
-			md-datepicker(placeholder="Término" md-min-date="vm.experiencia.FechaInicio"  md-max-date="vm.today" ng-model="vm.experiencia.FechaTermino" required name="FechaTermino" flex)
+		div(flex layout="row" layout-align="space-around center")
+			div(layout="column")
+				span Fecha de Inicio
+				md-datepicker(placeholder="Inicio" ng-model="vm.experiencia.FechaInicio" md-max-date="vm.today" required name="FechaInicio" flex)
+			div(layout="column")
+				span Fecha de Inicio
+				md-datepicker(placeholder="Término" md-min-date="vm.experiencia.FechaInicio"  md-max-date="vm.today" ng-model="vm.experiencia.FechaTermino" required name="FechaTermino" flex)
 
 			//- pre {{vm.experiencia.FechaInicio | json:2}}
 
@@ -74,7 +78,7 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 			//- 	input(type="date" required name="FechaTermino" max="vm.experiencia.FechaInicio" ng-model="vm.experiencia.FechaTermino")
 
 		div(flex layout layout-sm="column")
-			md-input-container(flex)
+			//md-input-container(flex)
 				label Remuneración Bruta Mensual
 				input(type="number" min="0" name="RemuneracionBrutaMensual" required ng-model="vm.experiencia.RemuneracionBrutaMensual")
 
@@ -96,11 +100,10 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 				label Experiencias
 				textarea(maxlength="100" md-maxlength="100" rows="3" ng-model="vm.experiencia.Experiencias" name="Experiencias" required)
 
-
-		div(flex layout layout-sm="column")
+		//div(flex layout layout-sm="column")
 			p Datos del Superior Inmediato
 
-		div(flex layout layout-sm="column")
+		//div(flex layout layout-sm="column")
 			md-input-container(flex)
 				label Nombre
 				input(type="text" ng-model="vm.experiencia.NombreSuperiorInmediato" name="NombreSuperiorInmediato" maxlength="80")
@@ -113,8 +116,7 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 				label Apellido Materno
 				input(type="text" ng-model="vm.experiencia.ApellidoMSuperiorInmediato" name="ApellidoMSuperiorInmediato" maxlength="80")
 
-
-		md-input-container(flex)
+		//md-input-container(flex)
 			label Teléfono a 10 dígitos (incluir código de área)
 			input(type="text" name="TelefonoSuperiorInmediato" ng-model="vm.experiencia.TelefonoSuperiorInmediato" maxlength="10" ng-pattern="/[0-9]{10}/")
 

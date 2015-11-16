@@ -83,7 +83,7 @@
 			name: 'Paros, huelgas de hambre, plantones'
 		}, {
 			value: 4,
-			name: 'Cambio de gobierno'
+			name: 'Crear Nuevos Instrumentos de Lucha'
 		}, {
 			value: 9,
 			name: 'Ns/Nc'
@@ -92,27 +92,30 @@
 		vm.q44Data = {
 			items: [{
 				submodel: 'a',
-				text: 'Televisión'
+				text: 'Internet y Redes Sociales'
 			}, {
 				submodel: 'b',
-				text: 'Periódicos'
+				text: 'Medios Alternativos (RadioSME, Desinformemos, etc.)'
 			}, {
 				submodel: 'c',
-				text: 'Radio'
+				text: 'Periódicos'
 			}, {
 				submodel: 'd',
-				text: 'Conversación con familiares y amigos'
+				text: 'Radio'
 			}, {
 				submodel: 'e',
-				text: 'Centros de reunión social'
+				text: 'Conversación con familiares y amigos'
 			}, {
 				submodel: 'f',
-				text: 'Volantes y folletos'
+				text: 'Centros de reunión social'
 			}, {
 				submodel: 'g',
-				text: 'Internet'
+				text: 'Volantes y folletos'
 			}, {
 				submodel: 'h',
+				text: 'Televisión'
+			}, {
+				submodel: 'i',
 				text: 'Asambleas sindicales'
 			}],
 			options: [{
@@ -133,6 +136,8 @@
 			}]
 
 		};
+
+		vm.q45Options = [{name:'Facebook'},{name:'Twitter'},{name:'RadioSME'}];
 
 		vm.q46Options = [{
 			value: 1,

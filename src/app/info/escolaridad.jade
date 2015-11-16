@@ -8,16 +8,16 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 
 		div(layout layout-sm="column")
 			md-select(placeholder="Nivel de Estudios" ng-model="vm.escolaridad.NivelDeEstudios" required flex ng-change="vm.loadLevel(vm.escolaridad.NivelDeEstudios)")
-				md-option(value="8") Doctorado
-				md-option(value="7") Maestría
-				md-option(value="6") Licenciatura
-				md-option(value="5") Bachillerato
-				md-option(value="4") Secundaria
-				md-option(value="3") Primaria
+				md-option(value="1") Sin Instrucción
 				md-option(value="2") Sabe Leer y Escribir
-				md-option(value="1") Sin Instrucción		
+				md-option(value="3") Primaria
+				md-option(value="4") Secundaria
+				md-option(value="5") Bachillerato
+				md-option(value="6") Licenciatura
+				md-option(value="7") Maestría
+				md-option(value="8") Doctorado
 
-			md-select(placeholder="Institución Educativa" ng-model="vm.escolaridad.idInstitucionEducativa" flex ng-hide="['1','2','3','4'].indexOf(vm.escolaridad.NivelDeEstudios) !== -1") 			
+			md-select(placeholder="Institución Educativa" ng-model="vm.escolaridad.idInstitucionEducativa" flex ng-hide="['1','2','3','4'].indexOf(vm.escolaridad.NivelDeEstudios) !== -1")
 				md-option(ng-repeat="ins in vm.listaInstitucionesById" value="{{ins.id}}") {{ins.Nombre}}
 
 			md-select(placeholder="Grado de Avance" ng-model="vm.escolaridad.GradoDeAvance" flex)

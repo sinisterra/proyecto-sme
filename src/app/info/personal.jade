@@ -25,17 +25,16 @@ div(flex layout-padding).card-header
 				//- md-input-container(flex)
 				//- 	label Fecha de Nacimiento
 				//- 	input(ng-model="vm.personal.FechaNacimiento" type="date" required name="FechaNacimiento" max="{{vm.today | date:'yyyy-MM-dd'}}")
-				div(layout layout-sm="column" flex)
-					md-select(flex ng-model="vm.personal.Sexo" placeholder="Sexo" name="Sexo")
-						md-option(value="H") Hombre
-						md-option(value="M") Mujer
-					md-select(flex ng-model="vm.personal.EstadoCivil" placeholder="Estado Civil" name="EstadoCivil")
-						md-option.md-primary(value="S") Soltero
-						md-option.md-primary(value="C") Casado
-						md-option.md-primary(value="D") Divorciado
-						md-option.md-primary(value="V") Viudo
-						md-option.md-primary(value="U") En Unión Libre
-					
+			div(layout layout-sm="column" flex)
+				md-select(flex ng-model="vm.personal.Sexo" placeholder="Sexo" name="Sexo")
+					md-option(value="H") Hombre
+					md-option(value="M") Mujer
+				md-select(flex ng-model="vm.personal.EstadoCivil" placeholder="Estado Civil" name="EstadoCivil")
+					md-option.md-primary(value="S") Soltero
+					md-option.md-primary(value="C") Casado
+					md-option.md-primary(value="D") Divorciado
+					md-option.md-primary(value="V") Viudo
+					md-option.md-primary(value="U") En Unión Libre
 		div(layout layout-sm="column")
 			md-input-container(flex)
 				label RFC
