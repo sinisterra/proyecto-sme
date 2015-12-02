@@ -11,7 +11,6 @@
 		vm.user = User;
 
 		activate();
-
 		Restangular.all('authenticate').customGET().then(function(res) {
 			localStorage['type'] = res.user.tipo;
 			

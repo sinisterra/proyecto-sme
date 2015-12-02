@@ -74,7 +74,7 @@
                     {id:'11b',default:"9",text:"Trabajo familiar no remunerado",subModel:"TrabajoFamiliar"},
                     {id:'11c',default:"9",text:"Estudios escolarizados",subModel:"Estudios"},
                     {id:'11d',default:"9",text:"Tomé cursos de capacitación",subModel:"Cursos"},
-                    {id:'11e',default:"9",text:"Otro",subModel:"Otro"}
+                    {id:'11e',default:"9",text:"Otro",hasOther:"¿Cuál?",showWhenValue:1, subModel:"Otro"}
                 ],
                 options:[{name:"Si", value:1},{name:"No", value:2}]
             }
@@ -89,7 +89,7 @@
                     {id:'14b',default:9,text:"Instituciones Públicas",subModel:"InstitucionesPublicas"},
                     {id:'14c',default:9,text:"Organizaciones Sociales",subModel:"OrganizacionesSociales"}
                 ],
-                options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:9}]
+                options:[{name:"Si", value:1},{name:"No", value:2}]
             }
             return ayuda;
         }
@@ -103,9 +103,9 @@
                     {id:'15c',default:9,text:"Alguna organización política",subModel:"Politica"},
                     {id:'15d',default:9,text:"Asistía a la escuela/capacitación",subModel:"Escuela"},
                     {id:'15e',default:9,text:"Ninguna",subModel:"Ninguna"},
-                    {id:'15f',default:9,text:"Otra",subModel:"Otra"}
+                    {id:'15f',default:9,text:"Otra",hasOther:"¿Cuál?",showWhenValue:1}
                 ],
-                options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
+                options:[{name:"Si", value:1},{name:"No", value:2}]
             }
             return participacion;
         }
@@ -120,7 +120,7 @@
                     {id:'18d',default:9,text:"Dejaron de estudiar hijos para ayudar a la economía familiar",subModel:"AbandonoEscuela"},
                     {id:'18e',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1}
                 ],
-                options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
+                options:[{name:"Si", value:1},{name:"No", value:2}]
             }
             return impacto;
         }
@@ -136,7 +136,7 @@
                     {id:'19e',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1},
                     {id:'19f',default:9,text:"Ninguna",subModel:"Ninguna",hasConflict:1,conflictValue:1,setAllValue:2}
                 ],
-                options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
+                options:[{name:"Si", value:1},{name:"No", value:2}]
             }
             return enfermedades;
         }
@@ -150,7 +150,7 @@
                     {id:'20d',default:9,text:"Otra",hasOther:"Otro",showWhenValue:1},
                     {id:'20e',default:9,text:"Ninguna",hasConflict:1,conflictValue:1,setAllValue:2}
                 ],
-                options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
+                options:[{name:"Si", value:1},{name:"No", value:2}]
             }
             return enfermedades;
         }
@@ -164,7 +164,7 @@
                     {id:'21c',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1},
                     {id:'21d',default:9,text:"Ninguna",subModel:"Ninguna",hasConflict:1,conflictValue:1,setAllValue:2}
                 ],
-                options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
+                options:[{name:"Si", value:1},{name:"No", value:2}]
             }
             return enfermedades;
         }
@@ -178,7 +178,7 @@
                     {id:'22c',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1},
                     {id:'22d',default:9,text:"Ninguna",subModel:"Ninguna",hasConflict:1,conflictValue:1,setAllValue:2}
                 ],
-                options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
+                options:[{name:"Si", value:1},{name:"No", value:2}]
             }
             return consecuencias;
         }
@@ -198,7 +198,7 @@
                     {id:'23i',default:9,text:"Pérdida de bienes (casas, autos, otros)"},
                     {id:'23j',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1}
                 ],
-                options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
+                options:[{name:"Si", value:1},{name:"No", value:2}]
             }
             return problemas;
         }
@@ -214,7 +214,7 @@
                     {id:'24e',default:9,text:"Identificación con otros grupos sociales",subModel:"IdentificacionOtrosGrupos"},
                     {id:'24f',default:9,text:"Otra",subModel:"Otro",hasOther:"Otro",showWhenValue:1}
                 ],
-                options:[{name:"Si", value:1},{name:"No", value:2},{name:"No se", value:99}]
+                options:[{name:"Si", value:1},{name:"No", value:2}]
             }
             return relaciones;
         }

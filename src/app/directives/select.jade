@@ -2,7 +2,7 @@
    Created by lockonDaniel on 11/14/15.
 
 md-input-container
-   label Selecciona el tipo de trabajo
+   label {{vm.label}}
    md-select(ng-model="vm.model.value")
       md-option(ng-repeat="option in vm.options" value="{{option.value}}") {{option.text}}
 div(layout="column" ng-show="vm.selectedOption.hasOther!=undefined")

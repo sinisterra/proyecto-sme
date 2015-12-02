@@ -7,9 +7,9 @@ form(name='proyectos')
     div(ng-show="vm.encuesta.preguntas[vm.q39.number].value === 1")
         h2 37. Si tu respuesta fue Sí. En que actividades con organizaciones de usuarios has participado:
         questions-table(ng-model="vm.encuesta.preguntas" items="vm.q40Data.items" options="vm.q40Data.options")
-    h2 38. ¿Domo calificaría la solución alcanzada a nuestras demandas, donde 1 es pésimo y 10 es excelente?
+    h2 38. ¿Cómo calificaría la solución alcanzada a nuestras demandas, donde 1 es pésimo y 10 es excelente?
     div(layout="row" layout-align="center center")
-        questions-radio(id-pregunta="38" ng-model="vm.encuesta.preguntas" options="vm.q42Options" wrap="true")
+        questions-radio(id-pregunta="38" ng-model="vm.encuesta.preguntas" align="row" options="vm.q42Options" wrap="true")
     h2 39. De entre las siguientes acciones, ¿cuáles considerabas necesarias para que el gobierno resolviera la reinserción de los trabajadores del Sindicato Mexicano de Electricistas (SME)?
     div(layout="row" layout-align="center center")
         questions-radio(id-pregunta="39" ng-model="vm.encuesta.preguntas" options="vm.q43Options")
@@ -42,7 +42,5 @@ form(name='proyectos')
         h2 48. Si tu respuesta fue Sí. ¿Quién le proporciona la atención?
         div(layout="row" layout-align="center center")
             questions-radio(id-pregunta="48" ng-model="vm.encuesta.preguntas" options="vm.q51Options")
-    div(layout="row" layout-align="center center")
-        md-button.md-primary.md-raised Guardar
     div(layout-padding layout layout-align="end center")
-        md-button.md-primary.md-raised(ng-disabled="proyectos.$invalid" ng-click="vm.submitForm(proyectos.$valid)") Guardar
+        md-button.md-primary.md-raised(type="button" ng-disabled="proyectos.$invalid" ng-click="vm.submitForm(proyectos.$valid)") Guardar

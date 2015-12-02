@@ -1,5 +1,15 @@
 div(layout-fill layout="column" layout-margin)
 	div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin)
+		div(flex layout layout-align="center" layout-gt-md="column" layout-md="column" layout-sm="column")
+
+			h2 Número de Registros
+			h3 Usuarios Registrados: {{stats.Users.Registrados}}
+			h3 Usuarios que acabaron Censo: {{stats.Users.Encuesta}}
+			h3 Usuarios que llenaron Datos Personales: {{stats.Users.DatosPersonales}}
+			h3 Usuarios que llenaron Escolaridad: {{stats.Users.Escolaridad}}
+			h3 Usuarios que llenaron Experiencia Laboral: {{stats.Users.ExperienciaLaboral}}
+
+	div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin)
 		div(flex layout layout-align="center" layout-gt-md="row" layout-md="column" layout-sm="column")
 			div(layout="column" layout-align="center center" flex)
 				canvas#edades(width='320' height="320")

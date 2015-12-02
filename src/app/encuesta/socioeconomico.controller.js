@@ -63,8 +63,12 @@
 				name: 'Ama de casa'
 			}, {
 				value: 10,
-				name: 'Jubilado '
+				name: 'Jubilado'
 			}, {
+				value: 11,
+				name: 'Desempleado'
+			},
+				{
 				value: 98,
 				name: 'Otro',hasOther:'¿Cuál?'
 			}];
@@ -168,20 +172,20 @@
 			// JOPTIONS - general
 
 			vm.KOptions = [{
-				name: 1,
-				value: 'Cinco o menos'
+				value: 1,
+				name: 'Cinco o menos'
 			}, {
-				name: 2,
-				value: 'Entre seis y diez'
+				value: 2,
+				name: 'Entre seis y diez'
 			}, {
-				name: 3,
-				value: 'Entre once y quince'
+				value: 3,
+				name: 'Entre once y quince'
 			}, {
-				name: 4,
-				value: 'Entre dieciséis y veinte'
+				value: 4,
+				name: 'Entre dieciséis y veinte'
 			}, {
-				name: 5,
-				value: 'Veintiuno o más'
+				value: 5,
+				name: 'Veintiuno o más'
 			}];
 
 			vm.LOptions = [{
@@ -212,7 +216,7 @@
 				localStorage.setItem('nivel',vm.encuesta.encuesta);
 				$state.go('encuesta', {}, {reload: true});
 				//$rootScope.$emit('rootScope:emit', ''); // $rootScope.$on
-				toastr.success('Se ha guardado éste bloque, prosigue al siguiente');
+				toastr.success('Haz concluido el Censo. Muchas gracias por tu participación');
 
 			}).catch(function(err){
 				toastr.error('Error al guardar éste bloque('+err.status+')')

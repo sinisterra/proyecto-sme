@@ -10,9 +10,9 @@ form(name="idiomas" layout layout-sm="column" layout-padding novalidate)
 					h3 
 						span.sp {{vm.idiomasById[idioma.idIdioma][0].NombreIdioma}}
 						span(ng-show="idioma.Materno") (Materno)
-					h4 Redacción: {{idioma.NivelRedaccion}} %
-					h4 Conversación: {{idioma.NivelConversacion}} %
-					h4 Lectura: {{idioma.NivelLectura}} %
+					h4 Redacción: {{idioma.NivelRedaccion}}
+					h4 Conversación: {{idioma.NivelConversacion}}
+					h4 Lectura: {{idioma.NivelLectura}}
 					p Avalado por {{idioma.DocumentoAcredita}}
 				md-menu
 					md-button.md-icon-button(ng-click="$mdOpenMenu()")
@@ -32,35 +32,37 @@ form(name="idiomas" layout layout-sm="column" layout-padding novalidate)
 		div(layout layout-sm="column" flex)
 			div(ng-show="!vm.listaIdiomasLoaded" layout-align="center center" flex)
 				md-progress-circular(md-mode="indeterminate")
-			md-select(flex name="idIdioma" placeholder="Idioma" ng-model="vm.idioma.idIdioma" required ng-show="vm.listaIdiomasLoaded" ng-disabled="vm.idioma.id !== undefiend")
+			md-select(flex name="idIdioma" placeholder="Selecciona si hablas otro idioma" ng-model="vm.idioma.idIdioma" required ng-show="vm.listaIdiomasLoaded" ng-disabled="vm.idioma.id !== undefiend")
 				md-option(ng-repeat="i in vm.listaIdiomas" value="{{i.id}}") {{i.NombreIdioma}}
 			div(layout-align="center center" layout="column")
 				md-checkbox.md-primary(ng-model="vm.idioma.Materno" ng-true-value="1" ng-false-value="0" ng-init="vm.idioma.Materno = 0") Materno
 
 		md-input-container(flex)
-			label Documento que acredita
+			label ¿Tienes alguna certificación? (Anota aquí)
 			input(type="text" ng-model="vm.idioma.DocumentoAcredita" name="DocumentoAcredita" maxlength="45" )
-	
 		div(layout flex)
-			div(flex="20" layout layout-align="center center")
-				span.md-body-1 Redacción
-			md-slider.md-primary(flex min="0" max="100" ng-model="vm.idioma.NivelRedaccion" ng-init="vm.idioma.NivelRedaccion = 50" step="10" aria-label="Nivel de Redacción")
-			div(flex="20" layout layout-align="center center")
-				span.md.body-1 {{vm.idioma.NivelRedaccion}} %
+			span En una escala del 1 al 10:
 
 		div(layout flex)
 			div(flex="20" layout layout-align="center center")
-				span.md-body-1 Conversación
-			md-slider.md-primary(flex min="0" max="100" ng-model="vm.idioma.NivelConversacion" ng-init="vm.idioma.NivelConversacion = 50" step="10" aria-label="Nivel de Conversación")
+				span.md-body-1 ¿Qué tan bien lo escribes?
+			md-slider.md-primary(flex min="0" max="10" ng-model="vm.idioma.NivelRedaccion" ng-init="vm.idioma.NivelRedaccion = 5" step="1" aria-label="Nivel de Redacción")
 			div(flex="20" layout layout-align="center center")
-				span.md.body-1 {{vm.idioma.NivelConversacion}} %
+				span.md.body-1 {{vm.idioma.NivelRedaccion}}
 
 		div(layout flex)
 			div(flex="20" layout layout-align="center center")
-				span.md-body-1 Lectura
-			md-slider.md-primary(flex min="0" max="100" ng-model="vm.idioma.NivelLectura" ng-init="vm.idioma.NivelLectura = 50" step="10" aria-label="Nivel de Lectura")
+				span.md-body-1 ¿Qué tan bien lo hablas?
+			md-slider.md-primary(flex min="0" max="10" ng-model="vm.idioma.NivelConversacion" ng-init="vm.idioma.NivelConversacion = 5" step="1" aria-label="Nivel de Conversación")
 			div(flex="20" layout layout-align="center center")
-				span.md.body-1 {{vm.idioma.NivelLectura}} %
+				span.md.body-1 {{vm.idioma.NivelConversacion}}
+
+		div(layout flex)
+			div(flex="20" layout layout-align="center center")
+				span.md-body-1 ¿Qué tan bien lo lees?
+			md-slider.md-primary(flex min="0" max="10" ng-model="vm.idioma.NivelLectura" ng-init="vm.idioma.NivelLectura = 5" step="1" aria-label="Nivel de Lectura")
+			div(flex="20" layout layout-align="center center")
+				span.md.body-1 {{vm.idioma.NivelLectura}}
 		
 
 		div(layout-padding layout layout-align="end center")

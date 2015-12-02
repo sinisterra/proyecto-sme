@@ -42,6 +42,13 @@
         controller: 'StatsController',
         controllerAs: 'stats'
       })
+      .state('admin', {
+        parent: 'base',
+        url: '/admin',
+        templateUrl: 'app/admin/admin.html',
+        controller: 'AdminController',
+        controllerAs: 'admin'
+      })
 
       // .state('info',{
       //   url: '/info',
@@ -61,6 +68,13 @@
         templateUrl:'app/encuesta/encuesta.html',
         controller: 'EncuestaController',
         controllerAs: 'encuesta',
+      })
+      .state('reset',{
+        parent:'base',
+        url:'/resetEncuesta',
+        templateUrl:'app/encuesta/reset.html',
+        controller: 'ResetEncuestaController',
+        controllerAs: 'vm',
       })
       .state('trabajo',{
         parent:'encuesta',

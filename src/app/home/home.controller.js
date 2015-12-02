@@ -6,14 +6,26 @@
 		.controller('HomeController', HomeController);
 
 	/* @ngInject */
-	function HomeController(User, $state, Restangular, Auth, toastr) {
+	function HomeController(User, $mdDialog,$state, Restangular, Auth, toastr) {
 		var vm = this;
 
 		vm.submit = submit;
 		vm.signupSubmit = signupSubmit;
 		vm.validateHash = validateHash;
 		vm.isHashValid  = false;
+		vm.showAlert	= showAlert;
 
+
+		function showAlert($event)
+		{
+			$mdDialog.show({
+				controller: 'DialogController',
+				templateUrl: 'app/home/dialog.tmpl.html',
+				parent: angular.element(document.body),
+				targetEvent: $event,
+				clickOutsideToClose:true
+			})
+		}
 
 		function activate(){
 			if(Auth.isLoggedIn()){

@@ -133,7 +133,12 @@
 
 					//
 					//validar fecha
+					console.log(res.datosPersonales.FechaNacimiento);
 					vm.personal.FechaNacimiento = new Date(res.datosPersonales.FechaNacimiento);
+					vm.personal.FechaNacimiento.setUTCHours(6,0,0,0);
+
+					console.log(vm.personal.FechaNacimiento);
+
 					// $filter('date')(res.datosPersonales.FechaNacimiento,'yyyy-MM-dd');
 					vm.personalLoaded = true;
 				})
@@ -614,7 +619,9 @@
 				// crear
 				Restangular.all('Escolaridad').customPOST(escolaridad)
 					.then(function(res) {
-						vm.escolaridades.push(formatEscolaridad(res.plain()));
+						toastSuccess();
+						//console.log(vm.escolaridades);
+						//vm.escolaridades.push(formatEscolaridad(res.plain()));
 					})
 					.catch(function(err) {
 						toastError(err);

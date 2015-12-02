@@ -1,0 +1,32 @@
+//
+   Created by lockonDaniel on 12/2/15.
+
+div(layout-fill layout="column" layout-margin)
+   div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin)
+      div(flex layout layout-align="center" layout-gt-md="column" layout-md="column" layout-sm="column")
+         h2 Buscador de Registros
+         h3 Utilza el buscador para ver la información de los registros
+         md-autocomplete(
+         md-selected-item="admin.selectedItem"
+         md-search-text="admin.searchText"
+         md-items="item in admin.querySearch(admin.searchText)"
+         md-item-text="item.idUsuario"
+         md-min-length="4"
+         placeholder="Escribe la credencial"
+         md-menu-class="autocomplete-custom-template")
+            md-item-template
+               span.item-title
+                  md-icon person
+                  span  {{item.Nombre}} {{item.ApellidoP}} {{item.ApellidoM}}
+               span.item-metadata
+                  span.item-metastat
+                    strong  Credencial {{item.idUsuario}}
+
+   div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin ng-show="admin.selectedItem!=null")
+      div(flex layout layout-align="center" layout-gt-md="column" layout-md="column" layout-sm="column")
+         span Nombre: {{admin.selectedItem.Nombre}}
+         span Apellidos: {{admin.selectedItem.ApellidoP}} {{admin.selectedItem.ApellidoM}}
+         span RFC: {{admin.selectedItem.RFC}}
+         span CURP: {{admin.selectedItem.CURP}}
+         span Sexo: {{admin.selectedItem.Sexo}}
+         span e-Mail: {{admin.selectedItem.CorreoElectronico}}

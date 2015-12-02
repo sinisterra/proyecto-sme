@@ -19,10 +19,18 @@ section(layout="row" flex)
 					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'encuesta' }")
 						md-icon assignment
 					span Censo
+				md-list-item(ng-click="sidebar.$state.go('reset')")
+					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'reset' }")
+						md-icon highlight_remove
+					span Reiniciar Censo
 				md-list-item(ng-click="sidebar.$state.go('stats')" ng-if="!sidebar.isUser")
 					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'stats' }")
 						md-icon insert_chart
 					span Estadísticas
+				md-list-item(ng-click="sidebar.$state.go('admin')" ng-if="!sidebar.isUser")
+					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'admin' }")
+						md-icon people
+					span Administrador
 				md-list-item(ng-click="sidebar.$state.go('logout')")
 					md-button.md-icon-button
 						md-icon exit_to_app

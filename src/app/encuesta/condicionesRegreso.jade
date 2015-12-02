@@ -1,7 +1,7 @@
 //
    Created by lockonDaniel on 11/10/15.
 form(name='condicionesRegreso')
-   h2 25. Con cuál de las siguientes frases estás más de acuerdo: Durante los cuatro años de resistencia...
+   h2 25. Con cuál de las siguientes frases estás más de acuerdo: Durante el periodo de resistencia...
    div(layout="row" layout-align="center center")
       questions-radio(id-pregunta="25" default="9" ng-model="vm.encuesta.preguntas" options="vm.radioFrasesResistencia")
    h2 26. ¿Participaste en alguna actividad destacada del movimiento de resistencia?
@@ -9,7 +9,7 @@ form(name='condicionesRegreso')
       questions-radio(id-pregunta="26" default="9" ng-model="vm.encuesta.preguntas" options="vm.radioResistencia")
    h2 27. ¿Ocupas o has ocupado un cargo sindical?
    div(layout="row" layout-align="center center")
-      questions-radio(id-pregunta="27" default="9" array-number="vm.arrayNumber.cargoSindical" ng-model="vm.encuesta.preguntas" options="vm.radioResistencia")
+      questions-radio(id-pregunta="27" default="9" array-number="vm.arrayNumber.cargoSindical" ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
    div(ng-show="vm.encuesta.preguntas[vm.arrayNumber.cargoSindical].value==1")
       h2 28. Si tu respuesta fue Sí, ¿Especifica el cargo y periodo de permanencia?
       questions-input(type="text" id-pregunta="28a" ng-model="vm.encuesta.preguntas" label="Escribe el Cargo aquí")
@@ -34,4 +34,4 @@ form(name='condicionesRegreso')
          div(layout-align="center center")
          questions-radio(id-pregunta="34" default="9" ng-model="vm.encuesta.preguntas" options="vm.radioNoRegreso" align="column")
    div(layout-padding layout layout-align="end center")
-      md-button.md-primary.md-raised(ng-disabled="condicionesRegreso.$invalid" ng-click="vm.submitForm(condicionesRegreso.$valid)") Guardar
+      md-button.md-primary.md-raised(type="button" ng-disabled="condicionesRegreso.$invalid" ng-click="vm.submitForm(condicionesRegreso.$valid)") Guardar

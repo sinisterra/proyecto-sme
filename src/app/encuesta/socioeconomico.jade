@@ -60,4 +60,4 @@ form(name='socioeconomico')
 	div(layout="row" layout-align="center center")
 		questions-radio(default="9" id-pregunta="S" ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
 	div(layout-padding layout layout-align="end center")
-		md-button.md-primary.md-raised(ng-disabled="socioeconomico.$invalid" ng-click="vm.submitForm(socioeconomico.$valid)") Guardar
+		md-button.md-primary.md-raised(type="button" ng-disabled="socioeconomico.$invalid" ng-click="vm.submitForm(socioeconomico.$valid)") Guardar

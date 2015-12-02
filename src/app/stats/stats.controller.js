@@ -11,7 +11,6 @@
 	function StatsController($state, Auth, Restangular, _) {
 		var vm = this;
 		vm.getColor = getColor;
-
 		activate();
 
 		////////////////
@@ -23,6 +22,7 @@
 		function activate() {
 
 			if (checkAuth()) {
+				getRegisters();
 				drawPlots();
 			}
 			else{
@@ -36,6 +36,19 @@
 			drawUbicacion();
 			drawEducacion();
 		}
+
+
+
+		function getRegisters()
+		{
+			Restangular.all('Estadisticas').all('Registros').customGET().then(function(res)
+			{
+				vm.Users = res;
+			}).catch(function(err){
+				;
+			})
+		}
+
 
 		function getColor(i) {
 			var color = i % 5,

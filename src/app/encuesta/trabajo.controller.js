@@ -33,7 +33,7 @@
                             {name:'Algo importante',value:2},
                             {name:'Poco Importante',value:3},
                             {name:'Nada Importante',value:4},
-                            {name:'No se',value:9}
+
                         ]
                 }
             ]   ;
@@ -48,14 +48,12 @@
                 {text:'Planeación',value:6},
                 {text:'Organizativo',value:7},
                 {text:'Otro',value:8,showWhenValue:1,hasOther:'Anotar aquí'},
-                {text:'No se',value:99}
             ],
             [
                 {name:'Muy importante',value:1},
                 {name:'Algo importante',value:2},
                 {name:'Poco Importante',value:3},
-                {name:'Nada Importante',value:4},
-                {name:'No se',value:99}
+                {name:'Nada Importante',value:4}
             ]
         ];
         vm.escolaridades = getEscolaridades();
@@ -79,8 +77,7 @@
                 {text:'Licenciatura Incompleta',value:10},
                 {text:'Licenciatura Completa',value:11,hasOther:"¿Cuál?"},
                 {text:'Diplomado o Maestría',value:12,hasOther:"¿Cuál?"},
-                {text:'Doctorado',value:13,hasOther:"¿Cuál?"},
-                {text:'No Se',value:99}
+                {text:'Doctorado',value:13,hasOther:"¿Cuál?"}
             ];
             return escolaridades;
 
@@ -94,9 +91,9 @@
         }
 
 
-        function submitForm(valid)
+        function submitForm(isValid)
         {
-           // console.log(vm.encuesta);
+
 
             Restangular.all('Cuestionario').customPOST(vm.encuesta).then(function(res){
                 localStorage.setItem('nivel',vm.encuesta.encuesta);

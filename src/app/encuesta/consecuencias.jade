@@ -1,12 +1,12 @@
 //
    Created by lockonDaniel on 11/8/15.
 form(name="consecuencias")
-   h2 9. ¿Durante estos cuatro años de resistencia tomaste alguna capacitación relacionada laboralmente a las actividades que realizabas en la Compañía de Luz y Fuerza del Centro?
+   h2 9. ¿Durante el periodo de resistencia tomaste alguna capacitación relacionada laboralmente a las actividades que realizabas en la Compañía de Luz y Fuerza del Centro?
    div(layout="row" layout-align="center center")
       questions-radio(id-pregunta="9" default="9" ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
-   h2 10.	De las siguientes actividades, ¿cuál o cuáles has realizado principalmente durante estos cuatro años de resistencia?
+   h2 10.	De las siguientes actividades, ¿cuál o cuáles has realizado principalmente durante el periodo de resistencia?
    questions-table(ng-model="vm.encuesta.preguntas" items="vm.actividadesResistencia.items" options="vm.actividadesResistencia.options")
-   h2 11. ¿Si estuviste desempleado durante estos últimos cuatro años de resistencia, que otra actividad realizaste?
+   h2 11. ¿Si estuviste desempleado durante el periodo de resistencia, que otra actividad realizaste?
    questions-table(ng-model="vm.encuesta.preguntas" items="vm.otrasActividades.items" options="vm.otrasActividades.options")
    h2 12. Durante el año 2015, ¿trabajaste o tuviste una actividad remunerada, con salario, ganancia o beneficio económico? (Si: Pasa a pregunta 13, No: Pasa a pregunta 14)
    div(layout="row" layout-align="center center")
@@ -18,7 +18,7 @@ form(name="consecuencias")
    questions-table(ng-model="vm.encuesta.preguntas" items="vm.ayudaEconomica.items" options="vm.ayudaEconomica.options")
    h2 15. ¿A la extinción de la empresa, participaste en:…?
    questions-table(ng-model="vm.encuesta.preguntas" items="vm.participacionOrganizacion.items" options="vm.participacionOrganizacion.options")
-   h2 16. ¿Actualmente participas en alguna organización política, social o ciudadana?
+   h2 16. ¿Actualmente participas en alguna organización política, social o ciudadana? (Si, pasa a 17. No, pasa a 18)
    div(layout="row" layout-align="center center")
       questions-radio(id-pregunta="16" default="9" array-number="vm.arrayNumber.participacionPolitica" ng-model="vm.encuesta.preguntas" options="vm.radioGeneral")
    div(ng-show="vm.encuesta.preguntas[vm.arrayNumber.participacionPolitica].value==1")
@@ -41,5 +41,5 @@ form(name="consecuencias")
       div(layout="row" layout-align="center center")
          md-button.md-primary.md-raised Guardar
    div(layout-padding layout layout-align="end center")
-      md-button.md-primary.md-raised(ng-disabled="consecuencias.$invalid" ng-click="vm.submitForm(consecuencias.$valid)") Guardar
+      md-button.md-primary.md-raised(type="button" ng-disabled="consecuencias.$invalid" ng-click="vm.submitForm(consecuencias.$valid)") Guardar
 

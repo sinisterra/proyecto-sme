@@ -19,7 +19,8 @@
 			'dashboard': 'Menú Principal',
 			'infoPersonal': 'Datos Personales',
 			'stats': 'Estadísticas',
-			'encuesta': 'Censo del SME'
+			'encuesta': 'Censo del SME',
+			'admin':'Administrador'
 		};
 
 		////////////////

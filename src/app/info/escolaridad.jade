@@ -1,12 +1,12 @@
 div(flex layout-padding).card-header
 	h2.md-title Formación Educativa
-form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
+form(name="escolaridad" layout layout-md="column" layout-padding novalidate)
 	div(layout="column" flex)
 		div
 			//- pre {{vm.listaCarrerasById[vm.escolaridad.idCarrera] | json:2}}
 			//- pre {{vm.escolaridad | json:2}}
 
-		div(layout layout-sm="column")
+		div(layout layout-md="column")
 			md-select(placeholder="Nivel de Estudios" ng-model="vm.escolaridad.NivelDeEstudios" required flex ng-change="vm.loadLevel(vm.escolaridad.NivelDeEstudios)")
 				md-option(value="1") Sin Instrucción
 				md-option(value="2") Sabe Leer y Escribir
@@ -17,8 +17,14 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 				md-option(value="7") Maestría
 				md-option(value="8") Doctorado
 
-			md-select(placeholder="Institución Educativa" ng-model="vm.escolaridad.idInstitucionEducativa" flex ng-hide="['1','2','3','4'].indexOf(vm.escolaridad.NivelDeEstudios) !== -1")
+
+
+			md-select(placeholder="Institución Educativa" ng-model="vm.escolaridad.idInstitucionEducativa" flex ng-hide="vm.escolaridad.NivelDeEstudios<5 || vm.escolaridad.NivelDeEstudios===undefined")
 				md-option(ng-repeat="ins in vm.listaInstitucionesById" value="{{ins.id}}") {{ins.Nombre}}
+			md-input-container(ng-show="vm.escolaridad.idInstitucionEducativa==999999")
+				label ¿Cuál?
+				input(type="text" ng-model="vm.escolaridad.OtraInstitucion")
+
 
 			md-select(placeholder="Grado de Avance" ng-model="vm.escolaridad.GradoDeAvance" flex)
 				md-option(value="Estudiante") Estudiante
@@ -31,9 +37,9 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 				input(type="text" name="CedulaProfesional" ng-model="vm.escolaridad.CedulaProfesional" maxlength="40")
 
 
-	
-
-		div(layout layout-sm="column"  ng-hide="['1','2','3','4','5'].indexOf(vm.escolaridad.NivelDeEstudios) !== -1 && vm.escolaridad.NivelDeEstudios")
+		//div(layout layout-md="column"  ng-hide="['1','2','3','4'].indexOf(vm.escolaridad.NivelDeEstudios) !== -1 && vm.escolaridad.NivelDeEstudios")
+		//h3 {{vm.escolaridad.NivelDeEstudios}}
+		div(layout layout-md="column" ng-show="vm.escolaridad.NivelDeEstudios>4")
 			div(ng-show="!vm.listaCarrerasById || vm.loadingNiveles" layout-align="center center" flex )
 				md-progress-circular(md-mode="indeterminate")
 			md-input-container(flex ng-show="vm.listaCarrerasById")
@@ -47,7 +53,7 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 
 
 
-		div(layout layout-sm="column" layout-align-sm="center" layout-align="space-around center")
+		div(layout-md="column" layout-align-sm="center" layout-align="space-around center")
 			div(layout="column" layout-align="center center")
 				label Fecha de Inicio
 				md-datepicker(placeholder="Inicio" ng-model="vm.escolaridad.FechaDeInicio" md-max-date="vm.today" required name="FechaInicio" flex)
@@ -74,7 +80,7 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 		//- md-select(placeholder="Carrera" ng-model="vm.escolaridad.idCarrera" required)
 		//- 	md-option(ng-repeat="edu in vm.listaCarreras" value="{{edu.id}}") {{edu.Nombre}}
 		
-		div(layout layout-sm="column")
+		//-div(layout layout-md="column")
 			md-input-container(flex ng-show="['2','3','4'].indexOf(vm.escolaridad.NivelDeEstudios) !== -1")
 				label Institución Educativa
 				input(type="text" name="InstitucionEducativa" ng-model="vm.escolaridad.InstitucionEducativa" maxlength="80" )
@@ -83,7 +89,7 @@ form(name="escolaridad" layout layout-sm="column" layout-padding novalidate)
 			//- 	label Carrera
 			//- 	input(type="text" name="Carrera" ng-model="vm.escolaridad.Carrera" required maxlength="80" ng-if="")
 
-		//- div(layout layout-sm="column")
+		//- div(layout layout-md="column")
 
 
 		

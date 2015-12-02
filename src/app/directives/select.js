@@ -26,7 +26,8 @@
             scope: {
                 ngModel: '=',
                 options:'=',
-                idPregunta: '@'
+                idPregunta: '@',
+                label:'@'
             },
             templateUrl:'app/directives/select.html',
             controller: controller,
@@ -49,6 +50,7 @@
     function controller($scope)
     {
         var vm = this;
+        vm.label = $scope.label;
         vm.scope = $scope;
         vm.scope.ngModel.push({idPregunta:vm.scope.idPregunta,value:null});
         vm.options          = vm.scope.options;

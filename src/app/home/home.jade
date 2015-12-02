@@ -20,6 +20,11 @@ div(style="background-color:#eee;min-height:100vh")
 							md-progress-circular(md-mode="indeterminate")
 		div(layout layout-align="center" ng-show="!home.showSignup")
 			md-button.md-primary(ng-click="home.showSignup = true") Regístrate
+		div(layout="column" layout-align="center center")
+			//md-button.md-primary.md-raised(ng-click="home.showAlert($event)") Consulta el manual de usuario
+			div(layout="row")
+			h1.md-headline Se recomienda NO utilizar Internet Explorer para visualizar éste sitio.
+			a(href="https://www.google.es/chrome/browser/desktop/index.html") Descarga Google Chrome® Aquí.
 		div.md-whiteframe-z2.card.card-md(layout="column" layout-align="center"  ng-if="home.showSignup")
 			div.primary-bg(flex layout="row" layout-align="space-around center" layout-padding )
 				h1.md-headline Registrar un usuario
@@ -44,5 +49,6 @@ div(style="background-color:#eee;min-height:100vh")
 						md-input-container
 							label Genera tu nueva contraseña
 							input(type="password" required name="password" ng-model="home.signupModel.password")
-						div(layout layout-align="center")
+						div(layout-align="center")
 							md-button.md-primary.md-raised(ng-disabled="loginForm.$invalid" ng-click="home.signupSubmit(signupForm.$valid)") Registrar
+							h1.md-headline Se recomienda utilizar Google Chrome para utilizar éste sitio

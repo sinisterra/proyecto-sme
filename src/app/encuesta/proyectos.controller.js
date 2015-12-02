@@ -35,13 +35,19 @@
     vm.q38Data = {
       'items': [{
         id: '35a',
-        text: 'Asamblea de usuarios'
+        text: 'Asamblea de usuarios',
+        hasOther:'¿Qué Opinas de Ella?',
+        showWhenValue:1
       }, {
         id: '35b',
-        text: 'OPT (Organización Política del Pueblo y los Trabajadores)'
+        text: 'OPT (Organización Política del Pueblo y los Trabajadores)',
+        hasOther:'¿Qué Opinas de Ella?',
+        showWhenValue:1
       }, {
         id: '35c',
-        text: 'Impulso de una nueva central de trabajadores'
+        text: 'Impulso de una nueva central de trabajadores',
+        hasOther:'¿Qué Opinas de Ella?',
+        showWhenValue:1
       }, ],
       'options': [{
         name: "Si",
@@ -59,15 +65,18 @@
       items: [{
           id: '37a',
           text: 'Mesa de quejas',
-          default: 9
+          default: 9,
+          hasOther:'¿Qué Opinas de Ella?'
         }, {
           id: '37b',
           text: 'Reconexiones',
-          default: 9
+          default: 9,
+          hasOther:'¿Qué Opinas de Ella?'
         }, {
           id: '37c',
           text: 'Asamblea de usuarios',
-          default: 9
+          default: 9,
+          hasOther:'¿Qué Opinas de Ella?'
         }, {
           id: '37d',
           text: 'En todas',
@@ -170,7 +179,12 @@
     }, {
       name: 'RadioSME',
       value: 3
-    }];
+    },{
+      name: 'Otro',
+      value: 4,
+      hasOther:'¿Cuál?'
+    }]
+    ;
 
     vm.q46Options = [{
       value: 1,
@@ -246,10 +260,12 @@
 
     vm.q42Options = [{
       name: '1',
-      value: 1
+      value: 1,
+      hasOther:'¿Qué Opinas de Ella?'
     }, {
       name: '2',
-      value: 2
+      value: 2,
+      hasOther:'¿Qué Opinas de Ella?'
     }, {
       name: '3',
       value: 3
