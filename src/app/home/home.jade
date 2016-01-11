@@ -1,24 +1,24 @@
 div(style="background-color:#eee;min-height:100vh")
-	div.container(layout="column" layout-align="start center" style="min-height:100vh" layout-margin)
+	div.container(flex layout="column" layout-align="start center" style="min-height:100vh" layout-margin)
 		div.md-whiteframe-z2.card.card-md(layout="column" layout-align="center" ng-if="!home.showSignup")
 			div.primary-bg(flex layout="row" layout-align="space-around center" layout-padding )
 				h1.md-headline Iniciar Sesión
 				img(src="assets/images/logo.png" height="70px")
-			div(flex layout-padding )
-				form(name="loginForm")
+			div(flex layout='column')
+				form(name="loginForm" layout='column' layout-padding)
 					md-input-container
 						label Usuario
 						input(type="text" required name="Usuario" ng-model="home.model.username" minlength="4")
 					md-input-container
 						label Contraseña
 						input(type="password" required name="password" ng-model="home.model.password" minlength="4")
-					div(layout layout-align="center")
+					div(layout='row' layout-align="center")
 						md-button.md-primary.md-raised(ng-disabled="loginForm.$invalid" ng-click="home.submit(loginForm.$valid)" ng-show="!home.attemptingLogin")
 							span Iniciar sesión
 						div(ng-show="home.attemptingLogin"
 							layout="column" layout-align="center center")
 							md-progress-circular(md-mode="indeterminate")
-		div(layout layout-align="center" ng-show="!home.showSignup")
+		div(layout='row' layout-align="center" ng-show="!home.showSignup")
 			md-button.md-primary(ng-click="home.showSignup = true") Regístrate
 		div(layout="column" layout-align="center center")
 			//md-button.md-primary.md-raised(ng-click="home.showAlert($event)") Consulta el manual de usuario

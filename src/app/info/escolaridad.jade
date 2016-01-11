@@ -6,7 +6,7 @@ form(name="escolaridad" layout layout-md="column" layout-padding novalidate)
 			//- pre {{vm.listaCarrerasById[vm.escolaridad.idCarrera] | json:2}}
 			//- pre {{vm.escolaridad | json:2}}
 
-		div(layout layout-md="column")
+		div(layout='column' layout-gt-sm="row")
 			md-select(placeholder="Nivel de Estudios" ng-model="vm.escolaridad.NivelDeEstudios" required flex ng-change="vm.loadLevel(vm.escolaridad.NivelDeEstudios)")
 				md-option(value="1") Sin Instrucción
 				md-option(value="2") Sabe Leer y Escribir
@@ -20,7 +20,7 @@ form(name="escolaridad" layout layout-md="column" layout-padding novalidate)
 
 
 			md-select(placeholder="Institución Educativa" ng-model="vm.escolaridad.idInstitucionEducativa" flex ng-hide="vm.escolaridad.NivelDeEstudios<5 || vm.escolaridad.NivelDeEstudios===undefined")
-				md-option(ng-repeat="ins in vm.listaInstitucionesById" value="{{ins.id}}") {{ins.Nombre}}
+				md-option(ng-repeat="ins in vm.listaInstitucionesById" value="{{ins.id}}") {{ins.Nombre| cut:false:30:'...'}}
 			md-input-container(ng-show="vm.escolaridad.idInstitucionEducativa==999999")
 				label ¿Cuál?
 				input(type="text" ng-model="vm.escolaridad.OtraInstitucion")
@@ -39,7 +39,7 @@ form(name="escolaridad" layout layout-md="column" layout-padding novalidate)
 
 		//div(layout layout-md="column"  ng-hide="['1','2','3','4'].indexOf(vm.escolaridad.NivelDeEstudios) !== -1 && vm.escolaridad.NivelDeEstudios")
 		//h3 {{vm.escolaridad.NivelDeEstudios}}
-		div(layout layout-md="column" ng-show="vm.escolaridad.NivelDeEstudios>4")
+		div(layout='column' layout-gt-sm="row" ng-show="vm.escolaridad.NivelDeEstudios>4")
 			div(ng-show="!vm.listaCarrerasById || vm.loadingNiveles" layout-align="center center" flex )
 				md-progress-circular(md-mode="indeterminate")
 			md-input-container(flex ng-show="vm.listaCarrerasById")
@@ -53,7 +53,7 @@ form(name="escolaridad" layout layout-md="column" layout-padding novalidate)
 
 
 
-		div(layout-md="column" layout-align-sm="center" layout-align="space-around center")
+		div(layout='column' layout-gt-sm="row" layout-align-sm="center" layout-align="space-around center")
 			div(layout="column" layout-align="center center")
 				label Fecha de Inicio
 				md-datepicker(placeholder="Inicio" ng-model="vm.escolaridad.FechaDeInicio" md-max-date="vm.today" required name="FechaInicio" flex)

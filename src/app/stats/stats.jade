@@ -4,19 +4,86 @@ div(layout-fill layout="column" layout-margin)
 
 			h2 Número de Registros
 			h3 Usuarios Registrados: {{stats.Users.Registrados}}
-			h3 Usuarios que acabaron Censo: {{stats.Users.Encuesta}}
 			h3 Usuarios que llenaron Datos Personales: {{stats.Users.DatosPersonales}}
 			h3 Usuarios que llenaron Escolaridad: {{stats.Users.Escolaridad}}
 			h3 Usuarios que llenaron Experiencia Laboral: {{stats.Users.ExperienciaLaboral}}
+			h3 Usuarios que acabaron Censo: {{stats.Users.Encuesta}}
+	div.card.white-bg.md-whiteframe-z2(layout="column"  layout-padding layout-margin)
+		h2 Estadísticas del Censo
+		h3 Selecciona una estadística
+		md-select(ng-model="stats.selectedPregunta" placeholder="Selecciona una opción" md-on-close='stats.getStats()')
+			md-option(ng-repeat='pregunta in stats.Preguntas' ng-value='pregunta') {{pregunta.Oracion}}
+		div(ng-show="stats.selectedPregunta!=null && stats.preguntasData!=null")
+			div(layout="column" layout-align="center center")
+				h2 {{stats.selectedPregunta.Oracion}}
+				canvas#pregunta(class="chart chart-pie"
+				chart-data='stats.preguntasData.Values'
+				chart-labels='stats.preguntasData.Labels'
+				chart-colours='stats.colors'
+				chart-legend='true'
+				chart-options='stats.chartOptions'
+				width='500' height="500")
+	div.card.white-bg.md-whiteframe-z2(layout="column" layout-padding layout-margin ng-show="stats.camposExperiencia!=null")
+		h2 Estadísticas Combinadas
+		div(layout='row' layout-sm='column' flex layout-align='space-around center')
+			md-select(ng-model="stats.selectedEntidadFederativa" placeholder="Entidad Federativa")
+				md-option(ng-repeat='entidad in stats.entidadesFederativas' ng-value='entidad.id') {{entidad.Nombre}}
+			md-select(ng-model="stats.selectedCampoExperiencia" md-on-close="stats.getAreaDeExperiencia()" placeholder="Campo de Experiencia")
+				md-option(ng-repeat='campo in stats.camposExperiencia' ng-value='campo.id') {{campo.Nombre}}
+			md-select(ng-model="stats.selectedAreaDeExperiencia" md-on-close='stats.getExperienciasEspecificas()' placeholder="Area de Experiencia" ng-disabled='stats.selectedCampoExperiencia==null')
+				md-option(ng-repeat='area in stats.areasDeExperiencia' ng-value='area.id') {{area.Nombre}}
+		//div(layout='row' flex layout-align='space-around center')
+			md-select(ng-model="stats.selectedExperienciaEspecifica" placeholder="Experiencia Especifica" ng-disabled='stats.selectedAreaDeExperiencia==null')
+				md-option(ng-repeat='experiencia in stats.experienciasEspecificas' ng-value='experiencia.id') {{experiencia.Nombre |cut:false:40:'...'}}
+		div(layout='row' layout-sm='column' flex layout-align='center center')
+			md-button.md-raised.md-primary(ng-click='stats.combinedSearch()' ng-disabled='stats.selectedCampoExperiencia==null') Generar Gráfico
+			md-button.md-raised.md-primary(ng-click='stats.combinedData=null' ng-disabled='stats.combinedData==null') Eliminar gráfico
+		div(ng-show='stats.combinedData!=null' layout='row' layout-sm='column' layout-align='center center')
+			canvas#combinado(class="chart chart-pie"
+			chart-data='stats.combinedData.Values'
+			chart-labels='stats.combinedData.Labels'
+			chart-colours='stats.colors'
+			chart-legend='true'
+			chart-options='stats.chartOptions')
 
+		h3 Restaurar Variables
+		div(layout='row' layout-sm='column' layout-align='space-around center' layout-padding)
+			md-button.md-raised.md-primary(ng-click='stats.resetEntidadFederativa()') Entidad Federativa
+			md-button.md-raised.md-primary(ng-click='stats.resetCampoExperiencia()') Campo de Experiencia
+			md-button.md-raised.md-primary(ng-click='stats.resetAreaExperiencia()') Area de Experiencia
+			//md-button.md-raised.md-primary(ng-click='stats.resetExperienciaEspecifica()') Experiencia Específica
 	div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin)
 		div(flex layout layout-align="center" layout-gt-md="row" layout-md="column" layout-sm="column")
 			div(layout="column" layout-align="center center" flex)
-				canvas#edades(width='320' height="320")
+				h3.md-display-2 Estadísticas por Sexo
+				canvas#sexo(class="chart chart-pie"
+				chart-data='stats.sexoData.Values'
+				chart-labels='stats.sexoData.Labels'
+				chart-colours='stats.colors'
+				chart-legend='true'
+				chart-options='stats.chartOptions'
+				width='500' height="500")
+
+
+	div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin)
+		div(flex layout layout-align="center" layout-gt-md="row" layout-md="column" layout-sm="column")
 			div(flex)
-				h3.md-display-2 EDADES
-				div(layout flex layout-align="space-around")
-					p(style="color:{{stats.getColor(index)}}" ng-repeat="(index,i) in stats.edadesLabels") {{i}}  ({{stats.edadesData[index]}})
+				md-input-container
+					label Gráfica
+					md-select(ng-model="stats.selectedEdadGraph")
+						md-option(ng-repeat="option in stats.educacionGraphOptions" value="{{option.value}}") {{option.label}}
+				div(ng-show='stats.selectedEdadGraph=="proyeccion"')
+					md-input-container
+						label Proyeccion a número de años
+						input(type='number' ng-model='stats.selectedEdadOffset')
+					md-button.md-raised.md-primary(ng-click='stats.drawEdades()' ng-disabled='stats.selectedEdadOffset==null') Generar Gráfico
+				md-button.md-raised.md-primary(ng-show='stats.selectedEdadGraph!="proyeccion"' ng-click='stats.drawEdades()') Generar Gráfico
+			div(layout="column" layout-align="center center" flex)
+						canvas#edades(width='320' height="320")
+					div(flex)
+						h3.md-display-2 EDADES
+						div(layout flex layout-align="space-around")
+							p(style="color:{{stats.getColor(index)}}" ng-repeat="(index,i) in stats.edadesLabels") {{i}}  ({{stats.edadesData[index]}})
 
 	div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin)
 		div(flex layout layout-align="center" layout-gt-md="row" layout-md="column" layout-sm="column")
