@@ -5,6 +5,7 @@
     .module('appSme', ['ngAnimate', 'ngCookies',
         'ngTouch', 'ngSanitize', 'restangular',
         'ui.router', 'ngMaterial', 'ngMessages',
-        'ngYoutubeEmbed','chart.js','ngNumeraljs']);
+        'ngYoutubeEmbed','chart.js','ngNumeraljs',
+        'md.data.table']);
 
 })();

@@ -23,7 +23,7 @@ div(layout-fill layout="column" layout-margin)
                     strong  Credencial {{item.idUsuario}}
 
    div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin ng-show="admin.selectedItem!=null")
-      div(flex layout layout-align="center" layout-gt-md="column" layout-md="column" layout-sm="column")
+      div(flex layout-align="center" layout-gt-md="column" layout-md="column" layout-sm="column")
          span Nombre: {{admin.selectedItem.Nombre}}
          span Apellidos: {{admin.selectedItem.ApellidoP}} {{admin.selectedItem.ApellidoM}}
          span RFC: {{admin.selectedItem.RFC}}
@@ -33,7 +33,44 @@ div(layout-fill layout="column" layout-margin)
 
 
 
-   div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin)
-      div(flex layout layout-align="center" layout-gt-md="column" layout-md="column" layout-sm="column")
+   div.card.white-bg.md-whiteframe-z2(layout='column'  layout-padding layout-margin)
+      div(flex layout-align="center" layout-gt-md="column" layout-md="column" layout-sm="column")
          h2 Buscador de Registros
-         h3 Utilza el buscador para buscar
+         h3 Utilza el buscador para encontrar los registros por nombre, apellido o credencial.
+         div(flex layout-gt-sm='row' layout-sm='column' layout-align='center center')
+            md-input-container(flex)
+               label Busca los registros aquí
+               input(type='text' ng-model='admin.searchRegister')
+            md-button.md-raised.md-primary(ng-click='admin.lookupRegisters()')
+               span Buscar
+      md-table-container
+         table(md-table)
+            thead(md-head md-order="admin.query.order")
+               tr(md-row)
+                  th(md-column md-order-by='id')
+                     span Credencial
+                  th(md-column md-order-by='Nombre')
+                     span Nombre
+                  th(md-column md-order-by='ApellidoP')
+                     span Apellido Paterno
+                  th(md-column md-order-by='ApellidoM')
+                     span Apellido Materno
+                  th(md-column md-order-by='Encuesta')
+                     span Encuesta
+                  th(md-column md-order-by='ExperienciaLaboral')
+                     span Experiencia
+                  th(md-column md-order-by='idIdioma')
+                     span Idioma
+                  th(md-column md-order-by='Escolaridad')
+                     span Escolaridad
+            tbody(md-body)
+               tr(md-row ng-repeat='registro in admin.registros | orderBy:admin.query.order | offset: admin.query.page*admin.query.limit | limitTo: admin.query.limit')
+                  td(md-cell) {{registro.id}}
+                  td(md-cell) {{registro.Nombre}}
+                  td(md-cell) {{registro.ApellidoP}}
+                  td(md-cell) {{registro.ApellidoM}}
+                  td(md-cell) {{registro.Encuesta}}
+                  td(md-cell) {{registro.ExperienciaLaboral | validateTable}}
+                  td(md-cell) {{registro.idIdioma | validateTable}}
+                  td(md-cell) {{registro.Escolaridad | validateTable}}
+      md-table-pagination(md-limit="admin.query.limit" md-page="admin.query.page" md-total="{{admin.count}}" md-on-paginate="onPaginate" md-page-select)

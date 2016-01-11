@@ -9,53 +9,50 @@
         .controller('AdminController', AdminController);
 
     /* @ngInject */
-    function AdminController($state, User, $mdSidenav, Restangular,toastr, Auth) {
+    function AdminController($state, User, Restangular) {
         var vm = this;
-
-        vm.$state = $state;
+        activate();
         vm.user = User;
-        vm.close = close;
+        /*
+            Variables
+         */
+        vm.querySearch           = querySearch;
+        vm.lookupRegisters       = lookupRegisters;
+        vm.selectedItem          = null;
+        vm.searchText            = null;
+        vm.users                 = null;
+        vm.searchRegister        = null;
+        vm.registros             = null;
 
-        function close() {
-            $mdSidenav('left').toggle();
-        }
+        vm.query = {
+            order: 'id',
+            limit: 5,
+            page: 1
+        };
+
+
         function activate() {
 
-
+            console.log('Activating');
             if (!localStorage.getItem('type')) {
                 Restangular.all('authenticate').customGET().then(function(res) {
                     localStorage['type'] = res.user.tipo;
                     vm.isUser = localStorage['type'] === 'User' ? true : false;
+                    if(vm.isUser)
+                        $state.go('dashboard');
                 });
             }
 
 
         }
-        function checkAuth() {
-            return localStorage.type === 'Admin';
-        }
-        activate();
-        if(!checkAuth())
-        {
-            $state.go('dashboard');
-        }
 
-
-        vm.querySearch =    querySearch;
-        vm.selectedItem =   null;
-        vm.searchText=      null;
-        vm.users=           null;
 
 
         function querySearch(query)
         {
             return getUsers(query).then(function(res){
-                console.log(res.Users);
                 return res.Users;
             });
-
-
-
         }
 
         function getUsers(query)
@@ -63,13 +60,21 @@
 
             return Restangular.all('Admin').all('User').all(query).customGET().then(function (res) {
                return res;
-
             }).catch(function(err){
-                console.log(err);
                 vm.users = null;
             });
-
         }
+
+        function lookupRegisters()
+        {
+            console.log('Buscando '+vm.searchRegister);
+            Restangular.all('Estadisticas').one('RegistroDatos',vm.searchRegister).customGET().then(function(res){
+                vm.registros = res.Registros;
+                vm.count = vm.registros.length;
+            }).catch(function(err){});
+        }
+
+
 
 
 
