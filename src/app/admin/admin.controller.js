@@ -28,6 +28,8 @@
         vm.searchRegister        = null;
         vm.registros             = null;
         vm.registrosCarrera      = null;
+        vm.countCarreras         = 0;
+        vm.count                 = 0;
 
         vm.query = {
             order: 'id',
@@ -121,6 +123,7 @@
             }else
             {
                 vm.registrosCarrera=null;
+                vm.countCarreras = 0;
             }
 
         }
