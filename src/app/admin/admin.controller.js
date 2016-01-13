@@ -18,22 +18,36 @@
          */
         vm.querySearch           = querySearch;
         vm.lookupRegisters       = lookupRegisters;
+        vm.getCarreras           = getCarreras;
+        vm.searchCarrera         = searchCarrera;
+        vm.selectedItemChange    = selectedItemChange;
+        vm.lookupProgress        = true;
         vm.selectedItem          = null;
         vm.searchText            = null;
         vm.users                 = null;
         vm.searchRegister        = null;
         vm.registros             = null;
+        vm.registrosCarrera      = null;
 
         vm.query = {
             order: 'id',
             limit: 5,
             page: 1
         };
+        vm.queryCarreras = {
+            order: 'id',
+            limit: 5,
+            page: 1
+        };
+
+        vm.niveles              = [
+            {value:5,label:'Medio Superior'},{value:6,label:'Superior'},{value:7,label:'Posgrado'}
+        ];
+        vm.selectedNivel        = null;
+        vm.carreras             = null;
 
 
         function activate() {
-
-            console.log('Activating');
             if (!localStorage.getItem('type')) {
                 Restangular.all('authenticate').customGET().then(function(res) {
                     localStorage['type'] = res.user.tipo;
@@ -42,8 +56,6 @@
                         $state.go('dashboard');
                 });
             }
-
-
         }
 
 
@@ -67,15 +79,44 @@
 
         function lookupRegisters()
         {
-            console.log('Buscando '+vm.searchRegister);
-            Restangular.all('Estadisticas').one('RegistroDatos',vm.searchRegister).customGET().then(function(res){
+            vm.promise = Restangular.all('Estadisticas').one('RegistroDatos',vm.searchRegister).customGET();
+            vm.promise.then(function(res){
                 vm.registros = res.Registros;
                 vm.count = vm.registros.length;
             }).catch(function(err){});
         }
 
+        function getCarreras()
+        {
+            vm.lookupProgress =false;
+            Restangular.all('Carrera').one('Nivel',vm.selectedNivel).customGET().then(function(res){
+                vm.carreras=res.Carrera;
+                vm.lookupProgress = true;
+            }).catch(function(err){});
+        }
 
+        function searchCarrera (query) {
+            var results = query ? vm.carreras.filter(createFilterFor(query)) : self.carreras;
+            return results;
 
+        }
+
+        function createFilterFor(query)
+        {
+            var upperCaseQuery = angular.uppercase(query);
+            return function filterFn(carrera){
+                return (carrera.NombreCarrera.indexOf(upperCaseQuery)===0);
+            }
+        }
+
+        function selectedItemChange()
+        {
+            vm.promiseCarrera =Restangular.all('Admin').one('Carrera',vm.selectedCarrera.id).customGET();
+            vm.promiseCarrera.then(function(res){
+                vm.registrosCarrera =res.Registros;
+                vm.countCarreras = vm.registrosCarrera.length;
+            }).catch(function(err){});
+        }
 
 
 

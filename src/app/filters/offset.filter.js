@@ -5,8 +5,9 @@ angular.module('appSme').filter('offset', function() {
     return function(input, start) {
         if(input!=null)
         {
-            start = parseInt(start,10);
-            return input.slice(start);
+            if(start>=input.length)
+            return input;
+            return input.slice(parseInt(start,10));
         }
         return null;
     };

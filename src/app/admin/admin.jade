@@ -38,13 +38,16 @@ div(layout-fill layout="column" layout-margin)
          h2 Buscador de Registros
          h3 Utilza el buscador para encontrar los registros por nombre, apellido o credencial.
          div(flex layout-gt-sm='row' layout-sm='column' layout-align='center center')
-            md-input-container(flex)
-               label Busca los registros aquí
-               input(type='text' ng-model='admin.searchRegister')
-            md-button.md-raised.md-primary(ng-click='admin.lookupRegisters()')
-               span Buscar
+            form(flex layout-gt-sm='row' layout-sm='column' layout-align='center center' name='lookupRegisterForm' novalidate)
+               md-input-container(flex)
+                  label Busca los registros aquí
+                  input(name='busqueda' type='text' ng-model='admin.searchRegister' minlength='4' required)
+                  div(ng-messages='lookupRegisterForm.busqueda.$error')
+                     div(ng-message-exp="['minlength','required']") Introduce al menos 4 caracteres
+               md-button.md-raised.md-primary(ng-click='admin.lookupRegisters()' ng-disabled='!lookupRegisterForm.$valid')
+                  span Buscar
       md-table-container
-         table(md-table)
+         table(md-table md-progress="admin.promise")
             thead(md-head md-order="admin.query.order")
                tr(md-row)
                   th(md-column md-order-by='id')
@@ -64,7 +67,7 @@ div(layout-fill layout="column" layout-margin)
                   th(md-column md-order-by='Escolaridad')
                      span Escolaridad
             tbody(md-body)
-               tr(md-row ng-repeat='registro in admin.registros | orderBy:admin.query.order | offset: admin.query.page*admin.query.limit | limitTo: admin.query.limit')
+               tr(md-row ng-repeat='registro in admin.registros | orderBy:admin.query.order | offset: (admin.query.page-1)*admin.query.limit | limitTo: admin.query.limit')
                   td(md-cell) {{registro.id}}
                   td(md-cell) {{registro.Nombre}}
                   td(md-cell) {{registro.ApellidoP}}
@@ -74,3 +77,56 @@ div(layout-fill layout="column" layout-margin)
                   td(md-cell) {{registro.idIdioma | validateTable}}
                   td(md-cell) {{registro.Escolaridad | validateTable}}
       md-table-pagination(md-limit="admin.query.limit" md-page="admin.query.page" md-total="{{admin.count}}" md-on-paginate="onPaginate" md-page-select)
+
+   div.card.white-bg.md-whiteframe-z2(layout='column'  layout-padding layout-margin)
+      div(flex layout-align="center" layout-gt-md="column" layout-md="column" layout-sm="column")
+         h2 Buscador de Registros Por Carrera
+         h3 Escoge un nivel y posteriormente una carrera para ver los registros
+         div(flex layout-gt-sm='row' layout-sm='column' layout-align='center center')
+            md-input-container(flex)
+               label Selecciona el nivel
+               md-select(ng-model='admin.selectedNivel' md-on-close='admin.getCarreras()')
+                  md-option(ng-repeat='nivel in admin.niveles' ng-value='nivel.value') {{nivel.label}}
+         md-autocomplete(
+         ng-show='admin.carreras!=null'
+         md-selected-item="admin.selectedCarrera"
+         md-search-text="admin.searchCarreraText"
+         md-items="item in admin.searchCarrera(admin.searchCarreraText)"
+         md-item-text="item.NombreCarrera"
+         md-selected-item-change="admin.selectedItemChange()"
+         md-min-length="4"
+         placeholder="Escribe la Carrera"
+         md-menu-class="autocomplete-custom-template")
+            md-item-template
+               span.item-title(ng-md-icon='account_balance')
+                  span  {{item.NombreCarrera}}
+         div(ng-show='admin.lookupProgress==false' layout="row" layout-sm="column" layout-align="space-around")
+            md-progress-circular(md-mode="indeterminate")
+         h3(ng-show='admin.carreras!=null && admin.lookupProgress!=false') Tabla de registros encontrados
+         md-table-container(ng-show='admin.carreras!=null')
+            table(md-table md-progress="admin.promiseCarrera")
+               thead(md-head md-order="admin.queryCarreras.order")
+                  tr(md-row)
+                     th(md-column md-order-by='id')
+                        span Credencial
+                     th(md-column md-order-by='Nombre')
+                        span Nombre
+                     th(md-column md-order-by='ApellidoP')
+                        span Apellido Paterno
+                     th(md-column md-order-by='ApellidoM')
+                        span Apellido Materno
+                     th(md-column md-order-by='NombreCarrera')
+                        span Carrera
+                     th(md-column md-order-by='GradoDeAvance')
+                        span Grado de Avance
+               tbody(md-body)
+                  tr(md-row ng-repeat='registro in admin.registrosCarrera | orderBy:admin.queryCarreras.order | offset: (admin.queryCarreras.page-1)*admin.query.limit | limitTo: admin.queryCarreras.limit')
+                     td(md-cell) {{registro.id}}
+                     td(md-cell) {{registro.Nombre}}
+                     td(md-cell) {{registro.ApellidoP}}
+                     td(md-cell) {{registro.ApellidoM}}
+                     td(md-cell) {{registro.NombreCarrera}}
+                     td(md-cell) {{registro.GradoDeAvance}}
+         md-table-pagination(ng-show='admin.carreras!=null && admin.lookupProgress!=false' md-limit="admin.queryCarreras.limit" md-page="admin.queryCarreras.page" md-total="{{admin.countCarreras}}" md-on-paginate="onPaginate" md-page-select)
+
+
