@@ -111,11 +111,18 @@
 
         function selectedItemChange()
         {
-            vm.promiseCarrera =Restangular.all('Admin').one('Carrera',vm.selectedCarrera.id).customGET();
-            vm.promiseCarrera.then(function(res){
-                vm.registrosCarrera =res.Registros;
-                vm.countCarreras = vm.registrosCarrera.length;
-            }).catch(function(err){});
+            if(vm.selectedItem!=null)
+            {
+                vm.promiseCarrera =Restangular.all('Admin').one('Carrera',vm.selectedCarrera.id).customGET();
+                vm.promiseCarrera.then(function(res){
+                    vm.registrosCarrera =res.Registros;
+                    vm.countCarreras = vm.registrosCarrera.length;
+                }).catch(function(err){});
+            }else
+            {
+                vm.registrosCarrera=null;
+            }
+
         }
 
 
