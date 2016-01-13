@@ -88,7 +88,7 @@ div(layout-fill layout="column" layout-margin)
                md-select(ng-model='admin.selectedNivel' md-on-close='admin.getCarreras()')
                   md-option(ng-repeat='nivel in admin.niveles' ng-value='nivel.value') {{nivel.label}}
          md-autocomplete(
-         ng-show='admin.carreras!=null'
+         ng-show='admin.carreras!=null && admin.lookupProgress'
          md-selected-item="admin.selectedCarrera"
          md-search-text="admin.searchCarreraText"
          md-items="item in admin.searchCarrera(admin.searchCarreraText)"
@@ -102,7 +102,7 @@ div(layout-fill layout="column" layout-margin)
                   span  {{item.NombreCarrera}}
          div(ng-show='admin.lookupProgress==false' layout="row" layout-sm="column" layout-align="space-around")
             md-progress-circular(md-mode="indeterminate")
-         h3(ng-show='admin.carreras!=null && admin.lookupProgress!=false') Tabla de registros encontrados
+         h3(ng-show='admin.carreras!=null && admin.lookupProgress') Tabla de registros encontrados
          md-table-container(ng-show='admin.carreras!=null')
             table(md-table md-progress="admin.promiseCarrera")
                thead(md-head md-order="admin.queryCarreras.order")
@@ -127,6 +127,6 @@ div(layout-fill layout="column" layout-margin)
                      td(md-cell) {{registro.ApellidoM}}
                      td(md-cell) {{registro.NombreCarrera}}
                      td(md-cell) {{registro.GradoDeAvance}}
-         md-table-pagination(ng-show='admin.carreras!=null && admin.lookupProgress!=false' md-limit="admin.queryCarreras.limit" md-page="admin.queryCarreras.page" md-total="{{admin.countCarreras}}" md-on-paginate="onPaginate" md-page-select)
+         md-table-pagination(ng-show='admin.carreras!=null && admin.lookupProgress' md-limit="admin.queryCarreras.limit" md-page="admin.queryCarreras.page" md-total="{{admin.countCarreras}}" md-on-paginate="onPaginate" md-page-select)
 
 
