@@ -113,7 +113,8 @@
 
         function selectedItemChange()
         {
-            if(vm.selectedItem!=null)
+            console.log(vm.selectedCarrera);
+            if(vm.selectedCarrera!=null)
             {
                 vm.promiseCarrera =Restangular.all('Admin').one('Carrera',vm.selectedCarrera.id).customGET();
                 vm.promiseCarrera.then(function(res){
