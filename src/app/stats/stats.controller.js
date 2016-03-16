@@ -8,8 +8,11 @@
 
 
 	/* @ngInject */
-	function StatsController($scope,$state,$timeout, Auth, Restangular,toastr, _) {
+	function StatsController($state,$timeout, Restangular,toastr, _) {
 		var vm = this;
+
+		vm.edades = {};
+
 		vm.selectedPregunta = null;
 		vm.preguntasData = null;
 		vm.getColor = getColor;
@@ -46,7 +49,7 @@
 
 		vm.chartOptions = {
 			tooltipTemplate:" <%=label%>: <%= numeral(value).format('(00[.]00)') %> - <%= numeral(circumference / 6.283).format('(0[.][00]%)') %>"
-		}
+		};
 
 
 		activate();
@@ -169,7 +172,7 @@
 			Restangular.all('CampoDeExperiencia').all('Simple').customGET().then(function(res){
 				vm.camposExperiencia = res;
 			}).catch(function(err){
-				;
+
 			})
 		}
 
@@ -205,7 +208,7 @@
 				vm.Preguntas = res;
 			}).catch(function(err)
 			{
-				;
+
 			})
 		}
 
@@ -229,7 +232,7 @@
 			{
 				vm.Users = res;
 			}).catch(function(err){
-				;
+
 			})
 		}
 
@@ -255,6 +258,8 @@
 
 		function drawEdades() {
 
+			vm.edades.Values = null;
+			vm.edades.Labels = null;
 			var request =
 			{
 				Ranges: [{
@@ -278,45 +283,27 @@
 				request.Offset = vm.selectedEdadOffset;
 				Restangular.all('Estadisticas').all('Proyeccion').customPOST(request)
 					.then(function(res) {
-						var ctx = $('#edades').get(0).getContext('2d');
 
-						vm.edadesData = res.data;
-						vm.edadesLabels = res.labels;
-
-						var chartData = _.map(res.data, function(d, i) {
-							return {
-								'value': d,
-								'label': res.labels[i],
-								'color': getColor(i)
-							};
-						});
+						vm.edades.Values = res.data;
+						vm.edades.Labels= res.labels;
 
 
-							new Chart(ctx).Pie(chartData,vm.chartOptions);
+
+
+
 					})
 					.catch(function(res) {
-						;
+
 					});
 			}
 			else{
 				Restangular.all('Estadisticas').all('Edades').customPOST(request.Ranges)
 					.then(function(res) {
-						var ctx = $('#edades').get(0).getContext('2d');
-
-						vm.edadesData = res.data;
-						vm.edadesLabels = res.labels;
-
-						var chartData = _.map(res.data, function(d, i) {
-							return {
-								'value': d,
-								'label': res.labels[i],
-								'color': getColor(i)
-							};
-						});
-						new Chart(ctx).Pie(chartData,vm.chartOptions);
+						vm.edades.Values = res.data;
+						vm.edades.Labels = res.labels;
 					})
 					.catch(function(res) {
-						;
+
 					});
 			}
 

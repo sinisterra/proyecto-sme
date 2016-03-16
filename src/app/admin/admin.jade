@@ -1,26 +1,28 @@
 //
    Created by lockonDaniel on 12/2/15.
 
-div(layout-fill layout="column" layout-margin)
-   div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin)
-      div(flex layout layout-align="center" layout-gt-md="column" layout-md="column" layout-sm="column")
+div(layout-fill)
+
+   div.card.white-bg.md-whiteframe-z2(layout='column'  layout-padding layout-margin)
+      div(layout-xs='column' layout-align="center stretch" layout-gt-md="column" layout-md="column" layout-sm="column")
          h2 Buscador de Registros
          h3 Utilza el buscador para ver la información de los registros
-         md-autocomplete(
-         md-selected-item="admin.selectedItem"
-         md-search-text="admin.searchText"
-         md-items="item in admin.querySearch(admin.searchText)"
-         md-item-text="item.idUsuario"
-         md-min-length="4"
-         placeholder="Escribe la credencial"
-         md-menu-class="autocomplete-custom-template")
-            md-item-template
-               span.item-title
-                  md-icon person
-                  span  {{item.Nombre}} {{item.ApellidoP}} {{item.ApellidoM}}
-               span.item-metadata
-                  span.item-metastat
-                    strong  Credencial {{item.idUsuario}}
+         form(name='searchRegister')
+            md-autocomplete(
+            md-selected-item="admin.selectedItem"
+            md-search-text="admin.searchText"
+            md-items="item in admin.querySearch(admin.searchText)"
+            md-item-text="item.idUsuario"
+            md-min-length="4"
+            placeholder="Escribe la credencial"
+            md-menu-class="autocomplete-custom-template")
+               md-item-template
+                  span.item-title
+                     md-icon person
+                     span  {{item.Nombre}} {{item.ApellidoP}} {{item.ApellidoM}}
+                  span.item-metadata
+                     span.item-metastat
+                       strong  Credencial {{item.idUsuario}}
 
    div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin ng-show="admin.selectedItem!=null")
       div(flex layout-align="center" layout-gt-md="column" layout-md="column" layout-sm="column")
@@ -33,20 +35,20 @@ div(layout-fill layout="column" layout-margin)
 
 
 
-   div.card.white-bg.md-whiteframe-z2(layout='column'  layout-padding layout-margin)
-      div(flex layout-align="center" layout-gt-md="column" layout-md="column" layout-sm="column")
+   div.card.white-bg.md-whiteframe-z2(flex layout='column' layout-margin)
+      div(flex layout-align-gt-md="center" layout-gt-md="column" layout-md="column" layout-sm="column")
          h2 Buscador de Registros
          h3 Utilza el buscador para encontrar los registros por nombre, apellido o credencial.
-         div(flex layout-gt-sm='row' layout-sm='column' layout-align='center center')
-            form(flex layout-gt-sm='row' layout-sm='column' layout-align='center center' name='lookupRegisterForm' novalidate)
+         div(flex layout-gt-xs='row' layout-xs='column')
+            form(flex layout-gt-xs='row' layout-xs='column' layout-align-gt-xs='center center' name='lookupRegisterForm' novalidate)
                md-input-container(flex)
                   label Busca los registros aquí
                   input(name='busqueda' type='text' ng-model='admin.searchRegister' minlength='4' required)
                   div(ng-messages='lookupRegisterForm.busqueda.$error')
                      div(ng-message-exp="['minlength','required']") Introduce al menos 4 caracteres
-               md-button.md-raised.md-primary(ng-click='admin.lookupRegisters()' ng-disabled='!lookupRegisterForm.$valid')
+               md-button.md-raised.md-primary(flex-gt-xs='30' ng-click='admin.lookupRegisters()' ng-disabled='!lookupRegisterForm.$valid')
                   span Buscar
-      md-table-container
+      md-table-container(flex)
          table(md-table md-progress="admin.promise")
             thead(md-head md-order="admin.query.order")
                tr(md-row)
@@ -76,16 +78,16 @@ div(layout-fill layout="column" layout-margin)
                   td(md-cell) {{registro.ExperienciaLaboral | validateTable}}
                   td(md-cell) {{registro.idIdioma | validateTable}}
                   td(md-cell) {{registro.Escolaridad | validateTable}}
-      md-table-pagination(md-limit="admin.query.limit" md-page="admin.query.page" md-total="{{admin.count}}" md-on-paginate="onPaginate" md-page-select)
+      md-table-pagination(flex md-limit="admin.query.limit" md-page="admin.query.page" md-total="{{admin.count}}" md-on-paginate="onPaginate" md-page-select)
 
-   div.card.white-bg.md-whiteframe-z2(layout='column'  layout-padding layout-margin)
+   div.card.white-bg.md-whiteframe-z2(flex layout='column' layout-margin)
       div(flex layout-align="center" layout-gt-md="column" layout-md="column" layout-sm="column")
          h2 Buscador de Registros Por Carrera
          h3 Escoge un nivel y posteriormente una carrera para ver los registros
-         div(flex layout-gt-sm='row' layout-sm='column' layout-align='center center')
+         div(flex layout='row')
             md-input-container(flex)
                label Selecciona el nivel
-               md-select(ng-model='admin.selectedNivel' md-on-close='admin.getCarreras()')
+               md-select(flex ng-model='admin.selectedNivel' md-on-close='admin.getCarreras()')
                   md-option(ng-repeat='nivel in admin.niveles' ng-value='nivel.value') {{nivel.label}}
          md-autocomplete(
          ng-show='admin.carreras!=null && admin.lookupProgress'
@@ -103,8 +105,8 @@ div(layout-fill layout="column" layout-margin)
          div(ng-show='admin.lookupProgress==false' layout="row" layout-sm="column" layout-align="space-around")
             md-progress-circular(md-mode="indeterminate")
          h3(ng-show='admin.carreras!=null && admin.lookupProgress') Tabla de registros encontrados
-         md-table-container(ng-show='admin.carreras!=null')
-            table(md-table md-progress="admin.promiseCarrera")
+         md-table-container(flex ng-show='admin.carreras!=null')
+            table(flex md-table md-progress="admin.promiseCarrera")
                thead(md-head md-order="admin.queryCarreras.order")
                   tr(md-row)
                      th(md-column md-order-by='id')
@@ -127,6 +129,7 @@ div(layout-fill layout="column" layout-margin)
                      td(md-cell) {{registro.ApellidoM}}
                      td(md-cell) {{registro.NombreCarrera}}
                      td(md-cell) {{registro.GradoDeAvance}}
-         md-table-pagination(ng-show='admin.carreras!=null && admin.lookupProgress' md-limit="admin.queryCarreras.limit" md-page="admin.queryCarreras.page" md-total="{{admin.countCarreras}}" md-on-paginate="onPaginate" md-page-select)
+         div(flex layout-xs='row')
+            md-table-pagination(flex md-limit="admin.queryCarreras.limit" md-page="admin.queryCarreras.page" md-total="{{admin.countCarreras}}" md-on-paginate="onPaginate" md-page-select)
 
 

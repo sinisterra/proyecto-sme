@@ -6,6 +6,6 @@
         'ngTouch', 'ngSanitize', 'restangular',
         'ui.router', 'ngMaterial', 'ngMessages',
         'ngYoutubeEmbed','chart.js','ngNumeraljs',
-        'md.data.table']);
+        'angular-jwt','md.data.table']);
 
 })();
