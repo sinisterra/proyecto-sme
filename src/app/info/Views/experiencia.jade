@@ -1,17 +1,17 @@
 
 div(flex layout-padding).card-header
 	h2.md-title Experiencia Laboral
-form(name="Experiencia" layout='column' layout-gt-sm="row" layout-padding ng-submit="vm.submitFormExperiencia()" novalidate)
+form(name="Experiencia" layout='column' layout-gt-sm="column" layout-padding ng-submit="vm.submitFormExperiencia()" novalidate)
 
-	div(layout='column' layout-gt-sm="row" flex="35")
+	div(layout-xs='column' layout-gt-xs="column" flex="")
 		//- div {{vm.areasByCampos[vm.experiencia.idCampoDeExperiencia] | json:2}}
 
 		p(ng-show="vm.experienciaLaboral.length === 0") No se han registrado elementos.
 		md-list(flex)
-			md-list-item.md-3-line(ng-repeat="experiencia in vm.experienciaLaboral | orderBy:'-FechaTermino'" style="padding:10px 0px")
+			md-list-item.md-3-line(flex ng-repeat="experiencia in vm.experienciaLaboral | orderBy:'-FechaTermino'" style="padding:10px 0px")
 				div.md-list-item-text
-					h3 {{experiencia.NombreDelPuesto }}
-					h4 {{experiencia.NombreInstitucion | limitTo:40}}{{experiencia.NombreInstitucion.length > 40 ? '...' : ''}}
+					h3 {{experiencia.NombreDelPuesto  |cut:false:40:'...'}}
+					h4 {{experiencia.NombreInstitucion |cut:false:40:'...'}}
 					h4 {{vm.camposById[experiencia.idCampoDeExperiencia].Nombre |cut:false:40:'...'}} - {{vm.areasById[experiencia.idAreaDeExperiencia].Nombre  |cut:false:40:'...'}}
 					p {{experiencia.FechaInicio | date:'yyyy'}} - {{experiencia.FechaTermino | date:'yyyy'}} 
 				md-menu
@@ -28,7 +28,7 @@ form(name="Experiencia" layout='column' layout-gt-sm="row" layout-padding ng-sub
 								| Eliminar
 			
 	
-	div(flex='65')
+	div(flex)
 		
 		div(layout='column' layout-gt-sm="row")
 			md-select(flex name="CampoExperiencia" placeholder="Campo de Experiencia" ng-model="vm.experiencia.idCampoDeExperiencia" required)

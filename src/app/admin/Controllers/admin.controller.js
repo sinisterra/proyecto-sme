@@ -30,6 +30,7 @@
         vm.registrosCarrera      = null;
         vm.countCarreras         = 0;
         vm.count                 = 0;
+        vm.label                 = {page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'};
 
         vm.query = {
             order: 'id',

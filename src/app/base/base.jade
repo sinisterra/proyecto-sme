@@ -1,12 +1,16 @@
 section(layout="row" flex)
 	//- .md-whiteframe-z2
 	md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id='left' md-is-locked-open="$mdMedia('gt-md')")
-		md-content(ng-controller="SidebarController as sidebar" )
-			md-toolbar.md-primary.md-tall(layout="column" layout-align="center center" )
-				img(height="80%" src="assets/images/logo.png")
-				h1.md-toolbar-tools {{sidebar.user.username}}
 
-			md-list(ng-swipe-left="sidebar.close()")
+		md-toolbar.md-primary.md-tall(layout="column" layout-align="center center")
+			img(height="80%" src="assets/images/logo.png")
+			h1.md-toolbar-tools {{sidebar.user.username}}
+
+		div(flex ss-style-color="{'background-color': 'primary.default'}")
+			md-content(flex ng-controller="SidebarController as sidebar")
+				ss-sidenav(menu='sidebar.menu')
+
+			//md-list(ng-swipe-left="sidebar.close()")
 				md-list-item(ng-click="sidebar.$state.go('dashboard')")
 					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'dashboard' }")
 						md-icon dashboard
@@ -42,7 +46,7 @@ section(layout="row" flex)
 				span(hide-gt-md)
 					md-button.md-icon-button(ng-click="base.toggle()")
 						md-icon menu
-				span {{base.stateNames[base.$state.current.name]}}
+				span {{base.$state.current.data.displayName}}
 				span(flex)
 				
 		md-content.main-panel

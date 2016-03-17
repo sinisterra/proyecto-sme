@@ -78,7 +78,7 @@ div(layout-fill)
                   td(md-cell) {{registro.ExperienciaLaboral | validateTable}}
                   td(md-cell) {{registro.idIdioma | validateTable}}
                   td(md-cell) {{registro.Escolaridad | validateTable}}
-      md-table-pagination(flex md-limit="admin.query.limit" md-page="admin.query.page" md-total="{{admin.count}}" md-on-paginate="onPaginate" md-page-select)
+      md-table-pagination(flex label='admin.label' md-limit="admin.query.limit" md-page="admin.query.page" md-total="{{admin.count}}" md-on-paginate="onPaginate" md-page-select)
 
    div.card.white-bg.md-whiteframe-z2(flex layout='column' layout-margin)
       div(flex layout-align="center" layout-gt-md="column" layout-md="column" layout-sm="column")
@@ -130,6 +130,6 @@ div(layout-fill)
                      td(md-cell) {{registro.NombreCarrera}}
                      td(md-cell) {{registro.GradoDeAvance}}
          div(flex layout-xs='row')
-            md-table-pagination(flex md-limit="admin.queryCarreras.limit" md-page="admin.queryCarreras.page" md-total="{{admin.countCarreras}}" md-on-paginate="onPaginate" md-page-select)
+            md-table-pagination(flex label='admin.label' md-limit="admin.queryCarreras.limit" md-page="admin.queryCarreras.page" md-total="{{admin.countCarreras}}" md-on-paginate="onPaginate" md-page-select)
 
 

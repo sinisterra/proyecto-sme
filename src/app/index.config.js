@@ -2,8 +2,11 @@
   'use strict';
 
   angular
-    .module('appSme')
-    .config(config);
+      .module('appSme')
+      .config(config);
+
+
+
 
   /** @ngInject */
   function config($logProvider, $httpProvider, toastr, $mdThemingProvider, RestangularProvider, $mdDateLocaleProvider) {
@@ -23,8 +26,8 @@
       .accentPalette('amber')
       .warnPalette('deep-orange');
 
-    var api = "http://192.168.10.11/api";
-    //var api = 'http://sme.org.mx/ipnsme2015/luz_fuerza_laravel/public/api';
+    //var api = "http://192.168.10.11/api";
+    var api = 'http://sme.org.mx/ipnsme2015/luz_fuerza_laravel/public/api';
     RestangularProvider.setBaseUrl(api);
 
     $httpProvider.interceptors.push('AuthInterceptor');

@@ -12,7 +12,7 @@
         abstract: true,
         templateUrl: 'app/base/base.html',
         data: {
-          requireLogin: true,
+          requireLogin: true
         }
       })
       .state('home', {
@@ -34,84 +34,11 @@
         parent: 'base',
         url: '/dashboard',
         templateUrl: 'app/dashboard/dashboard.html',
-      })
-      .state('stats', {
-        parent: 'base',
-        url: '/stats',
-        templateUrl: 'app/stats/stats.html',
-        controller: 'StatsController',
-        controllerAs: 'stats'
-      })
-      .state('admin', {
-        parent: 'base',
-        url: '/admin',
-        templateUrl: 'app/admin/admin.html',
-        controller: 'AdminController',
-        controllerAs: 'admin'
-      })
-
-      // .state('info',{
-      //   url: '/info',
-      //   // abstract: true,
-      //   parent: 'base',
-      // })
-      .state('infoPersonal',{
-        parent: 'base',
-        url:'/info/personal',
-        templateUrl: 'app/info/layout.html',
-        controller: 'InfoPersonalController',
-        controllerAs: 'vm'
-      })
-      .state('encuesta',{
-        parent:'base',
-        url:'/encuesta',
-        templateUrl:'app/encuesta/encuesta.html',
-        controller: 'EncuestaController',
-        controllerAs: 'encuesta',
-      })
-      .state('reset',{
-        parent:'base',
-        url:'/resetEncuesta',
-        templateUrl:'app/encuesta/reset.html',
-        controller: 'ResetEncuestaController',
-        controllerAs: 'vm',
-      })
-      .state('trabajo',{
-        parent:'encuesta',
-        url:'/trabajo',
-        templateUrl:'app/encuesta/trabajo.html',
-        controller: 'TrabajoController',
-        controllerAs: 'vm'
-      })
-      .state('consecuencias',{
-        parent:'encuesta',
-        url:'/consecuencias',
-        templateUrl:'app/encuesta/consecuencias.html',
-        controller: 'ConsecuenciasController',
-        controllerAs: 'vm'
-      })
-      .state('condiciones',{
-        parent:'encuesta',
-        url:'/condiciones',
-        templateUrl:'app/encuesta/condicionesRegreso.html',
-        controller: 'CondicionesRegresoController',
-        controllerAs: 'vm'
-      })
-      .state('proyectos',{
-        parent:'encuesta',
-        url:'/proyectos',
-        templateUrl:'app/encuesta/proyectos.html',
-        controller: 'ProyectosController',
-        controllerAs: 'vm'
-      })
-      .state('socioeconomico',{
-        parent:'encuesta',
-        url:'/socioeconomico',
-        templateUrl:'app/encuesta/socioeconomico.html',
-        controller: 'SocioeconomicoController',
-        controllerAs: 'vm'
-      })
-    ;
+        data: {
+          requireLogin: true,
+          displayName: 'Menú de Inicio'
+        }
+      });
 
 
 

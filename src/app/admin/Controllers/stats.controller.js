@@ -59,24 +59,14 @@
 
 		////////////////
 
-		function checkAuth() {
-			return localStorage.type === 'Admin';
-		}
 
 		function activate() {
-
-			if (checkAuth()) {
 				getCamposExperiencia();
 				getEntidadesFederativas();
 				getPreguntas();
 				getRegisters();
 				getCountSexo();
 				drawPlots();
-			}
-			else{
-				$state.go('dashboard');
-			}
-
 		}
 
 		function drawPlots() {
@@ -208,7 +198,7 @@
 				vm.Preguntas = res;
 			}).catch(function(err)
 			{
-
+				console.warn(err);
 			})
 		}
 
