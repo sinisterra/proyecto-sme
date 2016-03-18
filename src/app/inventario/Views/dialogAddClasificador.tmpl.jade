@@ -1,0 +1,30 @@
+md-dialog(aria-label='Add Element', ng-cloak='')
+    form
+        md-toolbar
+            .md-toolbar-tools
+                h2 Agregar Clasificador
+                span(flex='')
+                md-button.md-icon-button(ng-click='vm.cancel()')
+                    ng-md-icon(icon='clear', aria-label='Close dialog')
+        md-dialog-content.md-dialog-content(layout='column')
+                form(name='addClasificadorForm' layout='column' layout-align='center stretch')
+                    md-input-container(flex)
+                        label Nombre del Clasificador
+                        input(ng-model='vm.clasificador.Nombre' name='nombre' type='text' minlength='5' md-maxlength='100' required)
+                        div(ng-messages='addClasificadorForm.nombre.$error' ng-if='!addClasificadorForm.nombre.$pristine')
+                            div(ng-message='required') Se requiere este campo
+                            div(ng-message='md-maxlength') Se permite un máximo de 100 caracteres
+                    md-input-container(flex)
+                        label Descripción
+                        input(ng-model='vm.clasificador.Descripcion' name='descripcion' type='text' minlength='5' md-maxlength='100' required)
+                        div(ng-messages='addClasificadorForm.descripcion.$error' ng-if='!addClasificadorForm.descripcion.$pristine')
+                            div(ng-message='required') Se requiere este campo
+                            div(ng-message='md-maxlength') Se permite un máximo de 100 caracteres
+
+
+
+        md-dialog-actions(layout='row')
+            md-button.md-primary.md-raised(ng-click="vm.answer()", style='margin-right:20px;')
+                | Aceptar
+            md-button.md-primary.md-raised(ng-click="vm.cancel()")
+                | Cancelar

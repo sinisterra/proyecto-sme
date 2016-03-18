@@ -78,7 +78,28 @@
                                 icon: 'zmdi zmdi-lock'
                             }
                         ]
+                },
+                {
+                    id: 'inventario_menu',
+                    name: 'Inventario',
+                    type: 'toggle',
+                    pages:
+                        [
+                            {
+                                name: 'Clasificación',
+                                type: 'link',
+                                state:'base.clasificacionInventario',
+                                icon: 'zmdi zmdi-folder'
+                            },
+                            {
+                                name: 'Manejo de Inventario',
+                                type: 'link',
+                                state:'base.inventario',
+                                icon: 'zmdi zmdi-balance'
+                            }
+                        ]
                 }
+
 
             ]);
 

@@ -1,0 +1,83 @@
+//
+   Created by lockonDaniel on 3/17/16.
+
+div(flex layout-fill layout-margin layout-padding)
+    md-card
+        md-card-content(flex layout='column')
+            h1.md-display-1 Clasificación de Inventario
+
+
+            div(layout='row')
+                md-input-container(flex)
+                    label Selecciona el Tipo de Clasificador
+                    md-select(ng-model='vm.selectedTipoClasificador' md-on-close='vm.getClasificadores()' aria-label='Selector de Tipo Clasificador')
+                        md-option(ng-repeat='tipoClasificador in vm.tipoClasificadores' ng-value='tipoClasificador') {{tipoClasificador.Nombre}}
+
+            form(flex name='classificationForm')
+                div(layout-xs='column' layout-gt-xs='row')
+                    md-input-container(flex)
+                        label Nombre del Clasificador
+                        input(ng-model='vm.selectedTipoClasificador.Nombre' name='nombre' type='text' minlength='5' md-maxlength='100' required)
+                        div(ng-messages='classificationForm.nombre.$error' ng-if='!classificationForm.nombre.$pristine')
+                            div(ng-message='required') Se requiere este campo
+                            div(ng-message='md-maxlength') Se permite un máximo de 100 caracteres
+                    md-input-container(flex)
+                        label Descripción
+                        input(ng-model='vm.selectedTipoClasificador.Descripcion' name='descripcion' type='text' minlength='5' md-maxlength='100' required)
+                        div(ng-messages='classificationForm.descripcion.$error' ng-if='!classificationForm.descripcion.$pristine')
+                            div(ng-message='required') Se requiere este campo
+                            div(ng-message='md-maxlength') Se permite un máximo de 100 caracteres
+                div(layout-xs='column' layout-gt-xs='row' layout-align='center center')
+                    md-button.md-raised.md-warn(ng-if='vm.selectedTipoClasificador.id!=null' ng-click='vm.deleteElement($event,vm.selectedTipoClasificador,"TipoClasificador")')
+                        span() Eliminar Clasificador
+                    md-button.md-raised.md-primary(ng-click='vm.saveTipoClasificador()')
+                        span(ng-if='vm.selectedTipoClasificador.id!=null') Actualizar Clasificador
+                        span(ng-if='vm.selectedTipoClasificador.id==null') Guardar Clasificador
+                    md-button.md-raised.md-primary(ng-click='vm.selectedTipoClasificador=null')
+                        span Limpiar Campos
+
+    md-card(ng-if='vm.selectedTipoClasificador.id!=null')
+        md-card-content
+            h1.md-display-1 Clasificadores Específicos Asociados
+
+            md-toolbar.md-table-toolbar.md-default(layout='row' layout-align='space-around center')
+                div.md-toolbar-tools(flex)
+                    form(ng-submit='vm.searchClasificador()' layout='row' flex ng-if='vm.toggleSearch' name='searchClasificadorForm')
+
+                        md-input-container(flex)
+                            label
+                                ng-md-icon(icon='search')
+                                span Busca por nombre
+                            input(flex type='text' ng-model='vm.clasificadorSearchName')
+
+                    span(flex ng-if='!vm.toggleSearch') Herramientas
+                    md-button.md-icon-button(ng-if='!vm.toggleSearch' ng-click='vm.addElement($event)')
+                        ng-md-icon(icon='add_box')
+                    md-button.md-icon-button(ng-if='!vm.toggleSearch' ng-click='vm.toggleSearch=true')
+                        ng-md-icon(icon='filter_list')
+                    md-button.md-icon-button(ng-if='vm.toggleSearch' ng-click='vm.toggleSearch=false')
+                        ng-md-icon(icon='clear')
+            md-table-container(flex ng-show='vm.clasificadores!=null')
+                table(flex md-table md-progress="vm.promiseClasificador")
+                    thead(flex md-head md-order="vm.query.order")
+                        tr(flex md-row)
+                            th(md-column md-order-by='id')
+                                span Identificador
+                            th(md-column md-order-by='Nombre')
+                                span Nombre
+                            th(md-column md-order-by='Descripcion')
+                                span Descripción
+                            th(md-column)
+                                span Acciones
+
+                    tbody(flex md-body)
+                        tr(flex md-row ng-repeat='clasificador in vm.clasificadores | orderBy:vm.query.order | offset: (vm.query.page-1)*vm.query.limit | limitTo: vm.query.limit')
+                            td(md-cell) {{clasificador.id}}
+                            td(md-cell ng-click="vm.editInfo($event, clasificador,'Nombre')") {{clasificador.Nombre}}
+                            td(md-cell ng-click="vm.editInfo($event, clasificador,'Descripcion')") {{clasificador.Descripcion}}
+                            td(md-cell)
+                                //md-button.md-raised.md-primary.md-fab.md-mini(aria-label='edit_item')
+                                    ng-md-icon(icon='mode_edit')
+                                md-button.md-raised.md-warn.md-fab.md-mini(aria-label='delete_item' ng-click='vm.deleteElement($event,clasificador,"Clasificador")')
+                                    ng-md-icon(icon='delete')
+            md-table-pagination(label='vm.label' md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.clasificadores.length}}" md-on-paginate="onPaginate" md-page-select)

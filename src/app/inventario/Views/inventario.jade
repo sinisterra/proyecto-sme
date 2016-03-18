@@ -1,3 +1,83 @@
 //
    Created by lockonDaniel on 3/17/16.
 
+div(flex layout-fill layout-margin layout-padding)
+    md-card
+        md-card-content(flex layout='column')
+            h1.md-display-1 Busca inventario por clasificación
+            div(layout='column' layout-align='center stretch')
+                md-input-container(flex)
+                    label Selecciona el Tipo de Clasificador
+                    md-select(ng-model='vm.selectedTipoClasificador' md-on-close='vm.getClasificadores()' aria-label='Selector de Tipo Clasificador')
+                        md-option(ng-repeat='tipoClasificador in vm.tipoClasificadores' ng-value='tipoClasificador') {{tipoClasificador.Nombre}}
+                md-input-container(flex ng-if='vm.selectedTipoClasificador!=null && vm.clasificadores!=null')
+                    label Selecciona el Clasificador
+                    md-select(ng-model='vm.selectedClasificador' md-on-close='vm.getInventario()' aria-label='Selector de Clasificador')
+                        md-option(ng-repeat='clasificador in vm.clasificadores' ng-value='clasificador') {{clasificador.Nombre}}
+
+
+
+    md-card(ng-if='vm.selectedClasificador!=null')
+        md-card-content(flex layout='column')
+            h2.md-display-1 Lista de Inventario
+            //Toolbar
+            md-toolbar.md-table-toolbar.md-default(layout='row' layout-align='space-around center')
+                div.md-toolbar-tools(flex)
+                    form(ng-submit='vm.searchInventario()' layout='row' flex ng-if='vm.toggleSearch' name='searchInventarioForm')
+
+                        md-input-container(flex)
+                            label
+                                ng-md-icon(icon='search')
+                                span Busca por nombre
+                            input(flex type='text' ng-model='vm.inventarioSearchName')
+                    span(flex ng-if='!vm.toggleSearch') Herramientas
+                    md-button.md-icon-button(ng-if='!vm.toggleSearch' ng-click='vm.addElement($event,null)')
+                        ng-md-icon(icon='add_box')
+                    md-button.md-icon-button(ng-if='!vm.toggleSearch' ng-click='vm.toggleSearch=true')
+                        ng-md-icon(icon='filter_list')
+                    md-button.md-icon-button(ng-if='vm.toggleSearch' ng-click='vm.toggleSearch=false')
+                        ng-md-icon(icon='clear')
+
+            //Tabla
+            md-table-container(flex ng-show='vm.inventario!=null')
+                table(flex md-table md-progress="vm.promiseInventario")
+                    thead(flex md-head md-order="vm.query.order")
+                        tr(flex md-row)
+                            th(md-column md-order-by='Marca')
+                                span Marca
+                            th(md-column md-order-by='Modelo')
+                                span Modelo
+                            th(md-column md-order-by='Descripcion')
+                                span Descripción
+                            th(md-column md-order-by='Cantidad')
+                                span Cantidad
+                            th(md-column md-order-by='idUbicacion')
+                                span Ubicación
+                            th(md-column md-order-by='Estado')
+                                span Estado
+                            th(md-column md-order-by='Valor')
+                                span Valor
+                            th(md-column md-order-by='FechaAdquisicion')
+                                span Fecha
+                            th(md-column md-order-by='Observaciones')
+                                span Observaciones
+                            th(md-column)
+                                span Acciones
+
+                    tbody(flex md-body)
+                        tr(flex md-row ng-repeat='item in vm.inventario | orderBy:vm.query.order | offset: (vm.query.page-1)*vm.query.limit | limitTo: vm.query.limit')
+                            td(md-cell) {{item.Marca}}
+                            td(md-cell) {{item.Modelo}}
+                            td(md-cell) {{item.Descripcion}}
+                            td(md-cell) {{item.Cantidad}}
+                            td(md-cell) {{item.idUbicacion}}
+                            td(md-cell) {{item.Estado}}
+                            td(md-cell) {{item.Valor}}
+                            td(md-cell) {{item.Fecha}}
+                            td(md-cell) {{item.Observaciones}}
+                            td(md-cell)
+                                md-button.md-raised.md-primary.md-fab.md-mini(aria-label='edit_item' ng-click='vm.addElement($event,item)')
+                                    ng-md-icon(icon='mode_edit')
+                                md-button.md-raised.md-warn.md-fab.md-mini(aria-label='delete_item' ng-click='vm.deleteElement($event,item)')
+                                    ng-md-icon(icon='delete')
+            md-table-pagination(label='vm.label' md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.inventario.length}}" md-on-paginate="onPaginate" md-page-select)
