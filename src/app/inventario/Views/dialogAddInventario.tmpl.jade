@@ -56,11 +56,11 @@ md-dialog(aria-label='Add Element', ng-cloak='')
                     label Estado
                     md-select(ng-model='vm.element.Estado' required)
                         md-option(ng-repeat='estado in vm.estados' ng-value='estado') {{estado}}
-
-
+                label Fecha de Adquisicion
+                md-datepicker(flex ng-model='vm.element.FechaDeAdquisicion' md-placeholder='Fecha de Adquisicion')
 
     md-dialog-actions(layout='row')
-        md-button.md-primary.md-raised(ng-click="vm.answer()", style='margin-right:20px;')
+        md-button.md-primary.md-raised(ng-click='vm.answer()', style='margin-right:20px;')
             | Aceptar
-        md-button.md-primary.md-raised(ng-click="vm.cancel()")
+        md-button.md-primary.md-raised(ng-click='vm.cancel()')
             | Cancelar

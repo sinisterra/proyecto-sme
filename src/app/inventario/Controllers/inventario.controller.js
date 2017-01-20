@@ -6,26 +6,39 @@
 
     angular.module('appSme').controller('InventarioController',InventarioController);
 
-    function InventarioController($mdDialog)
+    function InventarioController($mdDialog,Clasificador,Inventario,Ubicacion,toastr)
     {
 
         var vm = this;
 
         /*Variables*/
 
+        vm.ubicaciones                           = null;
         vm.tipoClasificadores                    = null;
         vm.selectedTipoClasificador              = null;
         vm.clasificadores                        = null;
         vm.inventario                            = null;
+        vm.savedInventario                       = null;
         vm.selectedClasificador                  = null;
         vm.toggleSearch                          = false;
         vm.inventarioSearchName                  = null;
 
+        vm.loadingTipoClasificador               = false;
+        vm.loadingClasificador                   = false;
+
+        /*Mensajes*/
+        vm.successStoreMessage                   = 'Éxito al guardar';
+        vm.successDeleteMessage                  = 'Éxito al eliminar';
+        vm.successMessage                        = 'Éxito';
+        vm.failureStoreMessage                   = 'Error al guardar';
+        vm.failureMessage                        = 'Error';
+        vm.failureDeleteMessage                  = 'Error al eliminar';
 
         /*Funciones*/
         vm.getTipoClasificadores                 = getTipoClasificadores;
         vm.getClasificadores                     = getClasificadores;
         vm.getInventario                         = getInventario;
+        vm.getUbicaciones                        = getUbicaciones;
         vm.searchInventario                      = searchInventario;
         vm.addElement                            = addElement;
         vm.deleteElement                         = deleteElement;
@@ -36,41 +49,78 @@
         function activate()
         {
             getTipoClasificadores();
+            getUbicaciones();
         }
+
+        function getUbicaciones()
+        {
+            Ubicacion.all().then(function (res) {
+                vm.ubicaciones = res;
+            }).catch(function (err) {
+
+            });
+
+            vm.ubicaciones = [
+                {id:1,'Nombre':'Edificio Antonio Caso'},
+                {id:2,'Nombre':'Otro Edificio'}
+            ];
+        }
+
 
         function getTipoClasificadores()
         {
-            console.log('Obteniendo tipos de Clasificador');
-            vm.tipoClasificadores = [
-                {id:1,Nombre:'Terrenos',Descripcion:'Activo Fijo de Tipo Terreno'},
-                {id:2,Nombre:'Mobiliario',Descripcion:'Activo Fijo de Tipo Mobiliario'}
-            ];
+            vm.loadingTipoClasificador = true;
+            Clasificador.getClasificadores().then(function(res){
+               vm.tipoClasificadores = res;
+               vm.loadingTipoClasificador = false;
+            }).catch(function(err){
+
+            });
+
+
         }
 
         function getClasificadores()
         {
-            vm.clasificadores = [
-                {id:1,Nombre:'Sillones',Descripcion:'Activo Fijo de Tipo Terreno'},
-                {id:2,Nombre:'Escritorios',Descripcion:'Activo Fijo de Tipo Terreno'},
-                {id:3,Nombre:'Computadoras',Descripcion:'Activo Fijo de Tipo Terreno'},
-                {id:4,Nombre:'Gabinetes',Descripcion:'Activo Fijo de Tipo Terreno'}
-            ];
+            vm.clasificadores = null;
+            vm.selectedClasificador = null;
+            vm.loadingClasificador = true;
+            Clasificador.getClasificadoresEspecificos(vm.selectedTipoClasificador.id).then(function(res){
+                vm.clasificadores= res;
+                vm.loadingClasificador = false;
+            }).catch(function(err){
+
+            });
         }
 
         function getInventario()
         {
+            Inventario.byClasificadorEspecifico(vm.selectedClasificador.id).then(function(res){
+               vm.inventario = res;
+               vm.savedInventario = res;
+            }).catch(function (err) {
 
-            vm.inventario = [
-                {id:1,Marca:'Sony',Modelo:'XLR123',Descripcion:'Cámara Digital 20MPX',Cantidad:20,
-                idUbicacion:1,Estado:'Aceptable',Valor:1249000,FechaAdquisicion:'2010-10-01',Observaciones:'Sin Etiquedar'},
-                {id:1,Marca:'Motorola',Modelo:'AR124',Descripcion:'Walkie Talkie',Cantidad:10,
-                idUbicacion:2,Estado:'Excelente',Valor:30000,FechaAdquisicion:'2015-10-01',Observaciones:''}
-            ];
-            console.log(vm.inventario);
+            });
+
         }
         function searchInventario()
         {
-            console.log('Funcion de Busqueda');
+            if(vm.inventarioSearchName!="")
+            {
+                vm.inventario = _.filter(vm.savedInventario,function(element){
+                    var marcaFound = element.Marca.indexOf(vm.inventarioSearchName);
+                    var modeloFound = element.Modelo.indexOf(vm.inventarioSearchName);
+                    var descripcionFound = element.Descripcion.indexOf(vm.inventarioSearchName);
+                    if(marcaFound!=-1 || modeloFound!=-1 || descripcionFound!=-1)
+                        return true;
+                    return false;
+
+                });
+            }
+            else
+            {
+                vm.inventario = vm.savedInventario;
+            }
         }
 
         function addElement(ev,element)
@@ -80,14 +130,20 @@
                     controller: 'dialogAddInventarioController',
                     controllerAs: 'vm',
                     bindToController:true,
-                    locals: {element:element},
+                    locals: {element:element,idClasificadorEspecifico:vm.selectedClasificador.id},
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose:true,
                     fullscreen: false
                 })
                 .then(function(answer) {
-                    console.log(answer);
+                    Inventario.addInventario(answer).then(function(res){
+                        toastr.success(vm.successStoreMessage,vm.successMessage);
+                        getInventario();
+                    }).catch(function (err) {
+                        toastr.error(vm.failureStoreMessage,vm.failureMessage);
+                    })
+
                 }, function() {
                     console.log('Rechazado');
                 });
@@ -104,8 +160,15 @@
                 .targetEvent(ev)
                 .ok('Acepto')
                 .cancel('Cancelar');
+
             $mdDialog.show(confirm).then(function() {
                     console.log('Inventario');
+                Inventario.deleteInventario(element.id).then(function(res){
+                    toastr.success(vm.successDeleteMessage,vm.successMessage);
+                    getInventario();
+                }).catch(function(err){
+                    toastr.error(vm.failureDeleteMessage,vm.failureMessage);
+                });
 
             }, function() {
                 console.log('Cancelado' + element);

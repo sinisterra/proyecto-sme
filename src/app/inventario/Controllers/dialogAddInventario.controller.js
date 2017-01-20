@@ -6,7 +6,7 @@
 
     angular.module('appSme').controller('dialogAddInventarioController',dialogAddInventarioController);
 
-    function dialogAddInventarioController($mdDialog)
+    function dialogAddInventarioController($mdDialog,Ubicacion)
     {
         var vm = this;
 
@@ -29,6 +29,12 @@
 
         function getUbicaciones()
         {
+            Ubicacion.all().then(function (res) {
+               vm.ubicaciones = res;
+            }).catch(function (err) {
+
+            });
+
             vm.ubicaciones = [
                 {id:1,'Nombre':'Edificio Antonio Caso'},
                 {id:2,'Nombre':'Otro Edificio'}
@@ -43,6 +49,8 @@
 
         function answer()
         {
+
+            vm.element.idClasificadorEspecifico= vm.idClasificadorEspecifico;
             $mdDialog.hide(vm.element);
         }
 

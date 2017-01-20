@@ -11,7 +11,7 @@
         $stateProvider.state('infoPersonal',{
         parent: 'base',
         url:'/info/personal',
-        templateUrl: 'app/info/layout.html',
+        templateUrl: 'app/info/Views/layout.html',
         controller: 'InfoPersonalController',
         controllerAs: 'vm',
         data:{

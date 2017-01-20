@@ -16,6 +16,8 @@
         'angular-jwt',
         'md.data.table',
         'ngMdIcons',
+        'ngMaterialDatePicker',
+        'angularMoment',
         'sasrio.angular-material-sidenav']);
 
 })();

@@ -98,6 +98,12 @@
                                 icon: 'zmdi zmdi-balance'
                             }
                         ]
+                },
+                {
+                    id: 'libro_socios_menu',
+                    name: 'Libro de Socios',
+                    type: 'link',
+                    state: 'base.libro'
                 }
 
 

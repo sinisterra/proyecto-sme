@@ -6,10 +6,12 @@ div(flex layout-fill layout-margin layout-padding)
         md-card-content(flex layout='column')
             h1.md-display-1 Busca inventario por clasificación
             div(layout='column' layout-align='center stretch')
-                md-input-container(flex)
+                md-progress-circular(md-mode="indeterminate" ng-show='vm.loadingTipoClasificador==true' md-diameter='80')
+                md-input-container(flex ng-hide='vm.loadingTipoClasificador==true')
                     label Selecciona el Tipo de Clasificador
                     md-select(ng-model='vm.selectedTipoClasificador' md-on-close='vm.getClasificadores()' aria-label='Selector de Tipo Clasificador')
                         md-option(ng-repeat='tipoClasificador in vm.tipoClasificadores' ng-value='tipoClasificador') {{tipoClasificador.Nombre}}
+                md-progress-circular(md-mode="indeterminate" ng-show='vm.loadingClasificador==true' md-diameter='80')
                 md-input-container(flex ng-if='vm.selectedTipoClasificador!=null && vm.clasificadores!=null')
                     label Selecciona el Clasificador
                     md-select(ng-model='vm.selectedClasificador' md-on-close='vm.getInventario()' aria-label='Selector de Clasificador')
@@ -57,7 +59,7 @@ div(flex layout-fill layout-margin layout-padding)
                                 span Estado
                             th(md-column md-order-by='Valor')
                                 span Valor
-                            th(md-column md-order-by='FechaAdquisicion')
+                            th(md-column md-order-by='FechaDeAdquisicion')
                                 span Fecha
                             th(md-column md-order-by='Observaciones')
                                 span Observaciones
@@ -70,10 +72,10 @@ div(flex layout-fill layout-margin layout-padding)
                             td(md-cell) {{item.Modelo}}
                             td(md-cell) {{item.Descripcion}}
                             td(md-cell) {{item.Cantidad}}
-                            td(md-cell) {{item.idUbicacion}}
+                            td(md-cell) {{item.idUbicacion | search:vm.ubicaciones}}
                             td(md-cell) {{item.Estado}}
                             td(md-cell) {{item.Valor}}
-                            td(md-cell) {{item.Fecha}}
+                            td(md-cell) {{item.FechaDeAdquisicion| amDateFormat:'DD/MM/YYYY'}}
                             td(md-cell) {{item.Observaciones}}
                             td(md-cell)
                                 md-button.md-raised.md-primary.md-fab.md-mini(aria-label='edit_item' ng-click='vm.addElement($event,item)')

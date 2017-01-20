@@ -9,37 +9,6 @@ section(layout="row" flex)
 		div(flex ss-style-color="{'background-color': 'primary.default'}")
 			md-content(flex ng-controller="SidebarController as sidebar")
 				ss-sidenav(menu='sidebar.menu')
-
-			//md-list(ng-swipe-left="sidebar.close()")
-				md-list-item(ng-click="sidebar.$state.go('dashboard')")
-					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'dashboard' }")
-						md-icon dashboard
-					span Menú principal
-				md-list-item(ng-click="sidebar.$state.go('infoPersonal')")
-					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'infoPersonal' }")
-						md-icon perm_contact_cal
-					span Datos Personales
-				md-list-item(ng-click="sidebar.$state.go('encuesta')")
-					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'encuesta' }")
-						md-icon assignment
-					span Censo
-				md-list-item(ng-click="sidebar.$state.go('reset')")
-					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'reset' }")
-						md-icon highlight_remove
-					span Reiniciar Censo
-				md-list-item(ng-click="sidebar.$state.go('stats')" ng-if="!sidebar.isUser")
-					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'stats' }")
-						md-icon insert_chart
-					span Estadísticas
-				md-list-item(ng-click="sidebar.$state.go('admin')" ng-if="!sidebar.isUser")
-					md-button.md-icon-button(ng-class="{'md-primary': sidebar.$state.current.name === 'admin' }")
-						md-icon people
-					span Administrador
-				md-list-item(ng-click="sidebar.$state.go('logout')")
-					md-button.md-icon-button
-						md-icon exit_to_app
-					span Cerrar Sesión
-	
 	md-content(flex)
 		md-toolbar.md-whiteframe-z3(ng-controller="BaseController as base" layout-align="center center")
 			div.md-toolbar-tools

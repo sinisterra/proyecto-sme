@@ -1,0 +1,60 @@
+div(flex layout-fill layout-margin layout-padding)
+    md-card
+        md-card-content
+            div(layout-xs='column' layout-align="center stretch" layout-gt-md="column" layout-md="column" layout-sm="column")
+                h2 Buscador de Registros
+                h3 Utilza el buscador para ver la información de los registros
+                form(name='searchRegister')
+                    md-autocomplete(
+                    md-selected-item="vm.selectedItem"
+                    md-search-text="vm.searchText"
+                    md-items="item in vm.querySearch(vm.searchText)"
+                    md-item-text="item.idUsuario"
+                    md-min-length="4"
+                    md-selected-item-change='vm.selectedItemChange(item)'
+                    placeholder="Escribe la credencial"
+                    md-menu-class="autocomplete-custom-template")
+                        md-item-template
+                            span.item-title
+                                md-icon person
+                                span  {{item.Nombre}} {{item.ApellidoP}} {{item.ApellidoM}}
+                            span.item-metadata
+                                span.item-metastat
+                                    strong  Credencial {{item.idUsuario}}
+
+    md-card(layout='column' ng-if='vm.selectedItem!=null')
+        md-card-content
+            div(ng-show='vm.certificates.length!=0')
+                h2 Certificados Asociados: {{vm.certificates.length}}
+                md-table-container(flex)
+                        table(flex md-table)
+                            thead(flex md-head md-order="vm.query.order")
+                                tr(flex md-row)
+                                    th(md-column md-order-by='id')
+                                        span Identificador
+                                    th(md-column md-order-by='idUsuario')
+                                        span Socio
+                                    th(md-column md-order-by='idCertificado')
+                                        span Folio
+                                    th(md-column)
+                                        span Acciones
+
+                            tbody(flex md-body)
+                                tr(flex md-row ng-repeat='certificate in vm.certificates | orderBy:vm.query.order | offset: (vm.query.page-1)*vm.query.limit | limitTo: vm.query.limit')
+                                    td(md-cell) {{certificate.id}}
+                                    td(md-cell) {{certificate.idUsuario}}
+                                    td(md-cell) {{certificate.idCertificado}}
+                                    td(md-cell)
+                                        md-button.md-raised.md-warn.md-fab.md-mini(aria-label='delete_item' ng-click='vm.deleteElement($event,certificate,"Certificado")')
+                                            ng-md-icon(icon='delete')
+                md-table-pagination(label='vm.label' md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.certificates.length}}" md-on-paginate="onPaginate" md-page-select)
+
+
+            div(ng-show='vm.certificates.length==0')
+                h2 No se encontraron certificados
+            div(layout='row' layout-align='end center')
+                md-input-container.md-inline-form
+                    label Agregar Certificado
+                    input(type="text", ng-model='vm.certificateId')
+                md-button.md-inline-form.md-fab.md-mini.md-primary(ng-click='vm.addCertificate()')
+                    ng-md-icon(icon='add')

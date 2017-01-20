@@ -5,9 +5,8 @@ div(flex layout-fill layout-margin layout-padding)
     md-card
         md-card-content(flex layout='column')
             h1.md-display-1 Clasificación de Inventario
-
-
-            div(layout='row')
+            md-progress-circular(md-mode="indeterminate" ng-show='vm.loadingTipoClasificador==true' md-diameter='80')
+            div(layout='row' ng-hide='vm.loadingTipoClasificador==true')
                 md-input-container(flex)
                     label Selecciona el Tipo de Clasificador
                     md-select(ng-model='vm.selectedTipoClasificador' md-on-close='vm.getClasificadores()' aria-label='Selector de Tipo Clasificador')
