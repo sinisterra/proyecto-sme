@@ -2,8 +2,11 @@
   'use strict';
 
   angular
-    .module('appSme')
-    .config(config);
+      .module('appSme')
+      .config(config);
+
+
+
 
   /** @ngInject */
   function config($logProvider, $httpProvider, toastr, $mdThemingProvider, RestangularProvider, $mdDateLocaleProvider) {
@@ -21,15 +24,15 @@
         'default': '800'
       })
       .accentPalette('amber')
-      .warnPalette('pink');
+      .warnPalette('deep-orange');
 
-    //var api = "http://192.168.1.144:8888/luz_fuerza_laravel/public/api";
+    //var api = "http://127.0.0.1:8888/luz_fuerza_laravel/public/api";
     var api = 'http://sme.org.mx/ipnsme2015/luz_fuerza_laravel/public/api';
     RestangularProvider.setBaseUrl(api);
 
     $httpProvider.interceptors.push('AuthInterceptor');
 
-   $mdDateLocaleProvider.formatDate = function(date) {
+    $mdDateLocaleProvider.formatDate = function(date) {
     return moment(date).format('L');
   };
 

@@ -6,10 +6,14 @@
 		.controller('SidebarController', SidebarController);
 
 	/* @ngInject */
-	function SidebarController($state, User, $mdSidenav, Restangular, Auth) {
+	function SidebarController($state, User,ssSideNav,$mdSidenav, Restangular, Auth) {
 		var vm = this;
 
+		vm.menu = ssSideNav;
+
+
 		vm.$state = $state;
+
 
 		vm.user = User;
 

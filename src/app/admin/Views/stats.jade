@@ -1,0 +1,114 @@
+div(layout-fill)
+	div.card.white-bg.md-whiteframe-z2(layout-padding layout-margin)
+		div(flex layout-align="center stretch" layout-xs='column' layout-gt-xs="column")
+
+			h2.md-display-1 Número de Registros
+			h3 Usuarios Registrados: {{stats.Users.Registrados}}
+			h3 Usuarios que llenaron Datos Personales: {{stats.Users.DatosPersonales}}
+			h3 Usuarios que llenaron Escolaridad: {{stats.Users.Escolaridad}}
+			h3 Usuarios que llenaron Experiencia Laboral: {{stats.Users.ExperienciaLaboral}}
+			h3 Usuarios que acabaron Censo: {{stats.Users.Encuesta}}
+	div.card.white-bg.md-whiteframe-z2(layout="column"  layout-padding layout-margin)
+		h2.md-display-1 Estadísticas del Censo
+		h3.md-headline Selecciona una estadística
+		md-select(ng-model="stats.selectedPregunta" placeholder="Selecciona una opción" md-on-close='stats.getStats()')
+			md-option(ng-repeat='pregunta in stats.Preguntas' ng-value='pregunta') {{pregunta.Oracion}}
+		div(ng-show='stats.selectedPregunta!=null && stats.preguntasData==null' layout="column" layout-sm="column" layout-align="space-around center")
+			md-progress-circular(md-mode="indeterminate")
+
+		div(flex ng-if="stats.selectedPregunta!=null && stats.preguntasData!=null")
+			div(layout="column" layout-align="center stretch")
+				h2 {{stats.selectedPregunta.Oracion}}
+				canvas#pregunta(class="chart chart-pie"
+				chart-data='stats.preguntasData.Values'
+				chart-labels='stats.preguntasData.Labels'
+				chart-colours='stats.colors'
+				chart-legend='true'
+				chart-options='stats.chartOptions')
+	div.card.white-bg.md-whiteframe-z2(flex layout="column" layout-padding layout-margin ng-show="stats.camposExperiencia!=null")
+		h2.md-display-1 Estadísticas Combinadas
+		div(flex layout-xs='column' layout-align-gt-xs='center center'  layout-align-lt-xs='center stretch')
+			md-select(ng-model="stats.selectedEntidadFederativa" placeholder="Entidad Federativa")
+				md-option(ng-repeat='entidad in stats.entidadesFederativas' ng-value='entidad.id') {{entidad.Nombre}}
+			md-select(ng-model="stats.selectedCampoExperiencia" md-on-close="stats.getAreaDeExperiencia()" placeholder="Campo de Experiencia")
+				md-option(ng-repeat='campo in stats.camposExperiencia' ng-value='campo.id') {{campo.Nombre}}
+			md-select(ng-model="stats.selectedAreaDeExperiencia" md-on-close='stats.getExperienciasEspecificas()' placeholder="Area de Experiencia" ng-disabled='stats.selectedCampoExperiencia==null')
+				md-option(ng-repeat='area in stats.areasDeExperiencia' ng-value='area.id') {{area.Nombre}}
+		div(layout='row' layout-sm='column' flex layout-align='center stretch')
+			md-button.md-raised.md-primary(ng-click='stats.combinedSearch()' ng-disabled='stats.selectedCampoExperiencia==null') Generar Gráfico
+			md-button.md-raised.md-primary(ng-click='stats.combinedData=null' ng-disabled='stats.combinedData==null') Eliminar gráfico
+		div(ng-if='stats.combinedData!=null' layout='row' layout-sm='column' layout-align='center center')
+			canvas#combinado(class="chart chart-pie"
+			chart-data='stats.combinedData.Values'
+			chart-labels='stats.combinedData.Labels'
+			chart-colours='stats.colors'
+			chart-legend='true'
+			chart-options='stats.chartOptions')
+
+		h3 Restaurar Variables
+		div(layout-gt-xs='row' layout-xs='column' layout-align='space-around center')
+			md-button.md-raised.md-primary(ng-click='stats.resetEntidadFederativa()') Entidad Federativa
+			md-button.md-raised.md-primary(ng-click='stats.resetCampoExperiencia()') Campo de Experiencia
+			md-button.md-raised.md-primary(ng-click='stats.resetAreaExperiencia()') Area de Experiencia
+			//md-button.md-raised.md-primary(ng-click='stats.resetExperienciaEspecifica()') Experiencia Específica
+	div.card.white-bg.md-whiteframe-z2(layout  layout-padding layout-margin)
+		div(flex layout layout-align="center" layout-gt-md="row" layout-md="column" layout-sm="column")
+			div(layout="column" layout-align="center stretch" flex)
+				h3.md-display-1 Estadísticas por Sexo
+				canvas#sexo(class="chart chart-pie"
+				chart-data='stats.sexoData.Values'
+				chart-labels='stats.sexoData.Labels'
+				chart-colours='stats.colors'
+				chart-legend='true'
+				chart-options='stats.chartOptions')
+
+
+	div.card.white-bg.md-whiteframe-z2(flex layout='column'  layout-padding layout-margin)
+		h1.md-display-1 Edades
+
+		div(flex layout-xs='column' layout-sm='row' layout-gt-sm='row' layout-align-gt-sm='center center' layout-align="center stretch")
+			md-input-container(flex)
+				label Gráfica
+				md-select(ng-model="stats.selectedEdadGraph")
+					md-option(ng-repeat="option in stats.educacionGraphOptions" value="{{option.value}}") {{option.label}}
+			md-button.md-raised.md-primary(flex ng-show='stats.selectedEdadGraph!="proyeccion"' ng-click='stats.drawEdades()') Generar Gráfico
+
+		div(flex layout-xs='column' layout-sm='row' layout-gt-sm='row' layout-align-gt-sm='center center' layout-align="center stretch" ng-show='stats.selectedEdadGraph=="proyeccion"')
+			md-input-container(flex)
+				label Proyeccion a número de años
+				input(type='number' ng-model='stats.selectedEdadOffset')
+			md-button.md-raised.md-primary(flex ng-click='stats.drawEdades()' ng-disabled='stats.selectedEdadOffset==null') Generar Gráfico
+
+		div(ng-if='stats.edades.Values!=null && stats.edades.Labels!=null' layout="column" layout-align-gt-sm="center stretch" layout-align-lt-sm="center center" flex)
+				canvas#edades(
+				class="chart chart-pie"
+				chart-data='stats.edades.Values'
+				chart-labels='stats.edades.Labels'
+				chart-colours='stats.colors'
+				chart-legend='true'
+				chart-options='stats.chartOptions')
+
+	div.card.white-bg.md-whiteframe-z2(flex layout='column'  layout-padding layout-margin)
+		h3.md-display-1 UBICACIÓN
+		div(flex layout layout-align="center" layout-gt-md="row" layout-md="column" layout-sm="column")
+			div(layout="column" layout-align="center center" flex)
+				canvas#ubicacion(flex)
+				div(flex layout layout-align="space-between" layout-wrap)
+					p(style="color:{{stats.getColor(index)}};margin:0px 5px;" ng-repeat="(index,i) in stats.ubicacionLabels") {{i}}  ({{stats.ubicacionData[index]}})
+
+	div.card.white-bg.md-whiteframe-z2(layout='column'  layout-padding layout-margin)
+		h3.md-display-1 EDUCACIÓN
+		div(flex layout layout-align="center" layout-gt-md="row" layout-md="column" layout-sm="column")
+			div(layout="column" layout-align="center center" flex)
+				canvas#educacion(flex)
+				div(flex layout layout-align="space-between" layout-wrap)
+					p(style="color:{{stats.getColor(index)}};margin:0px 5px;" ng-repeat="(index,i) in stats.educacionLabels") {{i}} ({{stats.educacionData[index]}})
+					
+					
+
+				
+
+					
+
+
+

@@ -1,0 +1,66 @@
+md-dialog(aria-label='Add Element', ng-cloak='')
+    md-toolbar
+        .md-toolbar-tools
+            h2(ng-if='vm.element.id==null') Agregar Inventario
+            h2(ng-if='vm.element.id!=null') Editar Inventario
+            span(flex='')
+            md-button.md-icon-button(ng-click='vm.cancel()')
+                ng-md-icon(icon='clear', aria-label='Close dialog')
+    md-dialog-content.md-dialog-content(flex layout='column')
+        form(flex name='addClasificadorForm')
+
+            div(layout-xs='column' layout-gt-xs='row')
+                md-input-container(flex)
+                    label Marca
+                    input(ng-model='vm.element.Marca' name='marca' type='text' minlength='1' md-maxlength='100' required)
+                    div(ng-messages='addClasificadorForm.marca.$error' ng-if='!addClasificadorForm.marca.$pristine')
+                        div(ng-message='required') Se requiere este campo
+                        div(ng-message='md-maxlength') Se permite un máximo de 100 caracteres
+                md-input-container(flex)
+                    label Modelo
+                    input(ng-model='vm.element.Modelo' name='modelo' type='text' minlength='1' md-maxlength='100' required)
+                    div(ng-messages='addClasificadorForm.modelo.$error' ng-if='!addClasificadorForm.modelo.$pristine')
+                        div(ng-message='required') Se requiere este campo
+                        div(ng-message='md-maxlength') Se permite un máximo de 100 caracteres
+            div(layout-xs='column' layout-gt-xs='column')
+                md-input-container(flex)
+                    label Descripción
+                    textarea(ng-model='vm.element.Descripcion' name='descripcion' type='text' minlength='1' md-maxlength='500' required)
+                    div(ng-messages='addClasificadorForm.descripcion.$error' ng-if='!addClasificadorForm.descripcion.$pristine')
+                        div(ng-message='required') Se requiere este campo
+                        div(ng-message='md-maxlength') Se permite un máximo de 500 caracteres
+                md-input-container(flex)
+                    label Observaciones
+                    textarea(ng-model='vm.element.Observaciones' name='observaciones' type='text' minlength='1' md-maxlength='500' required)
+                    div(ng-messages='addClasificadorForm.observaciones.$error' ng-if='!addClasificadorForm.observaciones.$pristine')
+                        div(ng-message='required') Se requiere este campo
+                        div(ng-message='md-maxlength') Se permite un máximo de 500 caracteres
+            div(layout-xs='column' layout-gt-xs='row')
+                md-input-container(flex)
+                    label Cantidad
+                    input(ng-model='vm.element.Cantidad' name='cantidad' type='number' min='0' max='99999' required)
+                    div(ng-messages='addClasificadorForm.cantidad.$error' ng-if='!addClasificadorForm.cantidad.$pristine')
+                        div(ng-message='required') Se requiere este campo
+                md-input-container(flex)
+                    label Valor ($)
+                    input(ng-model='vm.element.Valor' name='valor' type='number' min='0' max='9999999999' required)
+                    div(ng-messages='addClasificadorForm.valor.$error' ng-if='!addClasificadorForm.valor.$pristine')
+                        div(ng-message='required') Se requiere este campo
+            div(layout-xs='column' layout-gt-xs='column')
+                //md-datepicker(flex ng-model='vm.element.FechaAdquisicion' mg-placeholder='Fecha de Adquisición')
+                md-input-container
+                    label Ubicación
+                    md-select(ng-model='vm.element.idUbicacion' required)
+                        md-option(ng-repeat='ubicacion in vm.ubicaciones' ng-value='ubicacion.id') {{ubicacion.Nombre}}
+                md-input-container
+                    label Estado
+                    md-select(ng-model='vm.element.Estado' required)
+                        md-option(ng-repeat='estado in vm.estados' ng-value='estado') {{estado}}
+                label Fecha de Adquisicion
+                md-datepicker(flex ng-model='vm.element.FechaDeAdquisicion' md-placeholder='Fecha de Adquisicion')
+
+    md-dialog-actions(layout='row')
+        md-button.md-primary.md-raised(ng-click='vm.answer()', style='margin-right:20px;')
+            | Aceptar
+        md-button.md-primary.md-raised(ng-click='vm.cancel()')
+            | Cancelar

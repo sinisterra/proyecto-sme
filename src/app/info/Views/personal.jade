@@ -1,7 +1,7 @@
 div(flex layout-padding).card-header
 		h2.md-title Datos Personales
 	form(name="personalForm" layout-padding flex)
-		div(layout layout-sm="column")
+		div(layout='column' layout-gt-sm='row')
 			md-input-container(flex)
 				label Nombre(s)
 				input(ng-model="vm.personal.Nombre" required name="Nombre")
@@ -14,7 +14,7 @@ div(flex layout-padding).card-header
 				label Apellido Materno
 				input(ng-model="vm.personal.ApellidoM" required name="ApellidoM")
 
-		div(layout layout-sm="column")
+		div(layout='column' layout-gt-sm='row')
 				
 			md-input-container(flex)
 				label Correo Electrónico
@@ -26,7 +26,7 @@ div(flex layout-padding).card-header
 				//- md-input-container(flex)
 				//- 	label Fecha de Nacimiento
 				//- 	input(ng-model="vm.personal.FechaNacimiento" type="date" required name="FechaNacimiento" max="{{vm.today | date:'yyyy-MM-dd'}}")
-			div(layout layout-sm="column" flex)
+			div(layout='column' layout-gt-sm='row' flex)
 				md-select(flex ng-model="vm.personal.Sexo" placeholder="Sexo" name="Sexo")
 					md-option(value="H") Hombre
 					md-option(value="M") Mujer
@@ -36,7 +36,7 @@ div(flex layout-padding).card-header
 					md-option.md-primary(value="D") Divorciado
 					md-option.md-primary(value="V") Viudo
 					md-option.md-primary(value="U") En Unión Libre
-		div(layout layout-sm="column")
+		div(layout='column' layout-gt-sm='row')
 			md-input-container(flex)
 				label RFC
 				input(ng-model="vm.personal.RFC" required minlength="12" maxlength="13" name="RFC" md-minlength="12" md-maxlength="13")
@@ -45,10 +45,10 @@ div(flex layout-padding).card-header
 				label CURP
 				input(ng-model="vm.personal.CURP" required minlength="18" maxlength="18" md-minlength="18" md-maxlength="18" name="CURP" ng-pattern="/^[A-Z]{4}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/" )
 		
-		div(layout layout-sm="column" ng-show="!vm.locationsLoaded" layout-align="center center")
+		div(layout='column' layout-gt-sm='row' ng-show="!vm.locationsLoaded" layout-align="center center")
 			md-progress-circular(md-mode="indeterminate")
 
-		div(layout layout-sm="column" ng-show="vm.locationsLoaded")
+		div(layout='column' layout-gt-sm='row' ng-show="vm.locationsLoaded")
 			md-input-container(flex)
 				label Calle
 				input(type="text" required name="Calle" ng-model="vm.direccion.Calle")
@@ -63,7 +63,7 @@ div(flex layout-padding).card-header
 					label Código Postal
 					input(type="text" name="CodigoPostal" maxlength="5" required ng-model="vm.direccion.CodigoPostal")
 
-		div(layout layout-sm="column" ng-show="vm.locationsLoaded")
+		div(layout='column' layout-gt-sm='row' ng-show="vm.locationsLoaded")
 			md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.direccion.Departamento" required)
 				md-option(ng-repeat="state in vm.states" value="{{$index}}") {{state.Nombre}}
 			md-select(flex name="Municipio" placeholder="Municipio" ng-model="vm.direccion.idMunicipio" required)
@@ -74,6 +74,6 @@ div(flex layout-padding).card-header
 				input(type="text" name="Colonia" ng-model="vm.direccion.Colonia" required)
 
 
-		div(layout layout-align="end center")
+		div(layout='row' layout-align="end center")
 			md-button.md-primary.md-raised(ng-disabled="personalForm.$invalid" ng-click="vm.submitFormPersonal(personalForm.$valid)" ng-hide="vm.savingPersonal") Guardar
 			md-progress-circular(md-mode="indeterminate" ng-hide="!vm.savingPersonal")

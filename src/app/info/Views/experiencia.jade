@@ -1,17 +1,17 @@
 
 div(flex layout-padding).card-header
 	h2.md-title Experiencia Laboral
-form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.submitFormExperiencia()" novalidate)
+form(name="Experiencia" layout='column' layout-gt-sm="column" layout-padding ng-submit="vm.submitFormExperiencia()" novalidate)
 
-	div(layout="column" flex-gt-sm="35")
+	div(layout-xs='column' layout-gt-xs="column" flex="")
 		//- div {{vm.areasByCampos[vm.experiencia.idCampoDeExperiencia] | json:2}}
 
 		p(ng-show="vm.experienciaLaboral.length === 0") No se han registrado elementos.
 		md-list(flex)
-			md-list-item.md-3-line(ng-repeat="experiencia in vm.experienciaLaboral | orderBy:'-FechaTermino'" style="padding:10px 0px")
+			md-list-item.md-3-line(flex ng-repeat="experiencia in vm.experienciaLaboral | orderBy:'-FechaTermino'" style="padding:10px 0px")
 				div.md-list-item-text
-					h3 {{experiencia.NombreDelPuesto }}
-					h4 {{experiencia.NombreInstitucion | limitTo:40}}{{experiencia.NombreInstitucion.length > 40 ? '...' : ''}}
+					h3 {{experiencia.NombreDelPuesto  |cut:false:40:'...'}}
+					h4 {{experiencia.NombreInstitucion |cut:false:40:'...'}}
 					h4 {{vm.camposById[experiencia.idCampoDeExperiencia].Nombre |cut:false:40:'...'}} - {{vm.areasById[experiencia.idAreaDeExperiencia].Nombre  |cut:false:40:'...'}}
 					p {{experiencia.FechaInicio | date:'yyyy'}} - {{experiencia.FechaTermino | date:'yyyy'}} 
 				md-menu
@@ -28,9 +28,9 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 								| Eliminar
 			
 	
-	div(flex-gt-sm="65")
+	div(flex)
 		
-		div(flex layout layout-sm="column")
+		div(layout='column' layout-gt-sm="row")
 			md-select(flex name="CampoExperiencia" placeholder="Campo de Experiencia" ng-model="vm.experiencia.idCampoDeExperiencia" required)
 				md-option(ng-repeat="campo in vm.camposById" value="{{campo.id}}") {{campo.Nombre |cut:false:40:'...'}}
 
@@ -40,17 +40,19 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 			md-select(flex name="ExperienciaEspecifica" placeholder="Experiencia Específica" ng-model="vm.experiencia.idExperienciaEspecifica" required ng-disabled="vm.expByAreas[vm.areasByCampos[vm.experiencia.idCampoDeExperiencia][vm.experiencia.idAreaDeExperiencia].id].length === 0 || vm.areasByCampos[vm.experiencia.idCampoDeExperiencia].length === 0")
 				md-option(ng-repeat="especifica in vm.expByAreas[vm.experiencia.idAreaDeExperiencia]" value="{{especifica.id}}") {{especifica.Nombre |cut:false:40:'...'}}
 
+
 		//div(flex layout layout-sm="column")
 			md-select(flex name="Subdireccion" placeholder="Subdirección de LyF" ng-model="vm.experiencia.idSubdireccion" required)
 				md-option(ng-repeat="subdireccion in vm.subdireccionesById" value="{{subdireccion.id}}") {{subdireccion.Nombre | cut:false:40:'...'}}
 			md-select(flex name="Gerencia" placeholder="Gerencia de LyF" ng-model="vm.experiencia.idGerencia" required ng-disabled="vm.experiencia.idSubdireccion==null")
 				md-option(ng-repeat="gerencia in vm.subdireccionesById[vm.experiencia.idSubdireccion].gerencia" value="{{gerencia.id}}") {{gerencia.Nombre | cut:false:40:'...'}}
 
-		md-input-container(flex)
-			label Nombre de la Institución
-			input(type="text" required name="NombreInstitucion"  ng-model="vm.experiencia.NombreInstitucion" maxlength="80")
+		div(flex layout='column' layout-gt-sm='row')
+			md-input-container(flex)
+				label Nombre de la Institución
+				input(type="text" required name="NombreInstitucion"  ng-model="vm.experiencia.NombreInstitucion" maxlength="80")
+		div(layout='column' layout-gt-sm="row")
 
-		div(flex layout layout-sm="column")
 			md-input-container(flex)
 				label Nombre del Puesto
 				input(type="text" required name="NombreDelPuesto" ng-model="vm.experiencia.NombreDelPuesto" maxlength="80")
@@ -59,11 +61,11 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 				label Jerarquía
 				input(type="text" required name="Jerarquia" ng-model="vm.experiencia.Jerarquia" maxlength="80")
 
-		div(flex layout="row" layout-align="space-around center" layout-sm="column")
+		div(layout='column' layout-gt-sm="row" layout-align="space-around center")
 			div(layout="column" layout-align="space-around center")
 				span Fecha de Inicio
 				md-datepicker(placeholder="Inicio" ng-model="vm.experiencia.FechaInicio" md-max-date="vm.today" required name="FechaInicio" flex)
-			div(layout="column")
+			div(layout='column' layout-gt-sm="row" layout-align="space-around center"	)
 				span Fecha de Término
 				md-datepicker(placeholder="Término" md-min-date="vm.experiencia.FechaInicio"  md-max-date="vm.today" ng-model="vm.experiencia.FechaTermino" required name="FechaTermino" flex)
 
@@ -77,7 +79,7 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 			//- 	label Fecha de Término
 			//- 	input(type="date" required name="FechaTermino" max="vm.experiencia.FechaInicio" ng-model="vm.experiencia.FechaTermino")
 
-		div(flex layout layout-sm="column")
+		div(layout='column' layout-gt-sm="row")
 			//md-input-container(flex)
 				label Remuneración Bruta Mensual
 				input(type="number" min="0" name="RemuneracionBrutaMensual" required ng-model="vm.experiencia.RemuneracionBrutaMensual")
@@ -89,13 +91,13 @@ form(name="Experiencia" layout layout-sm="column" layout-padding ng-submit="vm.s
 					md-select(flex name="Entidad" placeholder="Entidad" ng-model="vm.experiencia.idEntidadFederativa" required)
 						md-option(ng-repeat="state in vm.states" value="{{state.id}}") {{state.Nombre}}
 
-		div(layout flex)
+		div(layout='column' layout-gt-sm="row")
 			md-select(required placeholder="Tipo de Experiencia" name="TipoDeExperiencia" ng-model="vm.experiencia.TipoDeExperiencia" flex)
 				md-option(value="Plaza") Plaza
 				md-option(value="Honorarios") Honorarios
 				md-option(value="Otro") Otro
 				
-		div(layout flex)
+		div(layout='column' layout-gt-sm="row")
 			md-input-container(flex)
 				label Experiencias
 				textarea(maxlength="250" md-maxlength="250" rows="3" ng-model="vm.experiencia.Experiencias" name="Experiencias" required)

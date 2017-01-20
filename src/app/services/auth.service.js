@@ -11,11 +11,31 @@
 			login: login,
 			logout: logout,
 			isLoggedIn: isLoggedIn,
-			getToken: getToken
+			isAdmin: isAdmin,
+			getToken: getToken,
+			getType: getType
 		};
 		return service;
 
 		////////////////
+		function isAdmin()
+		{
+			console.log(localStorage.getItem('userType'));
+			return localStorage.getItem('userType')==='Admin';
+		}
+
+		function getType()
+		{
+			var deferred = $q.defer();
+			Restangular.all('authenticate').customGET().then(function (res) {
+				localStorage.setItem('userType',res.user.tipo);
+				deferred.resolve(res);
+			}).catch(function(err){
+				deferred.reject(err);
+			});
+			return deferred.promise;
+		}
+
 
 		function login(username, password) {
 			var deferred = $q.defer();
@@ -30,9 +50,13 @@
 					localStorage.setItem('token', res.token);
 				}
 
+				getType().then(function(res){
+					deferred.resolve(res);
+				}).catch(function(err){
+					deferred.reject(err);
 
-				deferred.resolve(res);
-				
+				});
+
 			})
 			.catch(function(err){
 				deferred.reject(err);
